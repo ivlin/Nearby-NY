@@ -13,6 +13,22 @@
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"HttpRequest\"><param name=\"android-package\" value=\"plugin.http.request.HttpRequest\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"GoogleMaps\"><param name=\"android-package\" value=\"plugin.google.maps.GoogleMaps\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"External\"><param name=\"android-package\" value=\"plugin.google.maps.External\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geocoder\"><param name=\"android-package\" value=\"plugin.google.maps.MyGeocoder\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"FacebookConnectPlugin\"><param name=\"android-package\" value=\"org.apache.cordova.facebook.ConnectPlugin\" /></feature>",
                             "count": 1
                         },
@@ -35,22 +51,6 @@
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
                             "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"HttpRequest\"><param name=\"android-package\" value=\"plugin.http.request.HttpRequest\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"GoogleMaps\"><param name=\"android-package\" value=\"plugin.google.maps.GoogleMaps\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"External\"><param name=\"android-package\" value=\"plugin.google.maps.External\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Geocoder\"><param name=\"android-package\" value=\"plugin.google.maps.MyGeocoder\" /></feature>",
-                            "count": 1
                         }
                     ]
                 }
@@ -59,7 +59,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<string name=\"fb_app_id\">1674175422815522</string>",
+                            "xml": "<string name=\"fb_app_id\">1674447189454316</string>",
                             "count": 1
                         },
                         {
@@ -129,13 +129,13 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "com.phonegap.plugins.facebookconnect": {
-            "APP_ID": "1674175422815522",
-            "APP_NAME": "Nearby NY",
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
         "plugin.google.maps": {
             "API_KEY_FOR_ANDROID": "AIzaSyCsJrLiL-AfRD3uzVUCz8V46RuWf2SODlU",
+            "PACKAGE_NAME": "com.phonegap.helloworld"
+        },
+        "com.phonegap.plugins.facebookconnect": {
+            "APP_ID": "1674447189454316",
+            "APP_NAME": "Nearby NY",
             "PACKAGE_NAME": "com.phonegap.helloworld"
         }
     },

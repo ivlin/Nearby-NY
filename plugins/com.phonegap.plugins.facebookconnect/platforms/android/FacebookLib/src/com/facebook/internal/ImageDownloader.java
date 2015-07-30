@@ -22,7 +22,6 @@ import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Looper;
 import com.facebook.FacebookException;
-import com.facebook.android.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,8 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ImageDownloader {
     private static final int DOWNLOAD_QUEUE_MAX_CONCURRENT = WorkQueue.DEFAULT_MAX_CONCURRENT;
@@ -247,19 +245,15 @@ public class ImageDownloader {
 
                 default:
                     stream = connection.getErrorStream();
+                    InputStreamReader reader = new InputStreamReader(stream);
+                    char[] buffer = new char[128];
+                    int bufferLength;
                     StringBuilder errorMessageBuilder = new StringBuilder();
-                    if (stream != null) {
-                        InputStreamReader reader = new InputStreamReader(stream);
-                        char[] buffer = new char[128];
-                        int bufferLength;
-                        while ((bufferLength = reader.read(buffer, 0, buffer.length)) > 0) {
-                            errorMessageBuilder.append(buffer, 0, bufferLength);
-                        }
-                        Utility.closeQuietly(reader);
-                    } else {
-                        errorMessageBuilder.append(
-                            context.getString(R.string.com_facebook_image_download_unknown_error));
+                    while ((bufferLength = reader.read(buffer, 0, buffer.length)) > 0) {
+                        errorMessageBuilder.append(buffer, 0, bufferLength);
                     }
+                    Utility.closeQuietly(reader);
+
                     error = new FacebookException(errorMessageBuilder.toString());
                     break;
             }

@@ -1,6 +1,6 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.phonegap.helloworld" version="1.0.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="lfour.nearby.ny" version="1.0.0">
   <name>Nearby NY</name>
-  <description>Hello World sample application that responds to the deviceready event.</description>
+  <description></description>
   <author href="http://phonegap.com" email="support@phonegap.com">PhoneGap Team</author>
   <content src="index.html"/>
   <preference name="permissions" value="none"/>
@@ -38,7 +38,7 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
   <!--FACEBOOK-->
   <gap:plugin name="com.phonegap.plugins.facebookconnect" version= "0.9.0">
-    <param name="APP_ID" value="1674175422815522" />
+    <param name="APP_ID" value="1674447189454316" />
     <param name="APP_NAME" value="Nearby NY" />
   </gap:plugin>
   <gap:plugin name="plugin.google.maps.menusito" version="1.2.5" />

@@ -16,6 +16,11 @@
 
 package com.facebook.widget;
 
+import java.lang.ref.WeakReference;
+
+import com.facebook.android.R;
+import com.facebook.widget.LoginButton.ToolTipMode;
+
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -26,9 +31,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import com.facebook.android.R;
-
-import java.lang.ref.WeakReference;
 
 public class ToolTipPopup {
     

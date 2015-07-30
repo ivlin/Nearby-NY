@@ -7,18 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "com.phonegap.plugins.facebookconnect": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {
-            "APP_ID": "1674175422815522",
-            "APP_NAME": "Nearby NY"
-        }
-    },
     "plugin.google.maps": {
         "source": {
             "type": "registry",
@@ -26,7 +14,7 @@
         },
         "is_top_level": true,
         "variables": {
-            "API_KEY": "AIzaSyCsJrLiL-AfRD3uzVUCz8V46RuWf2SODlU"
+            "API_KEY_FOR_ANDROID": "AIzaSyCsJrLiL-AfRD3uzVUCz8V46RuWf2SODlU"
         }
     },
     "plugin.http.request": {
@@ -46,5 +34,17 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "com.phonegap.plugins.facebookconnect": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phonegap-build/FacebookConnect.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {
+            "APP_ID": "1674447189454316",
+            "APP_NAME": "Nearby NY"
+        }
     }
 }

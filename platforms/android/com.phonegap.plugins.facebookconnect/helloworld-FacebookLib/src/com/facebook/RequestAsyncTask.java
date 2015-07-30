@@ -32,6 +32,7 @@ import java.util.concurrent.Executor;
  * Defines an AsyncTask suitable for executing a Request in the background. May be subclassed
  * by applications having unique threading model needs.
  */
+@TargetApi(3)
 public class RequestAsyncTask extends AsyncTask<Void, Void, List<Response>> {
     private static final String TAG = RequestAsyncTask.class.getCanonicalName();
     private static Method executeOnExecutorMethod;
@@ -171,18 +172,18 @@ public class RequestAsyncTask extends AsyncTask<Void, Void, List<Response>> {
     }
 
     RequestAsyncTask executeOnSettingsExecutor() {
-        if (executeOnExecutorMethod != null) {
-            try {
+        try {
+            if (executeOnExecutorMethod != null) {
                 executeOnExecutorMethod.invoke(this, Settings.getExecutor(), null);
-            } catch (InvocationTargetException e) {
-                // fall-through
-            } catch (IllegalAccessException e) {
-                // fall-through
+                return this;
             }
-        } else {
-          this.execute();
+        } catch (InvocationTargetException e) {
+            // fall-through
+        } catch (IllegalAccessException e) {
+            // fall-through
         }
 
+        this.execute();
         return this;
     }
 }

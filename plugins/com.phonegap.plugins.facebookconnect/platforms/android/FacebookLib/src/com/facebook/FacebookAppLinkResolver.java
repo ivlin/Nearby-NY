@@ -36,7 +36,6 @@ import java.util.*;
  */
 public class FacebookAppLinkResolver implements AppLinkResolver {
 
-    private static final String APP_LINK_KEY = "app_links";
     private static final String APP_LINK_ANDROID_TARGET_KEY = "android";
     private static final String APP_LINK_WEB_TARGET_KEY = "web";
     private static final String APP_LINK_TARGET_PACKAGE_KEY = "package";
@@ -106,12 +105,11 @@ public class FacebookAppLinkResolver implements AppLinkResolver {
         final Task<Map<Uri, AppLink>>.TaskCompletionSource taskCompletionSource = Task.create();
 
         Bundle appLinkRequestParameters = new Bundle();
-
+        appLinkRequestParameters.putString("type", "al");
         appLinkRequestParameters.putString("ids", graphRequestFields.toString());
         appLinkRequestParameters.putString(
                 "fields",
-                String.format("%s.fields(%s,%s)", APP_LINK_KEY, APP_LINK_ANDROID_TARGET_KEY, APP_LINK_WEB_TARGET_KEY));
-
+                String.format("%s,%s", APP_LINK_ANDROID_TARGET_KEY, APP_LINK_WEB_TARGET_KEY));
 
         Request appLinkRequest = new Request(
                 null, /* Session */
@@ -143,9 +141,7 @@ public class FacebookAppLinkResolver implements AppLinkResolver {
                             JSONObject urlData = null;
                             try {
                                 urlData = responseJson.getJSONObject(uri.toString());
-                                JSONObject appLinkData = urlData.getJSONObject(APP_LINK_KEY);
-
-                                JSONArray rawTargets = appLinkData.getJSONArray(APP_LINK_ANDROID_TARGET_KEY);
+                                JSONArray rawTargets = urlData.getJSONArray(APP_LINK_ANDROID_TARGET_KEY);
 
                                 int targetsCount = rawTargets.length();
                                 List<AppLink.Target> targets = new ArrayList<AppLink.Target>(targetsCount);
@@ -157,7 +153,7 @@ public class FacebookAppLinkResolver implements AppLinkResolver {
                                     }
                                 }
 
-                                Uri webFallbackUrl = getWebFallbackUriFromJson(uri, appLinkData);
+                                Uri webFallbackUrl = getWebFallbackUriFromJson(uri, urlData);
                                 AppLink appLink = new AppLink(uri, targets, webFallbackUrl);
 
                                 appLinkResults.put(uri, appLink);

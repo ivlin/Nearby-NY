@@ -19,7 +19,6 @@ package com.facebook.widget;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
@@ -34,18 +33,17 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+
 import com.facebook.*;
 import com.facebook.android.R;
 import com.facebook.internal.AnalyticsEvents;
+import com.facebook.model.GraphUser;
 import com.facebook.internal.SessionAuthorizationType;
 import com.facebook.internal.SessionTracker;
 import com.facebook.internal.Utility;
 import com.facebook.internal.Utility.FetchedAppSettings;
-import com.facebook.model.GraphUser;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * A Log In/Log Out button that maintains session state and logs
@@ -382,7 +380,7 @@ public class LoginButton extends Button {
      * manage the setting of permissions outside of the LoginButton class altogether
      * (by managing the session explicitly).
      *
-     * @param permissions the publish permissions to use
+     * @param permissions the read permissions to use
      *
      * @throws UnsupportedOperationException if setReadPermissions has been called
      * @throws IllegalArgumentException if permissions is null or empty
@@ -408,7 +406,7 @@ public class LoginButton extends Button {
      * manage the setting of permissions outside of the LoginButton class altogether
      * (by managing the session explicitly).
      *
-     * @param permissions the publish permissions to use
+     * @param permissions the read permissions to use
      *
      * @throws UnsupportedOperationException if setReadPermissions has been called
      * @throws IllegalArgumentException if permissions is null or empty
@@ -844,11 +842,6 @@ public class LoginButton extends Button {
                         openRequest = new Session.OpenRequest(parentFragment);
                     } else if (context instanceof Activity) {
                         openRequest = new Session.OpenRequest((Activity)context);
-                    } else if (context instanceof ContextWrapper) {
-                        Context baseContext = ((ContextWrapper)context).getBaseContext();
-                        if (baseContext instanceof Activity) {
-                            openRequest = new Session.OpenRequest((Activity)baseContext);
-                        }
                     }
 
                     if (openRequest != null) {

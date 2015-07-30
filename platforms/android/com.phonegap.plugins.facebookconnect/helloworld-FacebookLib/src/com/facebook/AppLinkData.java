@@ -21,11 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
-import com.facebook.internal.AttributionIdentifiers;
-import com.facebook.internal.Utility;
-import com.facebook.internal.Validate;
+import com.facebook.internal.*;
 import com.facebook.model.GraphObject;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -151,7 +150,7 @@ public class AppLinkData {
                 final String appLinkClassName = jsonResponse.optString(DEFERRED_APP_LINK_CLASS_FIELD);
                 final String appLinkUrl = jsonResponse.optString(DEFERRED_APP_LINK_URL_FIELD);
 
-                if (!TextUtils.isEmpty(appLinkArgsJsonString)) {
+                if (appLinkArgsJsonString != null && appLinkArgsJsonString != "") {
                     appLinkData = createFromJson(appLinkArgsJsonString);
 
                     if (tapTimeUtc != -1) {

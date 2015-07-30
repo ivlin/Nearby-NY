@@ -6,17 +6,17 @@ module.exports = [
         "runs": true
     },
     {
-        "file": "plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js",
-        "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
-        "clobbers": [
-            "facebookConnectPlugin"
-        ]
-    },
-    {
         "file": "plugins/plugin.google.maps/www/googlemaps-cdv-plugin.js",
         "id": "plugin.google.maps.phonegap-googlemaps-plugin",
         "clobbers": [
             "plugin.google.maps"
+        ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.facebookconnect/www/phonegap/plugin/facebookConnectPlugin/facebookConnectPlugin.js",
+        "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
+        "clobbers": [
+            "window.facebookConnectPlugin"
         ]
     },
     {
@@ -31,8 +31,8 @@ module.exports.metadata =
 // TOP OF METADATA
 {
     "cordova-plugin-whitelist": "1.0.0",
-    "com.phonegap.plugins.facebookconnect": "0.11.0",
     "plugin.google.maps": "1.2.5",
+    "com.phonegap.plugins.facebookconnect": "0.8.0",
     "plugin.http.request": "1.0.4",
     "com.google.playservices": "23.0.0"
 }

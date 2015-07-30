@@ -24,10 +24,7 @@ import com.facebook.internal.Validate;
 
 import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>This class works in conjunction with {@link NativeAppCallContentProvider} to allow apps to attach binary
@@ -76,22 +73,22 @@ public final class NativeAppCallAttachmentStore implements NativeAppCallContentP
     }
 
     /**
-     * Adds a number of bitmap/video attachment files associated with a native app call. The attachments will be
+     * Adds a number of bitmap attachment files associated with a native app call. The attachments will be
      * served via {@link NativeAppCallContentProvider#openFile(android.net.Uri, String) openFile}.
      *
      * @param context the Context the call is being made from
      * @param callId the unique ID of the call
-     * @param mediaAttachmentFiles a Map of attachment names to Files containing the bitmaps/videos; the attachment
-     *                             names will be part of the URI processed by openFile
+     * @param imageAttachments a Map of attachment names to Files containing the bitmaps; the attachment names will be
+     *                         part of the URI processed by openFile
      * @throws java.io.IOException
      */
-    public void addAttachmentFilesForCall(Context context, UUID callId, Map<String, File> mediaAttachmentFiles) {
+    public void addAttachmentFilesForCall(Context context, UUID callId, Map<String, File> imageAttachmentFiles) {
         Validate.notNull(context, "context");
         Validate.notNull(callId, "callId");
-        Validate.containsNoNulls(mediaAttachmentFiles.values(), "mediaAttachmentFiles");
-        Validate.containsNoNullOrEmpty(mediaAttachmentFiles.keySet(), "mediaAttachmentFiles");
+        Validate.containsNoNulls(imageAttachmentFiles.values(), "imageAttachmentFiles");
+        Validate.containsNoNullOrEmpty(imageAttachmentFiles.keySet(), "imageAttachmentFiles");
 
-        addAttachments(context, callId, mediaAttachmentFiles, new ProcessAttachment<File>() {
+        addAttachments(context, callId, imageAttachmentFiles, new ProcessAttachment<File>() {
             @Override
             public void processAttachment(File attachment, File outputFile) throws IOException {
                 FileOutputStream outputStream = new FileOutputStream(outputFile);
