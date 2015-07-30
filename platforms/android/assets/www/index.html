@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <script src="phonegap.js"></script>
+  <title>Login</title>
+  <script type="text/javascript">
+    var map;
+    document.addEventListener("deviceready", function() {
+      var div = document.getElementById("map_canvas");
+
+      // Initialize the map view
+      map = plugin.google.maps.Map.getMap(div);
+
+      // Wait until the map is ready status.
+      map.addEventListener(plugin.google.maps.event.MAP_READY, onMapReady);
+    }, false);
+
+    function onMapReady() {
+      var button = document.getElementById("button");
+      button.addEventListener("click", onBtnClicked, false);
+    }
+
+    function onBtnClicked() {
+      map.showDialog();
+    }
+    </script>
+</head>
+<body>
+  <div class = "app">
+    <img id = "nearbylogo" src = "img/nearbylogo.png"/>
+    <div id = "login">
+      <form id = "login-form">
+        e-mail: <input type = "text" name = "email"><br>
+        password: <input type = "text" name = "password"><br>
+        login with facebook: under construction
+      </form>
+      <button id = "login-button">Login</button><br>
+      <button id = "asd">Sign Up</button><br>
+      <button id = "login-skip">Continue as Guest</button><br>
+    </div>
+    <div style="width:100%;height:400px" id="map_canvas"></div>
+  </div>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/scriptTrendingPage.js"></script>
+  <script type="text/javascript">
+    app.initialize();
+    buildLogin();
+    initApp();
+  </script>
+</body>
+</html>
