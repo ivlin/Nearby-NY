@@ -39,6 +39,11 @@ body {
 
 }
 
+#signin-form, #signup-form{
+    text-align: center;
+    margin: 0 auto;
+}
+
 #nearbylogo{
     margin: 20px auto;
     display: block;
