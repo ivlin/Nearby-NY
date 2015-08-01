@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
-  <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=0.5, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-  <link rel="stylesheet" type="text/css" href="css/index.css" />
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-  <script src="phonegap.js"></script>
-  <script src="js/parse-1.5.0.js"></script>
-  <script src="js/main.js"></script>
-  <title>Sign In</title>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script src="phonegap.js"></script>
+	<script src="js/parse-1.5.0.js"></script>
+	<title>Sign In</title>
 </head>
 <body>
-  <div class = "app">
-    <img id = "nearbylogo" src = "img/nearbylogo.png"/>
-    <div id = "signin-form">
-      e-mail: <input type = "text" name = "email"><br>
-      password: <input type = "text" name = "password"><br>
-      login with facebook: under construction
-      <button id = "test">Test</button>
-      <button class = "goto-trending" id = "signin-button">Login</button><br>
-      <button class = "goto-signup">Sign Up</button><br>
-      <button class = "goto-trending">Continue as Guest</button><br>
-    </div>
-  </div>
-  <script type="text/javascript" src="cordova.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-  <script type="text/javascript">
-    app.initialize();
-    buildLogin();
-  </script>
+	<div class = "app">
+		<img id = "nearbylogo" src = "img/nearbylogo.png"/>
+		<div id = "signin-form">
+			<div id = "signin-status"></div>
+			e-mail: <input type = "text" name = "email"><br>
+			password: <input type = "text" name = "password"><br>
+			login with facebook: under construction<br>
+			<button id = "test">Test</button><br>
+			<button class = "goto-trending" id = "signin-button">Login</button><br>
+			<button class = "goto-signup">Sign Up</button><br>
+			<button class = "goto-trending">Continue as Guest</button><br>
+		</div>
+	</div>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript">
+		app.initialize();
+		buildLogin();
+	</script>
 </body>
 </html>

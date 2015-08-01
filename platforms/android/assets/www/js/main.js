@@ -29,7 +29,7 @@ $(document).ready(function() {
 		});
 	}
 
-/*
+
 	$("#test").on("touchend click", function(e) {
 		e.preventDefault();
 
@@ -51,7 +51,7 @@ $(document).ready(function() {
 		});
 	});
 	//call getNotes immediately
-	//getNotes();*/
+	//getNotes();
 	
 });
 
@@ -99,30 +99,24 @@ function buildLogin(){
 
 function setupLogin(){
 	var temp;
+	
 	temp = document.getElementById("signup-button");
 	if (temp !== null){
-		temp.addEventListener("click", function(e){
-			var formName = document.getElementById("form-username").value;
-			var formPass = document.getElementById("form-password").value;
-			var formConfirmPass = document.getElementById("form-confirm-password").value;
-			var formEmail = document.getElementById("form-email").value;
-			if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
-				e.preventDefault();
-				var newAccount = new User();
-				newAccount.save({username:formName, password:formPass}, {
-					success:function(object){
-						console.log("saved");
-						document.getElementById("signup-status").innerHTML = "Registration successful";
-					}
-				}, {
-					failure:function(object){
-						console.dir(error);
-						document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
-					}
-				});	
-			}else{
-document.getElementById("signup-status").innerHTML = "Form incorrectly filled"
-			}	
+		temp.addEventListener("click", function(e) {
+//			$("#signup-button").on("click", function(e){
+	//		e.preventDefault();
+			var newAccount = new User();
+			newAccount.save({username:'test', password:'test'}, {
+				success:function(object){
+					console.log("saved");
+					location.href = "index.html";
+				}
+			}, {
+				failure:function(object){
+					console.dir(error);
+					alert("object not saved");
+				}
+			});
 		});
 	}
 	temp = document.getElementById("signin-button");
