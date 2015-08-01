@@ -1,11 +1,12 @@
 //Parse related keys
 var PARSE_APP = "uRElO79J6tFnbwmC2wAnSTOYhQwfjl7fyUCmPEe2";
 var PARSE_JS = "i5kuiIlJoyLi0RyBwMdK0feNgLyE8OqQcGJomru6";
+var User;
 
 $(document).ready(function() {
 	Parse.initialize(PARSE_APP, PARSE_JS);
 	User = Parse.Object.extend("User");
-
+/*
 	function get() {
 		var query = new Parse.Query(User);
 
@@ -13,8 +14,8 @@ $(document).ready(function() {
 			success:function(results) {
 				console.dir(results);
 				var s = "";
-				for(var i=0, len=results.length; i<len; i++) {
-					var note = results[i];
+				for(var i=0; i< results.length; i++) {
+					var user = results[i];
 					s += "<p>";
 					s += "<b>"+note.get("title")+"</b><br/>";
 					s += "<b>Written "+note.createdAt + "<br/>";
@@ -27,7 +28,9 @@ $(document).ready(function() {
 				alert("Error when getting notes!");
 			}
 		});
-	}
+	}*/
+
+
 
 /*
 	$("#test").on("touchend click", function(e) {
@@ -54,6 +57,21 @@ $(document).ready(function() {
 	//getNotes();*/
 	
 });
+
+	function getUser(name, pass) {
+		
+		var query = new Parse.Query(User);
+		query.equalTo("username",name);
+		query.equalTo("password",pass);
+		query.first({
+			success:function(results){
+				console.log(results);
+			},
+			error:function(error){
+				return null;
+			}
+		});
+	}
 
 //setup trending page
 
@@ -121,14 +139,25 @@ function setupLogin(){
 					}
 				});	
 			}else{
-document.getElementById("signup-status").innerHTML = "Form incorrectly filled"
+				document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
 			}	
 		});
 	}
 	temp = document.getElementById("signin-button");
 	if (temp !== null){
+		temp.addEventListener("click", function(e){
+			var formName = document.getElementById("form-username").value;
+			var formPass = document.getElementById("form-password").value;
+			if (formName !== "" && formPass !== ""){
+				var user = getUser(formName, formPass);
+				if (user !== undefined){
+					console.log("You good");
+				}
+			}
+		});
 	}
 }
+
 
 function setupLinks(){
 	var temp;
@@ -151,3 +180,4 @@ function setupLinks(){
 		});
 	}
 }
+
