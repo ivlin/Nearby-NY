@@ -2,7 +2,6 @@
 var PARSE_APP = "uRElO79J6tFnbwmC2wAnSTOYhQwfjl7fyUCmPEe2";
 var PARSE_JS = "i5kuiIlJoyLi0RyBwMdK0feNgLyE8OqQcGJomru6";
 var User;
-var asd;
 
 $(document).ready(function() {
 	Parse.initialize(PARSE_APP, PARSE_JS);
@@ -76,12 +75,13 @@ function getUser(name, pass) {
 
 query.first({
 	success:function(results){
-		console.log(results);
-	},
-	error:function(error){
-		return null;
-	}
-}); 
+			//		console.log(results);
+			return results;
+		},
+		error:function(error){
+			return null;
+		}
+	}); 
 }
 
 //setup trending page
@@ -137,19 +137,16 @@ function setupLogin(){
 			var formEmail = document.getElementById("form-email").value;
 			if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 				e.preventDefault();
-				var newAccount = new User();
-				console.log(formPass)
-				newAccount.save({"username":formName, "password":formPass}, {
-						success:function(object){
-							console.log("saved");
-							document.getElementById("signup-status").innerHTML = "Registration successful";
-						}
-					}, {
-						failure:function(object){
-							console.dir(error);
-							document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
-						}
-					});	
+				Parse.User.signUp(formName, formPass, {ACL : new Parse.ACL()},{
+					success:function(){
+						console.log("success");
+						document.getElementById("signup-status").innerHTML = "Registration successful";
+					},
+					error:function(){
+						console.dir(error);
+						document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
+					}
+				});
 			}else{
 				document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
 			}	
@@ -161,7 +158,16 @@ function setupLogin(){
 			var formName = document.getElementById("form-username").value;
 			var formPass = document.getElementById("form-password").value;
 			if (formName !== "" && formPass !== ""){
-				var user = getUser("" + formName,"" + formPass);
+				e.preventDefault();
+				Parse.User.logIn(formName, formPass, {
+					success:function(){
+						console.log(Parse.User.current())
+						console.log("in");
+					},
+					error:function(){
+						console.log("out");
+					}
+				});
 			}
 		});
 	}
@@ -189,4 +195,3 @@ function setupLinks(){
 		});
 	}
 }
-
