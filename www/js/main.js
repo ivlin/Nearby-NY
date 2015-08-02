@@ -2,6 +2,7 @@
 var PARSE_APP = "uRElO79J6tFnbwmC2wAnSTOYhQwfjl7fyUCmPEe2";
 var PARSE_JS = "i5kuiIlJoyLi0RyBwMdK0feNgLyE8OqQcGJomru6";
 var User;
+var asd;
 
 $(document).ready(function() {
 	Parse.initialize(PARSE_APP, PARSE_JS);
@@ -28,7 +29,7 @@ $(document).ready(function() {
 				alert("Error when getting notes!");
 			}
 		});
-	}*/
+}*/
 
 
 
@@ -58,20 +59,30 @@ $(document).ready(function() {
 	
 });
 
-	function getUser(name, pass) {
-		
-		var query = new Parse.Query(User);
-		query.equalTo("username",name);
-		query.equalTo("password",pass);
-		query.first({
-			success:function(results){
-				console.log(results);
-			},
-			error:function(error){
-				return null;
-			}
-		});
+function getUser(name, pass) {
+
+	var query = new Parse.Query(User);
+	query.equalTo("username", name);
+	//query.equalTo("password",pass);
+	/*query.get("pTnd6ks0Pk",{
+		success:function(){
+			console.log("got");
+		},
+		error:function(){
+			console.log("not got");
+		}
+	});
+}*/
+
+query.first({
+	success:function(results){
+		console.log(results);
+	},
+	error:function(error){
+		return null;
 	}
+}); 
+}
 
 //setup trending page
 
@@ -108,7 +119,7 @@ function eventItem(title, organizer, cost, location, description){
 	this.eventDescription = description;
 }
 
-//for setting up the lin
+//for setting up the login
 
 function buildLogin(){
 	setupLogin(); 
@@ -127,17 +138,18 @@ function setupLogin(){
 			if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 				e.preventDefault();
 				var newAccount = new User();
-				newAccount.save({username:formName, password:formPass}, {
-					success:function(object){
-						console.log("saved");
-						document.getElementById("signup-status").innerHTML = "Registration successful";
-					}
-				}, {
-					failure:function(object){
-						console.dir(error);
-						document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
-					}
-				});	
+				console.log(formPass)
+				newAccount.save({"username":formName, "password":formPass}, {
+						success:function(object){
+							console.log("saved");
+							document.getElementById("signup-status").innerHTML = "Registration successful";
+						}
+					}, {
+						failure:function(object){
+							console.dir(error);
+							document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
+						}
+					});	
 			}else{
 				document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
 			}	
@@ -149,10 +161,7 @@ function setupLogin(){
 			var formName = document.getElementById("form-username").value;
 			var formPass = document.getElementById("form-password").value;
 			if (formName !== "" && formPass !== ""){
-				var user = getUser(formName, formPass);
-				if (user !== undefined){
-					console.log("You good");
-				}
+				var user = getUser("" + formName,"" + formPass);
 			}
 		});
 	}
