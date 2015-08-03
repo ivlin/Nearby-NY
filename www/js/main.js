@@ -1,88 +1,42 @@
 //Parse related keys
-var PARSE_APP = "uRElO79J6tFnbwmC2wAnSTOYhQwfjl7fyUCmPEe2";
-var PARSE_JS = "i5kuiIlJoyLi0RyBwMdK0feNgLyE8OqQcGJomru6";
-var User;
+var PARSE_APP = "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84";
+var PARSE_JS = "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg";
 
 $(document).ready(function() {
 	Parse.initialize(PARSE_APP, PARSE_JS);
-	User = Parse.Object.extend("User");
-/*
-	function get() {
-		var query = new Parse.Query(User);
+	//Event = Parse.Object.extend("Event");
+/*	EventList = Parse.Collection.extend(
+	{
+		model: Event
+	});*/
 
-		query.find({
-			success:function(results) {
-				console.dir(results);
-				var s = "";
-				for(var i=0; i< results.length; i++) {
-					var user = results[i];
-					s += "<p>";
-					s += "<b>"+note.get("title")+"</b><br/>";
-					s += "<b>Written "+note.createdAt + "<br/>";
-					s += note.get("body");
-					s += "</p>";
-				}
-				$("#notes").html(s);
-			},
-			error:function(error) {
-				alert("Error when getting notes!");
-			}
-		});
-}*/
-
-
-
-/*
-	$("#test").on("touchend click", function(e) {
-		e.preventDefault();
-
-		//Grab the note details, no real validation for now
-		//var email = $("#noteTitle").val();
-		//var  = $("#noteBody").val();
-
-		var note = new User();
-		note.save({username:'test', password:'test'}, {
-			success:function(object) {
-				console.log("Saved the object!");
-				//$("#noteTitle").val("");
-				//$("#noteBody").val("");
-				//getNotes();
-			}, 
-			error:function(object,error) {
-				console.dir(error);
-			alert("Sorry, I couldn't save it.");			}
-		});
+	Event = Parse.Object.extend("Event");
+	EventList = Parse.Collection.extend({
+		model: Event
 	});
-	//call getNotes immediately
-	//getNotes();*/
-	
-});
 
-function getUser(name, pass) {
-
-	var query = new Parse.Query(User);
-	query.equalTo("username", name);
-	//query.equalTo("password",pass);
-	/*query.get("pTnd6ks0Pk",{
-		success:function(){
-			console.log("got");
-		},
-		error:function(){
-			console.log("not got");
-		}
-	});
-}*/
-
-query.first({
-	success:function(results){
-			//		console.log(results);
-			return results;
+	var eventList = new EventList();
+	eventList.fetch(
+		{success:function(eventList){ 
+			console.log(eventList);
+			var eventListView = new EventListView({ collection: eventList });
+			eventListView.render();
+			document.getElementById('event-list-display').innerHTML = eventListView.el;
 		},
 		error:function(error){
-			return null;
+			console.dir(error);
 		}
-	}); 
-}
+	});
+
+	var EventListView = Parse.View.extend(
+	{
+		template:Handlebars.compile(document.getElementById("event-list").innerHTML),
+		render:function(){
+			var collection = {event: this.collection.toJSON()};
+			this.$el.html(this.template(collection));
+		}
+	});
+});
 
 //setup trending page
 
@@ -91,9 +45,24 @@ function initEventList(){
 	//eventListDisplay.setAttribute("id", "eventListDisplay");
 	//document.getElementById("display").appendChild(eventListDisplay);
 	//var eventList = new eventList(eventListDisplay);
-	var a = new eventList();
-	a.addEvent(new eventItem("Shakespeare in the Park", "JOE", "FREE", "CENTRAL PARK",
-		"asdasoidnasoidnaow asadiofnwa efitjl flzksefawl ds l lk"));
+	/*
+
+	Event = Parse.Object.extend("Event");
+	EventList = Parse.Collection.extend(
+	{
+		model: Event
+	});
+	var eventList = new EventList();
+	eventList.fetch(
+		{success:function(events){
+			console.log(events);
+		},
+		error:function(error){
+			console.dir(error);
+		}
+	});
+
+	*/
 }
 
 function eventList(){
@@ -137,21 +106,21 @@ function setupLogin(){
 			var formEmail = document.getElementById("form-email").value;
 			if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 				e.preventDefault();
-				Parse.User.signUp(formName, formPass, {ACL : new Parse.ACL()},{
-					success:function(){
+				Parse.User.signUp(formName, formPass, {},{
+					success:function(result){
 						console.log("success");
 						document.getElementById("signup-status").innerHTML = "Registration successful";
 					},
-					error:function(){
+					error:function(error){
 						console.dir(error);
 						document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
 					}
 				});
 			}else{
 				document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
-			}	
+			}
 		});
-	}
+	} 
 	temp = document.getElementById("signin-button");
 	if (temp !== null){
 		temp.addEventListener("click", function(e){
@@ -160,12 +129,11 @@ function setupLogin(){
 			if (formName !== "" && formPass !== ""){
 				e.preventDefault();
 				Parse.User.logIn(formName, formPass, {
-					success:function(){
-						console.log(Parse.User.current())
-						console.log("in");
+					success:function(result){
+						location.href = "trending.html";
 					},
-					error:function(){
-						console.log("out");
+					error:function(error){
+						document.getElementById("signin-status").innerHTML = "Failed to sign in";
 					}
 				});
 			}
@@ -175,23 +143,26 @@ function setupLogin(){
 
 
 function setupLinks(){
-	var temp;
-	temp = document.getElementsByClassName("goto-trending");
-	for (var i = 0; i < temp.length; i++){
-		temp[i].addEventListener("click", function(){
-			location.href = "trending.html";
-		});
-	};
-	temp = document.getElementsByClassName("goto-signup");
-	for (var i = 0; i < temp.length; i++){
-		temp[i].addEventListener("click", function(){
-			location.href = "signup.html";
-		});
-	}
-	temp = document.getElementsByClassName("goto-signin")
-	for (var i = 0; i < temp.length; i++){
-		temp[i].addEventListener("click", function(){
-			location.href = "index.html";
-		});
+	var temp = document.getElementsByTagName("button");
+	for (var i = 0; i  < temp.length; i++){
+		switch (temp[i].getAttribute("class")){
+			case "goto-trending":
+			temp[i].addEventListener("click", function(){
+				location.href = "trending.html";
+			});
+			break;
+			case "goto-signup":
+			temp[i].addEventListener("click", function(){
+				location.href = "signup.html";
+			});
+			break;
+			case "goto-signin":
+			temp[i].addEventListener("click", function(){
+				location.href = "index.html";
+			});
+			break;
+			default:
+			break;
+		}
 	}
 }

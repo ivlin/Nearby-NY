@@ -15,21 +15,33 @@
             <h1>DUMMY STATUS BAR</h1>
         </div>
         <div class = "display">
-        	<div id = "eventListDisplay">
+        	<div id = "event-list-display">
+
         	</div>
         </div>
         <div class = "foot">
         </div>
 
     </div>
+    <script type="text/javascript" src="phonegap.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
+    <script id = "event-list" type="text/x-handlebars-template">
+        {{#each event}}
+        <div class = "event-item">    
+            <p class = "event-title">{{title}}</p>
+            <p class = "event-time">{{time}}</p>
+            <p class = "event-description">{{description}}</p>
+        </div>
+        {{/each}}
+    </script>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" src="js/setup.js"></script>
+    <script type="text/javascript" src="js/parse-1.5.0.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     <script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
     <script type="text/javascript">
         app.initialize();
         initEventList();
     </script>
-    <script type="text/javascript" src="js/memory-store.js"></script>
 </body>
 </html>
