@@ -18,10 +18,10 @@ $(document).ready(function() {
 	var eventList = new EventList();
 	eventList.fetch(
 		{success:function(eventList){ 
-			console.log(eventList);
+			//console.log(eventList);
 			var eventListView = new EventListView({ collection: eventList });
 			eventListView.render();
-			document.getElementById('event-list-display').innerHTML = eventListView.el;
+			$('#event-list-display').html(eventListView.el); // soooooooo messed up : doesnt work with doc.getElementbyid but does with jquery selector
 		},
 		error:function(error){
 			console.dir(error);
@@ -34,6 +34,7 @@ $(document).ready(function() {
 		render:function(){
 			var collection = {event: this.collection.toJSON()};
 			this.$el.html(this.template(collection));
+			console.log(typeof this.el);
 		}
 	});
 });
