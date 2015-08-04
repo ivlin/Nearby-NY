@@ -3,25 +3,18 @@ var PARSE_APP = "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84";
 var PARSE_JS = "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg";
 
 $(document).ready(function() {
-//	Parse.initialize(PARSE_APP, PARSE_JS);
-	//Event = Parse.Object.extend("Event");
-/*	EventList = Parse.Collection.extend(
-	{
-		model: Event
-	});*/
-
 	onDeviceReady();
-	
 });
-	
+
 function onDeviceReady(){
-	Parse.initialize(PARSE_APP, PARSE_JS);
-	initEventList();
+//	Parse.initialize(PARSE_APP, PARSE_JS);
+initEventList();
 }
 
 //setup trending page
 
 function initEventList(){
+	Parse.initialize(PARSE_APP, PARSE_JS);
 	//var eventListDisplay = document.createElement("div");
 	//eventListDisplay.setAttribute("id", "eventListDisplay");
 	//document.getElementById("display").appendChild(eventListDisplay);
@@ -42,38 +35,54 @@ function initEventList(){
 			console.dir(error);
 		}
 	});
-
 */
+Event = Parse.Object.extend("Event");
+EventList = Parse.Collection.extend({
+	model: Event
+});
 
-	Event = Parse.Object.extend("Event");
-	EventList = Parse.Collection.extend({
-		model: Event
-	});
+var eventList = new EventList();
 
-	var eventList = new EventList();
-
-	eventList.fetch(
-		{success:function(eventList){ 
+eventList.fetch(
+	{success:function(eventList){ //calls twice
+		//console.log("A");
 			//console.log(eventList);
 			var eventListView = new EventListView({ collection: eventList });
+			//console.log(eventListView.el);
 			eventListView.render();
-			$('#event-list-display').html(eventListView.el); // soooooooo messed up : doesnt work with doc.getElementbyid but does with jquery selector
+			//console.log(eventListView.el);
+			//document.getElementById("event-list-display").replaceChild(eventListView.el);
+			$('#event-list-display').html(eventListView.el);  
+		
 		},
 		error:function(error){
 			console.dir(error);
 		}
 	});
 
-	var EventListView = Parse.View.extend({
-		template:Handlebars.compile(document.getElementById("event-list").innerHTML),
-		render:function(){
-			var collection = {event: this.collection.toJSON()};
-			this.$el.html(this.template(collection));
-		}
-	});
+var EventListView = Parse.View.extend({
+	template:Handlebars.compile(document.getElementById("event-list").innerHTML),
+	render:function(){
+		var collection = {event: this.collection.toJSON()};
 
+		collection.event = sortByKey(collection.event, "title", true);
+		
+		this.$el.html(this.template(collection));
+	}
+});
+
+
+//http://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects by David Brainer-Banker
+function sortByKey(array, key, ascending) {
+	return array.sort(function(a, b) {
+		var x = a[key]; var y = b[key];
+		var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+		return ascending ? diff : -1 * diff;
+	});	
 }
 
+}
+/*
 function eventList(){
 	this.eventListDisplay = document.getElementById("eventListDisplay");
 	this.listLength = 0;
@@ -96,6 +105,7 @@ function eventItem(title, organizer, cost, location, description){
 	this.eventLocation = location;
 	this.eventDescription = description;
 }
+*/
 
 //for setting up the login
 
@@ -149,7 +159,6 @@ function setupLogin(){
 		});
 	}
 }
-
 
 function setupLinks(){
 	var temp = document.getElementsByTagName("button");
