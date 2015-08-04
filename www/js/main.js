@@ -3,41 +3,21 @@ var PARSE_APP = "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84";
 var PARSE_JS = "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg";
 
 $(document).ready(function() {
-	Parse.initialize(PARSE_APP, PARSE_JS);
+//	Parse.initialize(PARSE_APP, PARSE_JS);
 	//Event = Parse.Object.extend("Event");
 /*	EventList = Parse.Collection.extend(
 	{
 		model: Event
 	});*/
 
-	Event = Parse.Object.extend("Event");
-	EventList = Parse.Collection.extend({
-		model: Event
-	});
-
-	var eventList = new EventList();
-	eventList.fetch(
-		{success:function(eventList){ 
-			//console.log(eventList);
-			var eventListView = new EventListView({ collection: eventList });
-			eventListView.render();
-			$('#event-list-display').html(eventListView.el); // soooooooo messed up : doesnt work with doc.getElementbyid but does with jquery selector
-		},
-		error:function(error){
-			console.dir(error);
-		}
-	});
-
-	var EventListView = Parse.View.extend(
-	{
-		template:Handlebars.compile(document.getElementById("event-list").innerHTML),
-		render:function(){
-			var collection = {event: this.collection.toJSON()};
-			this.$el.html(this.template(collection));
-			console.log(typeof this.el);
-		}
-	});
+	onDeviceReady();
+	
 });
+	
+function onDeviceReady(){
+	Parse.initialize(PARSE_APP, PARSE_JS);
+	initEventList();
+}
 
 //setup trending page
 
@@ -63,7 +43,35 @@ function initEventList(){
 		}
 	});
 
-	*/
+*/
+
+	Event = Parse.Object.extend("Event");
+	EventList = Parse.Collection.extend({
+		model: Event
+	});
+
+	var eventList = new EventList();
+
+	eventList.fetch(
+		{success:function(eventList){ 
+			//console.log(eventList);
+			var eventListView = new EventListView({ collection: eventList });
+			eventListView.render();
+			$('#event-list-display').html(eventListView.el); // soooooooo messed up : doesnt work with doc.getElementbyid but does with jquery selector
+		},
+		error:function(error){
+			console.dir(error);
+		}
+	});
+
+	var EventListView = Parse.View.extend({
+		template:Handlebars.compile(document.getElementById("event-list").innerHTML),
+		render:function(){
+			var collection = {event: this.collection.toJSON()};
+			this.$el.html(this.template(collection));
+		}
+	});
+
 }
 
 function eventList(){
