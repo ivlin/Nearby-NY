@@ -1,6 +1,7 @@
 //Parse related keys
 var PARSE_APP = "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84";
 var PARSE_JS = "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg";
+var viewframes = [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending")];
 
 $(document).ready(function() {
 	onDeviceReady();
@@ -53,7 +54,7 @@ eventList.fetch(
 			//console.log(eventListView.el);
 			//document.getElementById("event-list-display").replaceChild(eventListView.el);
 			$('#event-list-display').html(eventListView.el);  
-		
+
 		},
 		error:function(error){
 			console.dir(error);
@@ -166,17 +167,26 @@ function setupLinks(){
 		switch (temp[i].getAttribute("class")){
 			case "goto-trending":
 			temp[i].addEventListener("click", function(){
-				location.href = "trending.html";
+				for (var x = 0; x < viewframes.length; x++){
+					viewframes[x].style.display = "none";
+				}
+				document.getElementById("view-trending").style.display = "inline";
 			});
 			break;
 			case "goto-signup":
 			temp[i].addEventListener("click", function(){
-				location.href = "signup.html";
+				for (var x = 0; x < viewframes.length; x++){
+					viewframes[x].style.display = "none";
+				}
+				document.getElementById("view-signup").style.display = "inline";
 			});
 			break;
 			case "goto-signin":
 			temp[i].addEventListener("click", function(){
-				location.href = "index.html";
+				for (var x = 0; x < viewframes.length; x++){
+					viewframes[x].style.display = "none";
+				}
+				document.getElementById("view-signin").style.display = "inline";
 			});
 			break;
 			default:
@@ -187,12 +197,12 @@ function setupLinks(){
 
 /* Facebook login */
 var fbLoginSuccess = function (userData) {
-    alert("UserInfo: " + JSON.stringify(userData));
+	alert("UserInfo: " + JSON.stringify(userData));
 };
 
 $('#signin-button').click(function(e) {
 	facebookConnectPlugin.login(["public_profile", "email", "user_friends"],
-        fbLoginSuccess,
-        function (error) { alert("" + error);}
-    );
+		fbLoginSuccess,
+		function (error) { alert("" + error);}
+		);
 });
