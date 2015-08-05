@@ -80,6 +80,14 @@ body {
     background-color:red;
 }
 
+.viewframe{
+    display:none;
+}
+
+#view-signin{
+    display:inline;
+}
+
 button {
     height:100px;
     width:150px;
