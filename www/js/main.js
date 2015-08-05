@@ -184,3 +184,15 @@ function setupLinks(){
 		}
 	}
 }
+
+/* Facebook login */
+var fbLoginSuccess = function (userData) {
+    alert("UserInfo: " + JSON.stringify(userData));
+};
+
+$('#signin-button').click(function(e) {
+	facebookConnectPlugin.login(["public_profile", "email", "user_friends"],
+        fbLoginSuccess,
+        function (error) { alert("" + error);}
+    );
+});
