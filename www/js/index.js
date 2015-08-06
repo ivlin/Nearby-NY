@@ -24,7 +24,22 @@
     // function, we must explicitly call 'app.receivedEvent(...);'
 
     onDeviceReady: function() {
-//        Parse.initialize(this.PARSE_APP, this.PARSE_JS);
+        this.initParse();
+        this.signinPage.setupSignin();
+        this.signupPage.setupSignup();
+        document.getElementById("signout").addEventListener("click", function (){
+            Parse.User.logOut();
+        });
+        this.setupLinks();
+        if (Parse.User.current()){
+            document.getElementById("view-trending").style.display = "inline";
+        }else{
+            document.getElementById("view-signin").style.display = "inline";
+        }
+    },
+
+    initParse: function(){
+        //        Parse.initialize(this.PARSE_APP, this.PARSE_JS);
         Event = Parse.Object.extend("Event");
 
         EventList = Parse.Collection.extend({
@@ -37,7 +52,6 @@
                 var collection = {event: this.collection.toJSON()};
 
                 //collection.event = sortByKey(collection.event, "title", true);
-
                 this.$el.html(this.template(collection));
             }
         });
@@ -53,10 +67,6 @@
             console.dir(error);
         }
     });
-
-        this.signinPage.setupSignin();
-        this.signupPage.setupSignup();
-        this.setupLinks();
     },
 
     setupLinks: function(){
@@ -66,26 +76,17 @@
             switch (temp[i].getAttribute("class")){
                 case "goto-trending":
                 temp[i].addEventListener("click", function(){
-                    for (var x = 0; x < viewframes.length; x++){
-                        viewframes[x].style.display = "none";
-                    }
-                    document.getElementById("view-trending").style.display = "inline";
+                    this.changeViewTo("view-trending");
                 });
                 break;
                 case "goto-signup":
                 temp[i].addEventListener("click", function(){
-                    for (var x = 0; x < viewframes.length; x++){
-                        viewframes[x].style.display = "none";
-                    }
-                    document.getElementById("view-signup").style.display = "inline";
+                this.changeViewTo("view-signup");
                 });
                 break;
                 case "goto-signin":
                 temp[i].addEventListener("click", function(){
-                    for (var x = 0; x < viewframes.length; x++){
-                        viewframes[x].style.display = "none";
-                    }
-                    document.getElementById("view-signin").style.display = "inline";
+                    this.changeViewTo("view-signin");
                 });
                 break;
                 case "goto-maps":
@@ -96,6 +97,13 @@
                 break;
             }
         }
+    },
+
+    changeViewTo: function(viewId){
+        for (var i = 0; i < this.viewframes.length; i++){
+            this.viewframes[i].style.display = "none";
+        }
+        document.getElementById(viewId).style.display = "inline";
     },
 
     signupPage: {
@@ -122,59 +130,46 @@
                         }
                     });
                 }else{
-                    console.log(formName + " " + formEmail + " " + formPass + " " + formConfirmPass);
                     document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
                 }
             });
-            }
-        } 
-    },
+}
+}
+},
 
-    signinPage: {
-        setupSignin: function(){
-            var temp = document.getElementById("signin-button");
-            if (temp !== null){
-                temp.addEventListener("click", function(e){
-                    var formName = document.getElementById("signin-username").value;
-                    var formPass = document.getElementById("signin-password").value;
-                    if (formName !== "" && formPass !== ""){
-                        e.preventDefault();
-                        Parse.User.logIn(formName, formPass, {
-                            success:function(result){
-                                for (var x = 0; x < app.viewframes.length; x++){
-                                    app.viewframes[x].style.display = "none";
-                                }
-                                document.getElementById("view-trending").style.display = "inline";
-                            },
-                            error:function(error){
-                                document.getElementById("signin-status").innerHTML = "Failed to sign in";
+signinPage: {
+    setupSignin: function(){
+        var temp = document.getElementById("signin-button");
+        if (temp !== null){
+            temp.addEventListener("click", function(e){
+                var formName = document.getElementById("signin-username").value;
+                var formPass = document.getElementById("signin-password").value;
+                if (formName !== "" && formPass !== ""){
+                    e.preventDefault();
+                    Parse.User.logIn(formName, formPass, {
+                        success:function(result){
+                            for (var x = 0; x < app.viewframes.length; x++){
+                                app.viewframes[x].style.display = "none";
                             }
-                        });
-                    }
-                });
-            }
+                            document.getElementById("view-trending").style.display = "inline";
+                        },
+                        error:function(error){
+                            document.getElementById("signin-status").innerHTML = "Failed to sign in";
+                        }
+                    });
+                }
+            });
         }
-    },
-
-    trendingPage: {
-        sortByKey: function(array, key, ascending) {
-            return array.sort(function(a, b) {
-                var x = a[key]; var y = b[key];
-                var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                return ascending ? diff : -1 * diff;
-            }); 
-        }
-/*
-        EventListView: Parse.View.extend({
-            template:Handlebars.compile(document.getElementById("event-list").innerHTML),
-            render:function(){
-                var collection = {event: this.collection.toJSON()};
-
-                collection.event = sortByKey(collection.event, "title", true);
-
-                this.$el.html(this.template(collection));
-            }
-        });*/
     }
+},
 
+trendingPage: {
+    sortByKey: function(array, key, ascending) {
+        return array.sort(function(a, b) {
+            var x = a[key]; var y = b[key];
+            var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+            return ascending ? diff : -1 * diff;
+        }); 
+    }
+}
 };
