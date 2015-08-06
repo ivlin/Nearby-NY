@@ -26,7 +26,7 @@
 				<button class = "goto-signup">Sign Up</button><br>
 				<button class = "goto-trending">Continue as Guest</button><br>
 				<button class = "goto-maps">Maps</button><br>
-				<button id = "signin-button">Facebook Signin</button>
+				<button id = "login-with-facebook">Facebook Signin</button>
 			</div>
 		</div>
 
@@ -59,45 +59,45 @@
 								<li><a href="badges.html">Components</a></li>
 								<li><a href="collapsible.html">JavaScript</a></li>
                 <li id = "signout"><a href = "#">Signout</a></li>
-							</ul>
-						</div>
-					</nav>
-				</div>
-			</div>
-			<div class = "display">
-				<div id = "event-list-display"></div>
-			</div>
-			<div class = "foot">
-				<footer class="page-footer grey darken-4">
-					<div class="container">
-						<div class="row">
-							<div class="col l6 s12">
-								<h5 class="white-text">Thanks for visiting</h5>
-								<p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-							</div>
-							<div class="col l4 offset-l2 s12">
-								<h5 class="white-text">Links</h5>
-								<ul>
-									<li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-									<li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-									<li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-									<li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="footer-copyright">
-						<div class="container">
-							© 2015 NearbyNY
-						</div>
-					</div>
-				</footer>
-			</div>
-		</div>
-		<!--  -->
-		<!--  -->
-		
-	</div>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class = "display">
+        <div id = "event-list-display"></div>
+      </div>
+      <div class = "foot">
+        <footer class="page-footer grey darken-4">
+         <div class="container">
+          <div class="row">
+           <div class="col l6 s12">
+            <h5 class="white-text">Thanks for visiting</h5>
+            <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+             <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+             <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+             <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+             <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+           </ul>
+         </div>
+       </div>
+     </div>
+     <div class="footer-copyright">
+      <div class="container">
+       © 2015 NearbyNY
+     </div>
+   </div>
+ </footer>
+</div>
+</div>
+<!--  -->
+<!--  -->
+
+</div>
 </body>
 <script type="text/javascript" src="phonegap.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
@@ -127,10 +127,28 @@
 <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
 <script type="text/javascript" src="js/parse-1.5.0.js"></script>
 <!--<script type="text/javascript" src="js/main.js"></script>-->
+<script type="text/javascript">
+var loginButton = $('#login-with-facebook');
+
+loginButton.on('click', function(e) {
+  e.preventDefault();
+
+  FB.login(function(response) {
+    if (response.status === 'connected') {
+      document.getElementById("signin-status").innerHTML = "GUD";
+      alert('logged in');
+    } else {
+      document.getElementById("signin-status").innerHTML = "BAD";
+      alert('not logged in');
+    }
+  },{ scope: "email" });
+
+});
+</script>
 <script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
 <script type="text/javascript">
-Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
- app.initialize();
+  Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
+  app.initialize();
 	//buildLogin();
 	//initEventList();
 </script>
