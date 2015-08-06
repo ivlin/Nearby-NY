@@ -1,8 +1,8 @@
  var app = {
 
-   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-   viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending")], 
+     PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+     PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending")], 
    Event: null,//Parse.Object.extend("Event"),
    eventList: null,
 
@@ -29,6 +29,7 @@
         this.signupPage.setupSignup();
         document.getElementById("signout").addEventListener("click", function (){
             Parse.User.logOut();
+            app.changeViewTo("view-signin");
         });
         this.setupLinks();
         if (Parse.User.current()){
@@ -76,17 +77,18 @@
             switch (temp[i].getAttribute("class")){
                 case "goto-trending":
                 temp[i].addEventListener("click", function(){
-                    this.changeViewTo("view-trending");
+                    app.changeViewTo("view-trending");
+                    console.log("ASDF");
                 });
                 break;
                 case "goto-signup":
                 temp[i].addEventListener("click", function(){
-                this.changeViewTo("view-signup");
+                    app.changeViewTo("view-signup");
                 });
                 break;
                 case "goto-signin":
                 temp[i].addEventListener("click", function(){
-                    this.changeViewTo("view-signin");
+                    app.changeViewTo("view-signin");
                 });
                 break;
                 case "goto-maps":
@@ -107,7 +109,7 @@
     },
 
     signupPage: {
-       setupSignup: function(){
+     setupSignup: function(){
         var temp;
         temp = document.getElementById("signup-button");
         if (temp !== null){
