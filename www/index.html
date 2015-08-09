@@ -25,7 +25,7 @@
 				<button id = "signin-button">Login</button><br>
 				<button class = "goto-signup">Sign Up</button><br>
 				<button class = "goto-trending">Continue as Guest</button><br>
-				<button class = "goto-maps">Maps</button><br>
+				<button class = "goto-map">Maps</button><br>
 				<button id = "login-with-facebook">Facebook Signin</button>
 			</div>
 		</div>
@@ -94,8 +94,14 @@
  </footer>
 </div>
 </div>
-<!--  -->
-<!--  -->
+
+<!-- Maps -->
+<!-- Maps -->
+<div id = "view-map" class = "viewframe">
+  <div id = "map-canvas">
+  </div>
+  <p>A<br></p>
+</div>
 
 </div>
 </body>
@@ -123,32 +129,15 @@
 	</div>
 </script>
 <script type="text/javascript" src="js/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
 <script type="text/javascript" src="js/parse-1.5.0.js"></script>
 <!--<script type="text/javascript" src="js/main.js"></script>-->
-<script type="text/javascript">
-var loginButton = $('#login-with-facebook');
-
-loginButton.on('click', function(e) {
-  e.preventDefault();
-
-  FB.login(function(response) {
-    if (response.status === 'connected') {
-      document.getElementById("signin-status").innerHTML = "GUD";
-      alert('logged in');
-    } else {
-      document.getElementById("signin-status").innerHTML = "BAD";
-      alert('not logged in');
-    }
-  },{ scope: "email" });
-
-});
-</script>
 <script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
 <script type="text/javascript">
-  Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
-  app.initialize();
+ // Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
+ app.initialize();
 	//buildLogin();
 	//initEventList();
 </script>

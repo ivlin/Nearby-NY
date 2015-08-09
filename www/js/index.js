@@ -2,7 +2,8 @@
 
      PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
      PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending")], 
+     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
+     document.getElementById("view-map")], 
    Event: null,//Parse.Object.extend("Event"),
    eventList: null,
 
@@ -40,6 +41,8 @@
     },
 
     initParse: function(){
+        Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
+
         //        Parse.initialize(this.PARSE_APP, this.PARSE_JS);
         Event = Parse.Object.extend("Event");
 
@@ -71,14 +74,12 @@
     },
 
     setupLinks: function(){
-        var viewframes = app.viewframes;
         var temp = document.getElementsByTagName("button");
         for (var i = 0; i  < temp.length; i++){
             switch (temp[i].getAttribute("class")){
                 case "goto-trending":
                 temp[i].addEventListener("click", function(){
                     app.changeViewTo("view-trending");
-                    console.log("ASDF");
                 });
                 break;
                 case "goto-signup":
@@ -91,9 +92,10 @@
                     app.changeViewTo("view-signin");
                 });
                 break;
-                case "goto-maps":
+                case "goto-map":
                 temp[i].addEventListener("click", function(){
-                    location.href = "gmap.html";
+                    app.changeViewTo("view-map");        
+                    app.mapPage.initialize();
                 });
                 default:
                 break;
@@ -173,5 +175,49 @@ trendingPage: {
             return ascending ? diff : -1 * diff;
         }); 
     }
+},
+
+mapPage: {
+    map: null,
+    eventMarkers: [],
+
+    initialize: function() {
+        var nyCoord = new google.maps.LatLng(40.7127,-74.0059);
+        var canvas = document.getElementById("map-canvas");
+        /*canvas.style.width = app.style.width;
+        canvas.style.height = app.style.height;
+        */
+        this.map = new google.maps.Map(document.getElementById("map-canvas"), {
+          zoom: 16,
+          center: nyCoord,
+      });
+        //this.addMarker(40.7127,-74.0059);
+        this.plotEvents();
+    },
+
+    addMarker: function(lat, lon){
+        this.eventMarkers[this.eventMarkers.length] = new google.maps.Marker({
+          position: new google.maps.LatLng(lat,lon),
+          map: this.map
+      });
+    },
+
+    plotEvents: function(){
+      var query = new Parse.Query(Event);
+      query.find({
+        success: function(result){
+            console.log(result);
+            this.eventMarkers = result;
+            var temp;
+            for (var i = 0; i < result.length; i++){
+                temp = result[i].get("location").toJSON();
+                app.mapPage.addMarker(temp.latitude, temp.longitude);
+            }
+        },
+        error: function(error){
+            console.dir(error);
+        }
+    });
+  },
 }
 };
