@@ -26,72 +26,73 @@
 				<button class = "goto-signup">Sign Up</button><br>
 				<button class = "goto-trending">Continue as Guest</button><br>
 				<button class = "goto-map">Maps</button><br>
+
 				<button id = "login-with-facebook">Facebook Signin</button>
-			</div>
-		</div>
-
-		<!-- Signup -->
-		<!-- Signup -->
-		<div id = "view-signup" class = "viewframe">
-			<img id = "nearbylogo" src = "img/nearbylogo.png"/>
-			<div id = "signup-form">
-				<div id = "signup-status"></div>
-				e-mail: <input type = "text" name = "email" id = "signup-email"><br>
-				username: <input type = "text" name = "username" id = "signup-username"><br>
-				password: <input type = "text" name = "password" id = "signup-password"><br>
-				confirm password: <input type = "text" name = "confirm-password" id = "signup-confirm-password"><br>
-				login with facebook: under construction<br>
-				<button id = "signup-button">Sign Up</button><br>
-				<button class = "goto-signin">Go Back</button><br>
-			</div>
-		</div>
-
-		<!-- Trending -->
-		<!-- Trending -->
-		<div id = "view-trending" class = "viewframe">
-			<div class = "head">
-				<div class="navbar-fixed">
-					<nav>
-						<div class="nav-wrapper grey darken-4">
-							<a href="#" class="brand-logo" id = "trending-head-text">Logo</a>
-							<ul id="nav-mobile" class="right hide-on-med-and-down">
-								<li><a href="sass.html">Sass</a></li>
-								<li><a href="badges.html">Components</a></li>
-								<li><a href="collapsible.html">JavaScript</a></li>
-                <li id = "signout"><a href = "#">Signout</a></li>
-              </ul>
-            </div>
-          </nav>
-        </div>
-      </div>
-      <div class = "display">
-        <div id = "event-list-display"></div>
-      </div>
-      <div class = "foot">
-        <footer class="page-footer grey darken-4">
-         <div class="container">
-          <div class="row">
-           <div class="col l6 s12">
-            <h5 class="white-text">Thanks for visiting</h5>
-            <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-          </div>
-          <div class="col l4 offset-l2 s12">
-            <h5 class="white-text">Links</h5>
-            <ul>
-             <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-             <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-             <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-             <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-           </ul>
-         </div>
-       </div>
-     </div>
-     <div class="footer-copyright">
-      <div class="container">
-       © 2015 NearbyNY
      </div>
    </div>
- </footer>
+
+   <!-- Signup -->
+   <!-- Signup -->
+   <div id = "view-signup" class = "viewframe">
+     <img id = "nearbylogo" src = "img/nearbylogo.png"/>
+     <div id = "signup-form">
+      <div id = "signup-status"></div>
+      e-mail: <input type = "text" name = "email" id = "signup-email"><br>
+      username: <input type = "text" name = "username" id = "signup-username"><br>
+      password: <input type = "text" name = "password" id = "signup-password"><br>
+      confirm password: <input type = "text" name = "confirm-password" id = "signup-confirm-password"><br>
+      login with facebook: under construction<br>
+      <button id = "signup-button">Sign Up</button><br>
+      <button class = "goto-signin">Go Back</button><br>
+    </div>
+  </div>
+
+  <!-- Trending -->
+  <!-- Trending -->
+  <div id = "view-trending" class = "viewframe">
+   <div class = "head">
+    <div class="navbar-fixed">
+     <nav>
+      <div class="nav-wrapper grey darken-4">
+       <a href="#" class="brand-logo" id = "trending-head-text">Logo</a>
+       <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+        <li id = "signout"><a href = "#">Signout</a></li>
+      </ul>
+    </div>
+  </nav>
+</div>
+</div>
+<div class = "display">
+  <div id = "event-list-display"></div>
+</div>
+<div class = "foot">
+  <footer class="page-footer grey darken-4">
+   <div class="container">
+    <div class="row">
+     <div class="col l6 s12">
+      <h5 class="white-text">Thanks for visiting</h5>
+      <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+    </div>
+    <div class="col l4 offset-l2 s12">
+      <h5 class="white-text">Links</h5>
+      <ul>
+       <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+       <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+       <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+       <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+     </ul>
+   </div>
+ </div>
+</div>
+<div class="footer-copyright">
+  <div class="container">
+   © 2015 NearbyNY
+ </div>
+</div>
+</footer>
 </div>
 </div>
 
@@ -140,6 +141,22 @@
  app.initialize();
 	//buildLogin();
 	//initEventList();
+  try{
+    FB.init({
+      appId: 'xxxxxxxxxxxx', //'<%#= FB_APP_ID %>',//'',
+      nativeInterface: CDV.FB,
+      useCachedDialogs: false
+    });
+  
+    document.getElementById("login-with-facebook").addEventListener('click', function(e){
+      document.getElementById("signin-status").innerHTML = "ASDASD";
+      facebookConnectPlugin.login(["public_profile", "email", "user_friends"], alert("HI"), alert("NO"));
+      });
+  }catch(e){
+    document.getElementById("signin-status").innerHTML = "A";
+    document.getElementById("signin-status").innerHTML = e;
+  }
+
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
 </body>

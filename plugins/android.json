@@ -136,7 +136,7 @@
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "1674447189454316",
             "APP_NAME": "Nearby NY",
-            "PACKAGE_NAME": "com.phonegap.helloworld"
+            "PACKAGE_NAME": "lfour.nearby.ny"
         }
     },
     "dependent_plugins": {
