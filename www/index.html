@@ -134,28 +134,10 @@
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
 <script type="text/javascript" src="js/parse-1.5.0.js"></script>
-<!--<script type="text/javascript" src="js/main.js"></script>-->
 <script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
 <script type="text/javascript">
  // Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
  app.initialize();
-	//buildLogin();
-	//initEventList();
-  try{
-    FB.init({
-      appId: 'xxxxxxxxxxxx', //'<%#= FB_APP_ID %>',//'',
-      nativeInterface: CDV.FB,
-      useCachedDialogs: false
-    });
-  
-    document.getElementById("login-with-facebook").addEventListener('click', function(e){
-      document.getElementById("signin-status").innerHTML = "ASDASD";
-      facebookConnectPlugin.login(["public_profile", "email", "user_friends"], alert("HI"), alert("NO"));
-      });
-  }catch(e){
-    document.getElementById("signin-status").innerHTML = "A";
-    document.getElementById("signin-status").innerHTML = e;
-  }
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
