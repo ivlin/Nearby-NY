@@ -28,6 +28,7 @@
         this.initParse();
         this.signinPage.setupSignin();
         this.signupPage.setupSignup();
+        this.trendingPage.setupTrending();
         document.getElementById("signout").addEventListener("click", function (){
             Parse.User.logOut();
             app.changeViewTo("view-signin");
@@ -41,36 +42,13 @@
     },
 
     initParse: function(){
-        Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
+        Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
-        //        Parse.initialize(this.PARSE_APP, this.PARSE_JS);
         Event = Parse.Object.extend("Event");
 
         EventList = Parse.Collection.extend({
             model: Event
         });
-
-        EventListView = Parse.View.extend({
-            template:Handlebars.compile(document.getElementById("event-list").innerHTML),
-            render:function(){
-                var collection = {event: this.collection.toJSON()};
-
-                //collection.event = sortByKey(collection.event, "title", true);
-                this.$el.html(this.template(collection));
-            }
-        });
-
-        eventList = new EventList();
-
-        eventList.fetch({success:function(eventList){ //calls twice
-            var eventListView = new EventListView({ collection: eventList });
-            eventListView.render();
-            //document.getElementById("event-list-display").replaceChild(eventListView.el);
-            $('#event-list-display').html(eventListView.el);  
-        }, error:function(error){
-            console.dir(error);
-        }
-    });
     },
 
     setupLinks: function(){
@@ -165,16 +143,95 @@ signinPage: {
             });
         }
     }
-},
+    },
 
-trendingPage: {
-    sortByKey: function(array, key, ascending) {
-        return array.sort(function(a, b) {
-            var x = a[key]; var y = b[key];
-            var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            return ascending ? diff : -1 * diff;
-        }); 
+    drawEventPage: function(objectId){
+        var eventObject;
+        var query = new Parse.Query(Event);
+        
+        query.get(objectId,{
+            success: function(result){
+                eventObject = result;
+            },
+            error: function(error){
+                console.dir(error);
+            }
+        });
+
+        EventPageView = Parse.View.extend({
+            template:Handlebars.compile(document.getElementById("event-view-tpl").innerHTML),
+            render:function(){
+                var eventData = eventObject.toJSON();
+                this.el.innerHTML = this.this.template(eventData);
+                console.log(el);
+                //console.log()
+                //var collection = {event: this.collection.toJSON()};
+                /*
+                //this.collection.event = sortByKey(collection.event, "title", true);
+                this.el.innerHTML = this.template(collection);
+                //this.$el.html(this.template(collection));
+                var cards = this.el.getElementsByClassName("event-card");
+                for (var i = 0; i < cards.length; i++){
+                    cards[i].addEventListener("click", function(){
+                        app.drawEventPage(this.id);
+                    //    app.drawEventPage(cards[i].get("id"));
+                });
+                }*/
+            }
+        });
+
+
+    },
+
+    trendingPage: {
+
+        sortByKey: function(array, key, ascending) {
+            return array.sort(function(a, b) {
+                var x = a[key]; var y = b[key];
+                var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                return ascending ? diff : -1 * diff;
+            }); 
+        },
+
+        setupTrending: function (){
+           this.buildList();
+       },
+
+       buildList: function() {
+        EventList = Parse.Collection.extend({
+            model: Event
+        }),
+        
+        this.eventList = new EventList(),
+
+        EventListView = Parse.View.extend({
+            template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
+            render:function(){
+                var collection = {event: this.collection.toJSON()};
+                //this.collection.event = sortByKey(collection.event, "title", true);
+                this.el.innerHTML = this.template(collection);
+                //this.$el.html(this.template(collection));
+                var cards = this.el.getElementsByClassName("event-card");
+                for (var i = 0; i < cards.length; i++){
+                    cards[i].addEventListener("click", function(){
+                        app.drawEventPage(this.id);
+                    //    app.drawEventPage(cards[i].get("id"));
+                });
+                }
+            }
+        });
+
+        this.eventList.fetch({success:function(eventList){
+            var eventListView = new EventListView({ collection: eventList });
+            eventListView.render();
+            document.getElementById("event-list-display").appendChild(eventListView.el);
+        }, error:function(error){
+            console.dir(error);
+        }
+    });
+
     }
+
 },
 
 mapPage: {
