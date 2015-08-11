@@ -248,14 +248,10 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     debugCompile project(path: ":CordovaLib", configuration: "debug")
     releaseCompile project(path: ":CordovaLib", configuration: "release")
-    debugCompile project(path: ":com.google.playservices:helloworld-google-play-services_lib", configuration: "debug")
-    releaseCompile project(path: ":com.google.playservices:helloworld-google-play-services_lib", configuration: "release")
-    debugCompile project(path: ":com.phonegap.plugins.facebookconnect:helloworld-FacebookLib", configuration: "debug")
-    releaseCompile project(path: ":com.phonegap.plugins.facebookconnect:helloworld-FacebookLib", configuration: "release")
-    debugCompile project(path: ":com.phonegap.plugins.facebookconnect:FacebookLib", configuration: "debug")
-    releaseCompile project(path: ":com.phonegap.plugins.facebookconnect:FacebookLib", configuration: "release")
     debugCompile project(path: ":com.phonegap.plugins.facebookconnect:ny-FacebookLib", configuration: "debug")
     releaseCompile project(path: ":com.phonegap.plugins.facebookconnect:ny-FacebookLib", configuration: "release")
+    debugCompile project(path: ":com.google.playservices:helloworld-google-play-services_lib", configuration: "debug")
+    releaseCompile project(path: ":com.google.playservices:helloworld-google-play-services_lib", configuration: "release")
     // SUB-PROJECT DEPENDENCIES END
 }
 
