@@ -214,11 +214,14 @@ trendingPage: {
                 this.el.innerHTML = this.template(collection);
                 //this.$el.html(this.template(collection));
                 var cards = this.el.getElementsByClassName("event-card");
+
+                function renderEventPage(id) {
+                    app.drawEventPage(id);
+                }
                 for (var i = 0; i < cards.length; i++){
-                    cards[i].addEventListener("click", function(){
-                        app.drawEventPage(this.id);
-                    //    app.drawEventPage(cards[i].get("id"));
-                });
+                    renderFunc = renderEventPage.bind(this, cards[i].id);
+                    cardImg = $(cards[i]).find("img");
+                    cardImg.first().click(renderFunc);
                 }
             }
         });
