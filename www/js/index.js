@@ -1,9 +1,10 @@
  var app = {
 
-   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-   viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
-   document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
+     PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+     PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
+     document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
+     lastPage:null,
    Event: null,//Parse.Object.extend("Event"),
    eventList: null,
 
@@ -29,16 +30,6 @@
         this.signinPage.setupSignin();
         this.signupPage.setupSignup();
         this.trendingPage.setupTrending();
-        this.profilePage.setupProfilePage();
-        var signouts = document.getElementsByClassName("signout");
-        console.log(document.getElementsByClassName("signout"));
-        for (var i = 0; i < signouts.length; i++){
-            signouts[i].addEventListener("click", function (){
-                console.log("A");
-                Parse.User.logOut();
-                app.changeViewTo("view-signin");
-            });
-        }
         this.setupLinks();
         if (Parse.User.current()){
             document.getElementById("view-trending").style.display = "inline";
@@ -58,7 +49,7 @@
     },
 
     setupLinks: function(){
-        var temp = document.querySelectorAll(".goto-trending", ".goto-signup", ".goto-map", ".goto-signin", ".goto-profile");
+        var temp = document.querySelectorAll(".goto-trending , .goto-signup , .goto-map , .goto-signin , .goto-profile, .signout");
         for (var i = 0; i  < temp.length; i++){
             switch (temp[i].getAttribute("class")){
                 case "goto-trending":
@@ -81,11 +72,22 @@
                     app.changeViewTo("view-map");        
                     app.mapPage.initialize();
                 });
+                break;
                 case "goto-profile":
                 temp[i].addEventListener("click", function(){
-                    app.changeViewTo("view-profile");        
-                    app.mapPage.initialize();
+                    if (Parse.User.current()){
+                        app.changeViewTo("view-profile");
+                        app.profilePage.setupProfilePage();
+                    }                    
                 });
+                break;
+                case "signout":
+                temp[i].addEventListener("click", function(){
+                    Parse.User.logOut();
+                    app.changeViewTo("view-signin");
+                    app.profilePage.setupProfilePage();                        
+                })
+                break;
                 default:
                 break;
             }
@@ -100,7 +102,7 @@
     },
 
     signupPage: {
-       setupSignup: function(){
+     setupSignup: function(){
         var temp;
         temp = document.getElementById("signup-button");
         if (temp !== null){
@@ -167,6 +169,12 @@ drawEventPage: function(objectId){
        eventPageDisplay.render(result);
        app.changeViewTo("view-event");
        document.getElementById("view-event").innerHTML = eventPageDisplay.htmlData;
+       
+       document.getElementById("goto-last").addEventListener("click", function (){
+        console.log(lastPage);
+        app.changeViewTo(lastPage);
+    });
+
    },
    error: function(error){
     console.dir(error);
@@ -201,10 +209,10 @@ trendingPage: {
     },
 
     setupTrending: function (){
-     this.buildList();
- },
+       this.buildList();
+   },
 
- buildList: function() {
+   buildList: function() {
     EventList = Parse.Collection.extend({
         model: Event
     }),
@@ -221,8 +229,10 @@ trendingPage: {
                 var cards = this.el.getElementsByClassName("event-card");
 
                 function renderEventPage(id) {
+                    lastPage = "view-trending";
                     app.drawEventPage(id);
                 }
+
                 for (var i = 0; i < cards.length; i++){
                     renderFunc = renderEventPage.bind(this, cards[i].id);
                     cardImg = $(cards[i]).find("img");
@@ -270,6 +280,7 @@ mapPage: {
       });
 
         google.maps.event.addListener(temp, 'click', function(){
+            app.lastPage = "view-map";
             app.drawEventPage(temp.eventId);
         });
     },
@@ -298,6 +309,7 @@ profilePage: {
         Parse.User.current().fetch().then(function (user) {
             document.getElementById("name-text").innerHTML = user.get('name');
             document.getElementById("bio-text").innerHTML = user.get('biography');
+
         });
     }
 
