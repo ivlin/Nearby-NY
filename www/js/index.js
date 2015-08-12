@@ -1,9 +1,9 @@
  var app = {
 
-   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-   viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
-   document.getElementById("view-map"), document.getElementById("view-event")], 
+     PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+     PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
+     document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
    Event: null,//Parse.Object.extend("Event"),
    eventList: null,
 
@@ -29,6 +29,7 @@
         this.signinPage.setupSignin();
         this.signupPage.setupSignup();
         this.trendingPage.setupTrending();
+        this.profilePage.setupProfilePage();
         document.getElementById("signout").addEventListener("click", function (){
             Parse.User.logOut();
             app.changeViewTo("view-signin");
@@ -75,6 +76,11 @@
                     app.changeViewTo("view-map");        
                     app.mapPage.initialize();
                 });
+                case "goto-profile":
+                temp[i].addEventListener("click", function(){
+                    app.changeViewTo("view-profile");        
+                    app.mapPage.initialize();
+                });
                 default:
                 break;
             }
@@ -89,7 +95,7 @@
     },
 
     signupPage: {
-       setupSignup: function(){
+     setupSignup: function(){
         var temp;
         temp = document.getElementById("signup-button");
         if (temp !== null){
@@ -190,10 +196,10 @@ trendingPage: {
     },
 
     setupTrending: function (){
-     this.buildList();
- },
+       this.buildList();
+   },
 
- buildList: function() {
+   buildList: function() {
     EventList = Parse.Collection.extend({
         model: Event
     }),
@@ -276,5 +282,17 @@ mapPage: {
         }
     });
   },
+},
+
+profilePage: {
+
+    setupProfilePage: function(){
+        Parse.User.current().fetch().then(function (user) {
+            document.getElementById("name-text").innerHTML = user.get('name');
+            document.getElementById("bio-text").innerHTML = user.get('biography');
+        });
+    }
+
 }
+
 };
