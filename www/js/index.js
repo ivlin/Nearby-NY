@@ -1,9 +1,9 @@
  var app = {
 
-     PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-     PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
-     document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
+   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+   viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
+   document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
    Event: null,//Parse.Object.extend("Event"),
    eventList: null,
 
@@ -30,10 +30,15 @@
         this.signupPage.setupSignup();
         this.trendingPage.setupTrending();
         this.profilePage.setupProfilePage();
-        document.getElementById("signout").addEventListener("click", function (){
-            Parse.User.logOut();
-            app.changeViewTo("view-signin");
-        });
+        var signouts = document.getElementsByClassName("signout");
+        console.log(document.getElementsByClassName("signout"));
+        for (var i = 0; i < signouts.length; i++){
+            signouts[i].addEventListener("click", function (){
+                console.log("A");
+                Parse.User.logOut();
+                app.changeViewTo("view-signin");
+            });
+        }
         this.setupLinks();
         if (Parse.User.current()){
             document.getElementById("view-trending").style.display = "inline";
@@ -53,7 +58,7 @@
     },
 
     setupLinks: function(){
-        var temp = document.getElementsByTagName("button");
+        var temp = document.querySelectorAll(".goto-trending", ".goto-signup", ".goto-map", ".goto-signin", ".goto-profile");
         for (var i = 0; i  < temp.length; i++){
             switch (temp[i].getAttribute("class")){
                 case "goto-trending":
@@ -95,7 +100,7 @@
     },
 
     signupPage: {
-     setupSignup: function(){
+       setupSignup: function(){
         var temp;
         temp = document.getElementById("signup-button");
         if (temp !== null){
@@ -196,10 +201,10 @@ trendingPage: {
     },
 
     setupTrending: function (){
-       this.buildList();
-   },
+     this.buildList();
+ },
 
-   buildList: function() {
+ buildList: function() {
     EventList = Parse.Collection.extend({
         model: Event
     }),
