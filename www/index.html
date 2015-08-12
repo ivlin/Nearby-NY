@@ -5,49 +5,52 @@
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="msapplication-tap-highlight" content="no" />
 	<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-	<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+  <!-- 3rd Party CSS Libraries -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="phonegap.js"></script>
-  <title>Sign In</title>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+  <title>NearbyNY</title>
 </head>
 <body>
-	<div class = "app" id = "app">
+	<div class="app" id="app">
 
 		<!-- Login -->
 		<!-- Login -->
-		<div id = "view-signin" class = "viewframe">
-			<img id = "nearbylogo" src = "img/nearbylogo.png"/>
-			<div id = "signin-form">
-				<div id = "signin-status"></div>
-				username: <input type = "text" name = "email" id = "signin-username"><br>
-				password: <input type = "text" name = "password" id = "signin-password"><br>
+		<div id="view-signin" class="viewframe">
+			<img id="nearbylogo" src="img/nearbylogo.png"/>
+			<div id="signin-form">
+				<div id="signin-status"></div>
+				username: <input type="text" name="email" id="signin-username"><br>
+				password: <input type="text" name="password" id="signin-password"><br>
 				login with facebook: under construction<br>
-				<button id = "signin-button">Login</button><br>
-				<button class = "goto-signup">Sign Up</button><br>
-				<button class = "goto-trending">Continue as Guest</button><br>
-				<button class = "goto-map">Maps</button><br>
-				<button id = "signin-button">Facebook Signin</button>
+				<button id="signin-button">Login</button><br>
+				<button class="goto-signup">Sign Up</button><br>
+				<button class="goto-trending">Continue as Guest</button><br>
+				<button class="goto-map">Maps</button><br>
+				<button id="signin-button">Facebook Signin</button>
      </div>
    </div>
 
    <!-- Signup -->
    <!-- Signup -->
-   <div id = "view-signup" class = "viewframe">
-     <img id = "nearbylogo" src = "img/nearbylogo.png"/>
-     <div id = "signup-form">
-      <div id = "signup-status"></div>
-      e-mail: <input type = "text" name = "email" id = "signup-email"><br>
-      username: <input type = "text" name = "username" id = "signup-username"><br>
-      password: <input type = "text" name = "password" id = "signup-password"><br>
-      confirm password: <input type = "text" name = "confirm-password" id = "signup-confirm-password"><br>
+   <div id="view-signup" class="viewframe">
+     <img id="nearbylogo" src="img/nearbylogo.png"/>
+     <div id="signup-form">
+      <div id="signup-status"></div>
+      e-mail: <input type="text" name="email" id="signup-email"><br>
+      username: <input type="text" name="username" id="signup-username"><br>
+      password: <input type="text" name="password" id="signup-password"><br>
+      confirm password: <input type="text" name="confirm-password" id="signup-confirm-password"><br>
       login with facebook: under construction<br>
-      <button id = "signup-button">Sign Up</button><br>
-      <button class = "goto-signin">Go Back</button><br>
+      <button id="signup-button">Sign Up</button><br>
+      <button class="goto-signin">Go Back</button><br>
     </div>
   </div>
 
-  <!-- Friends -->
   <!-- Friends -->
   <div id = "view-friends" class = "viewframe">
    <div class = "head">
@@ -56,7 +59,7 @@
      <nav>
       <div class="nav-wrapper grey darken-4">
         <ul id="nav-mobile" class="right">
-          <li id = "signout"><a href="#">Signout</a></li>
+          <li id="signout"><a href="#">Signout</a></li>
         </ul>
       </div>
     </nav>
@@ -78,42 +81,41 @@
     </div>
     </div>
 
-  <!-- Trending -->
-  <!-- Trending -->
-  <div id = "view-trending" class = "viewframe">
-   <div class = "head">
+  <!-- Trending Events -->
+  <div id="view-trending" class="viewframe">
+   <div class="head">
     <div class="navbar-fixed">
     <!-- Dropdown Structure -->
         <ul id='dropdown1' class='dropdown-content'>
-          <li><a href="#!">By Popular</a></li>
-          <li><a href="#!">By Name</a></li>
-          <li><a href="#!">By Cost</a></li>
+          <li><a href="#!">Popular</a></li>
+          <li><a href="#!">Name</a></li>
+          <li><a href="#!">Cost</a></li>
         </ul>
 
      <!-- Top Nav Bar -->   
      <nav>
       <div class="nav-wrapper grey darken-4">
-        <!-- Dropdown Trigger -->
         <ul id="nav-mobile" class="right">
           <!-- Dropdown Trigger -->
           <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
-          <li id = "signout"><a href="#">Signout</a></li>
+          <li id="signout"><a href="#">Signout</a></li>
         </ul>
       </div>
-      <ul id="slide-out" class="side-nav fixed">
+    </nav>
+  </div>
+</div>
+
+  <ul id="slide-out" class="side-nav fixed">
          <li><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
         <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
         <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
       </ul>
       <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-    </nav>
 
-  </div>
-</div>
 <div class="display">
   <div id="event-list-display"></div>
 </div>
-<div class = "foot">
+<div class="foot">
 
   <div class="navbar-fixed">
     <nav>
@@ -153,24 +155,20 @@
 </footer>
 </div>
 </div>
-</div>
+</div> <!-- End of app -->
 
 <!-- Maps -->
-<!-- Maps -->
-<div id = "view-map" class = "viewframe">
-  <div id = "map-canvas">
+<div id="view-map" class="viewframe">
+  <div id="map-canvas">
   </div>
 </div>
 
 <!-- Event Page -->
-<!-- Event Page -->
-<div id = "view-event" class = "viewframe">
+<div id="view-event" class="viewframe">
 </div>
 
-</div>
-</body>
-<script type="text/javascript" src="phonegap.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
+<!-- Templates -->
+
 <script id = "event-list-tpl" type="text/x-handlebars-template">
 	<div class="row">
 		{{#each event}}
@@ -195,7 +193,7 @@
 	</div>
 </script>
 
-<script id = "friend-list-tpl" type="text/x-handlebars-template">
+<script id="friend-list-tpl" type="text/x-handlebars-template">
   <div class="row">
     {{#each friend}}
     <p> FRIENDS </p>
@@ -203,8 +201,8 @@
   </div>
 </script>
 
-<script id = "event-view-tpl" type="text/x-handlebars-template">
-	<div class = "event-view-display">
+<script id="event-view-tpl" type="text/x-handlebars-template">
+	<div class="event-view-display">
 		<h1>{{title}}</h1><br>
 		<img src = {{img_url}}><br>
 		time: <p>{{time}}</p><br>
@@ -214,17 +212,26 @@
 	</div>
 </script>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
+<!-- 3rd Party JS Libraries -->
+<script type="text/javascript" src="phonegap.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="lib/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/facebookConnectPlugin.js"></script>
-<script type="text/javascript" src="js/parse-1.5.0.js"></script>
-<script type="text/javascript" src="js/handlebars-v3.0.3.js"></script>
+<script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
+<script type="text/javascript" src="lib/parse-1.5.0.js"></script>
+<script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+
+<!-- Custom JS -->
+<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="js/trending.js"></script>
+<script type="text/javascript" src="js/friends.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript">
- //Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
  app.initialize();
- $(".button-collapse").sideNav();
 </script>
+
 </body>
 </html>
