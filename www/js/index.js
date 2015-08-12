@@ -1,10 +1,10 @@
  var app = {
 
-     PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-     PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-     viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
-     document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
-     lastPage:null,
+   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+   viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
+   document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
+   lastPage:null,
    Event: null,//Parse.Object.extend("Event"),
    eventList: null,
 
@@ -102,7 +102,7 @@
     },
 
     signupPage: {
-     setupSignup: function(){
+       setupSignup: function(){
         var temp;
         temp = document.getElementById("signup-button");
         if (temp !== null){
@@ -209,10 +209,21 @@ trendingPage: {
     },
 
     setupTrending: function (){
-       this.buildList();
-   },
+     this.buildList();
+ },
 
-   buildList: function() {
+ attachList: function() {
+    this.eventList.fetch({success:function(eventList){
+        var eventListView = new EventListView({ collection: eventList });
+        eventListView.render();
+        document.getElementById("event-list-display").appendChild(eventListView.el);
+    }, error:function(error){
+        console.dir(error);
+    }
+});
+}
+
+buildList: function() {
     EventList = Parse.Collection.extend({
         model: Event
     }),
@@ -221,10 +232,10 @@ trendingPage: {
 
     EventListView = Parse.View.extend({
         template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
-        render:function(){
+        render:function(mode){
             var collection = {event: this.collection.toJSON()};
-                //this.collection.event = sortByKey(collection.event, "title", true);
-                this.el.innerHTML = this.template(collection);
+            this.collection.event = sortByKey(collection.event, mode, true);
+            this.el.innerHTML = this.template(collection);
                 //this.$el.html(this.template(collection));
                 var cards = this.el.getElementsByClassName("event-card");
 
@@ -241,6 +252,8 @@ trendingPage: {
             }
         });
 
+
+
     this.eventList.fetch({success:function(eventList){
         var eventListView = new EventListView({ collection: eventList });
         eventListView.render();
@@ -249,6 +262,8 @@ trendingPage: {
         console.dir(error);
     }
 });
+
+
 
 }
 
@@ -309,7 +324,6 @@ profilePage: {
         Parse.User.current().fetch().then(function (user) {
             document.getElementById("name-text").innerHTML = user.get('name');
             document.getElementById("bio-text").innerHTML = user.get('biography');
-
         });
     }
 

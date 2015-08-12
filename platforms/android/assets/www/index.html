@@ -7,8 +7,9 @@
 	<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 	<link rel="stylesheet" type="text/css" href="css/index.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-	<script src="phonegap.js"></script>
-	<title>Sign In</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="phonegap.js"></script>
+  <title>Sign In</title>
 </head>
 <body>
 	<div class = "app" id = "app">
@@ -52,22 +53,49 @@
    <div class = "head">
     <div class="navbar-fixed">
      <nav>
+       <button class = "goto-profile">
+        temp - profile
+      </button>
       <div class="nav-wrapper grey darken-4">
-       <a href="#" class="brand-logo" id = "trending-head-text">Logo</a>
-       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="sass.html">Sass</a></li>
-        <li><a href="badges.html">Components</a></li>
-        <li><a href="collapsible.html">JavaScript</a></li>
-        <li id = "signout"><a href = "#">Signout</a></li>
-      </ul>
-    </div>
-  </nav>
-</div>
+        <!-- Dropdown Trigger -->
+        <a class='grey darken-4 dropdown-button' href='#' data-activates='dropdown1'> 
+          <i class="material-icons" style = "margin:0">reorder</i>     
+        </a>
+
+        <!-- Dropdown Structure -->
+        <ul id='dropdown1' class='dropdown-content'>
+          <li><a href="#!">Sort By Popular</a></li>
+          <li><a href="#!">Sort By Name</a></li>
+          <li class="divider"></li>
+          <li><a href="#!">Sort By Cost</a></li>
+        </ul>
+        
+        <!--    <a href="#" class="brand-logo" id = "trending-head-text">Logo</a>-->
+        <ul id="nav-mobile" class="right">
+          <li id = "sort"><a href="#">Sort(in the works)</a></li>
+          <li id = "signout"><a href = "#">Signout</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
 </div>
 <div class = "display">
   <div id = "event-list-display"></div>
 </div>
 <div class = "foot">
+
+  <div class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo">Logo</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="sass.html">Sass</a></li>
+          <li><a href="badges.html">Components</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
   <footer class="page-footer grey darken-4">
    <div class="container">
     <div class="row">
@@ -94,18 +122,134 @@
 </footer>
 </div>
 </div>
+</div>
 
 <!-- Maps -->
 <!-- Maps -->
 <div id = "view-map" class = "viewframe">
   <div id = "map-canvas">
   </div>
-  <p>A<br></p>
 </div>
 
 <!-- Event Page -->
 <!-- Event Page -->
 <div id = "view-event" class = "viewframe">
+</div>
+
+<!-- Profile Page -->
+<!-- Profile Page -->
+<div id = "view-profile" class = "viewframe">
+  <div class = "head">
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper grey darken-4">
+          <a href="#" class="brand-logo">NearbyNY</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Upcoming Events</a></li>
+            <li><a href="badges.html">Friends</a></li>
+            <li><a href="collapsible.html">Profile</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="card">
+    <img class="circle profile-pic" height="200px" src="img/matt_damon.png">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="img/nyc_skyline.gif">
+    </div>
+    <div class="card-content">
+
+      <!-- Personal Info -->
+      <div id = "get-bio-info">
+        <span class="card-title activator grey-text text-darken-4"><span id = "name-text"></span><div class = "right"><i id = "edit-profile" class = "material-icons">settings</i> <i class="material-icons">. . .</i></div></span>
+        <p><span id = "bio-text"></span></p>
+      </div>
+
+
+      <div id = "set-bio-info">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                <label for="first_name">Name</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="Biography" type="text" class="validate">
+                <label for="last_name"></label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input disabled value="I am not editable" id="disabled" type="text" class="validate">
+                <label for="disabled">Disabled</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="password" type="password" class="validate">
+                <label for="password">Password</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="email" type="email" class="validate">
+                <label for="email">Email</label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="collapsible" data-collapsible="expandable">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Attended</div>
+      <div class="collapsible-body"><p id = "event-history"></p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Planned to Attend</div>
+      <div class="collapsible-body"><p id = "event-schedule"></p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Friends</div>
+      <div class="collapsible-body"><p id = "friends-list"></p></div>
+    </li>
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Settings</div>
+      <div class="collapsible-body"><p id = "profile-settings"></p></div>
+    </li>
+  </ul>
+
+  <div class = "foot">
+    <footer class="page-footer grey darken-4">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Thanks for visiting</h5>
+            <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2015 NearbyNY
+        </div>
+      </div>
+    </footer>
+  </div>
 </div>
 
 </div>
@@ -136,7 +280,7 @@
 <script id = "event-view-tpl" type="text/x-handlebars-template">
 	<div class = "event-view-display">
 		<h1>{{title}}</h1><br>
-		<img src = {{img_url}}/><br>
+		<img src = {{img_url}}><br>
 		time: <p>{{time}}</p><br>
 		address: <p>{{address}}</p><br>
 		cost: <p>{{cost}}</p><br>

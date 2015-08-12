@@ -82,10 +82,10 @@
  <div class = "head">
   <div class="navbar-fixed">
     <!-- Dropdown Structure -->
-    <ul id='dropdown1' class='dropdown-content'>
-      <li><a href="#!">By Popular</a></li>
-      <li><a href="#!">By Name</a></li>
-      <li><a href="#!">By Cost</a></li>
+    <ul id='reorder-trending' class='dropdown-content'>
+      <li class = "reorder-mode"><a href="#!">Popular</a></li>
+      <li class = "reorder-mode"><a href="#!">Name</a></li>
+      <li class = "reorder-mode"><a href="#!">Cost</a></li>
     </ul>
 
     <!-- Top Nav Bar -->   
@@ -94,7 +94,7 @@
         <!-- Dropdown Trigger -->
         <ul id="nav-mobile" class="right">
           <!-- Dropdown Trigger -->
-          <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
+          <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
           <li class = "signout"><a href="#">Signout</a></li>
         </ul>
       </div>
@@ -158,14 +158,15 @@
 <!-- Maps -->
 <div id = "view-map" class = "viewframe">
   <button class = "goto-trending">
+  </button>
     <div id = "map-canvas">
     </div>
-  </button>
 </div>
 
 <!-- Event Page -->
 <!-- Event Page -->
 <div id = "view-event" class = "viewframe">
+
 </div>
 
 <!-- Profile Page -->
