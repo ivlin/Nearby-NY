@@ -78,6 +78,10 @@ body {
     width:100%;
 }
 
+#set-bio-info{
+    display:none;
+}
+
 button {
     height:100px;
     width:150px;

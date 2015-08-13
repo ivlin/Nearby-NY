@@ -221,7 +221,7 @@ trendingPage: {
         console.dir(error);
     }
 });
-}
+},
 
 buildList: function() {
     EventList = Parse.Collection.extend({
@@ -232,9 +232,9 @@ buildList: function() {
 
     EventListView = Parse.View.extend({
         template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
-        render:function(mode){
+        render:function(){
             var collection = {event: this.collection.toJSON()};
-            this.collection.event = sortByKey(collection.event, mode, true);
+         //   this.collection.event = sortByKey(collection.event, mode, true);
             this.el.innerHTML = this.template(collection);
                 //this.$el.html(this.template(collection));
                 var cards = this.el.getElementsByClassName("event-card");
@@ -320,11 +320,54 @@ mapPage: {
 
 profilePage: {
 
+    curUser:null, 
+
     setupProfilePage: function(){
-        Parse.User.current().fetch().then(function (user) {
-            document.getElementById("name-text").innerHTML = user.get('name');
-            document.getElementById("bio-text").innerHTML = user.get('biography');
+
+        this.curUser = Parse.User.current().toJSON();/*function (user) {
+            this.curUser = user;
+            console.log(this.curUser);
+        });*/
+
+        console.log(this.curUser);
+        this.updateInfo();
+
+        document.getElementById("edit-profile").addEventListener("click", function(){
+            app.profilePage.drawForm();
+            document.getElementById("set-bio-info").style.display = "inline";
+            document.getElementById("get-bio-info").style.display = "none";
         });
+    },
+
+    updateInfo: function(){
+        curUser = this.curUser;
+        document.getElementById("get-username").innerHTML = curUser.username;
+        document.getElementById("get-name").innerHTML = curUser.name;
+        document.getElementById("get-email").innerHTML = curUser.password;
+        document.getElementById("get-bio").innerHTML = curUser.biography;
+    },
+
+    drawForm: function(){
+        curUser = this.curUser;
+
+        document.getElementById("set-username").setAttribute("value", curUser.username);
+        document.getElementById("set-name").setAttribute("value", curUser.name);
+        document.getElementById("set-email").setAttribute("value", curUser.email);
+        document.getElementById("set-bio").innerHTML = curUser.biography;
+
+        var labels = document.getElementsByTagName("label");
+        for (var i = 0; i < labels.length; i++){
+            labels[i].setAttribute("class","active");
+        }
+
+        document.getElementById("save-bio").addEventListener("click", function(){
+            Parse.User.current().set("name", document.getElementById("set-name").value);
+            Parse.User.current().set("biography", document.getElementById("set-bio").value);
+            Parse.User.current().save();
+            document.getElementById("set-bio-info").style.display = "none";
+            document.getElementById("get-bio-info").style.display = "inline";
+        });
+
     }
 
 }

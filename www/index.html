@@ -195,57 +195,48 @@
     <div class="card-content">
 
       <!-- Personal Info -->
-      <div id = "get-bio-info" >
-        <span class="card-title activator grey-text text-darken-4"><span id = "name-text"></span><div class = "right"><i id = "edit-profile" class = "material-icons">settings</i> <i class="material-icons">. . .</i></div></span>
-        <p><span id = "bio-text"></span></p>
+      <div id = "get-bio-info">
+        <span class="card-title activator grey-text text-darken-4">
+        	<span id = "get-username"></span>
+        	<div class = "right">
+        		<i id = "edit-profile" class = "material-icons">settings</i> <i class="material-icons">. . .</i>
+        	</div>
+        </span>
+        <p>name:<span id = "get-name"></span></p>
+        <p>email:<span id = "get-email"></span></p>
+        <p><span id = "get-bio"></span></p>
       </div>
 
 
-      <div id = "set-bio-info" style = "display:none">
-        <div class="row">
-          <form class="col s12">
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="user_name" type="text" class="validate">
-                <label for="name">Name</label>
-              </div>
-              <div class="input-field col s12">
-                <div class="row">
-                  <form class="col s12">
-                    <div class="row">
-                      <div class="input-field col s12">
-                        <textarea id="a " class="materialize-textarea"></textarea>
-                        <label for="biography">Biography</label>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <label for="last_name">Biography</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input disabled value="I am not editable" id="disabled" type="text" class="validate">
-                <label for="disabled">Disabled</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
-                <label for="password">Password</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email</label>
-              </div>
-            </div>
-          </form>
-        </div>
+      <div id = "set-bio-info">
+      	<div class="row">
+      		<form class="col s12">
+      			<div class="input-field col s12">
+      				<input disabled id="set-username" type="text" class="validate">
+      				<label for="username">username</label>
+      			</div>
+      			<div class="input-field col s12">
+      				<input disabled id="set-email" type="text" class="validate">
+      				<label for="email">email</label>
+      			</div>
+      			<div class="input-field col s12">
+      				<input id="set-name" type="text" class="validate">
+      				<label for="name">Name</label>
+      			</div>
+      			<div class="input-field col s12">
+      				<textarea id="set-bio" value = "A" class="materialize-textarea"></textarea>
+      				<label class="active" for="biography">Biography</label>
+      			</div>
+      			<button class="btn waves-effect waves-light" type="submit" name="action" id = "save-bio">Save
+      				<i class="material-icons">send</i>
+      			</button>
+      		</form>
+      	</div>
       </div>
+
+
     </div>
-  </div>
+	</div>
 
   <ul class="collapsible" data-collapsible="expandable">
     <li>
@@ -352,7 +343,6 @@
 <script type="text/javascript">
  //Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
  app.initialize();
- $(".button-collapse").sideNav();
 </script>
 </body>
 </html>
