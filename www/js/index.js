@@ -91,8 +91,8 @@ var app = {
 },
 
     changeViewTo: function(viewId){
-        for (var i = 0; i < this.viewframes.length; i++){
-            this.viewframes[i].style.display = "none";
+        for (var i = 0; i < viewframes.length; i++){
+            viewframes[i].hide()
         }
         document.getElementById(viewId).style.display = "inline";
     },
