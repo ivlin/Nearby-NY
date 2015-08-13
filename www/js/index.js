@@ -6,7 +6,7 @@ var app = {
     document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
     lastPage:null,
     Event: null,//Parse.Object.extend("Event"),
-    eventList: null,
+    EventList: null,
 
     // Application Constructor
     initialize: function() {
@@ -186,7 +186,6 @@ drawEventPage: function(objectId){
         template:Handlebars.compile(document.getElementById("event-view-tpl").innerHTML),
         render:function(data){
           var jsondata = data.toJSON();
-
 		/*
 		  Apply transformations to data
           */
@@ -200,55 +199,29 @@ drawEventPage: function(objectId){
 
 trendingPage: {
 
-	eventList: null,    
+	eventList: null,
+    eventPageView: null,   
 
 	setupTrending: function (){
-     this.buildList();
-     var modeOptions = document.getElementsByClassName("reorder-mode");
-     for (var i = 0; i < modeOptions.length; i++){
-      modeOptions[i].addEventListener("click", function(){
-        console.log(this.eventList);
-      });
-  }
-},
-
-buildList: function() {
- EventList = Parse.Collection.extend({
-  model: Event
-}),
-
- this.eventList = new EventList(),
-
- EventListView = Parse.View.extend({
-  data:null,
-  el:null,
-  template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
-  render:function(){
-      var collection = this.data = {event: this.collection.toJSON()};
-		    //   this.collection.event = sortByKey(collection.event, mode, true);
-		    this.drawList("");
-		    /*
-                      this.el.innerHTML = this.template(collection);
-                      console.log(this.el);
-                      //this.$el.html(this.template(collection));
-                      var cards = this.el.getElementsByClassName("event-card");
-
-                      function renderEventPage(id) {
-                      lastPage = "view-trending";
-                      app.drawEventPage(id);
-                      }
-
-                      for (var i = 0; i < cards.length; i++){
-                      renderFunc = renderEventPage.bind(this, cards[i].id);
-                      cardImg = $(cards[i]).find("img");
-                      cardImg.first().click(renderFunc);
-                  }*/  
-              },
-		//
-		drawList: function(mode){
+//define eventlistview
+        EventListView = Parse.View.extend({
+          data:null,
+          el:null,
+          template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
+          render:function(){
+              var collection = this.data = {event: this.collection.toJSON()};
+              this.organizeList("");
+          },
+        //
+        organizeList: function(mode){
+            console.log(mode);
             switch (mode.toLowerCase()){
+                case "cost":
+                this.data.event = this.sortByKey(this.data.event, "cost", true);
+                break;
                 default:
-                this.data.event = this.sortByKey(this.data.event, "title", true)
+                this.data.event = this.sortByKey(this.data.event, "title", true);
+                break;
             }
 
             this.el.innerHTML = this.template(this.data);
@@ -256,42 +229,59 @@ buildList: function() {
                     var cards = this.el.getElementsByClassName("event-card");
 
                     function renderEventPage(id) {
-                       lastPage = "view-trending";
-                       app.drawEventPage(id);
-                   }
+                     lastPage = "view-trending";
+                     app.drawEventPage(id);
+                 }
 
-                   for (var i = 0; i < cards.length; i++){
-                       renderFunc = renderEventPage.bind(this, cards[i].id);
-                       cardImg = $(cards[i]).find("img");
-                       cardImg.first().click(renderFunc);
-                   }
-               },
+                 for (var i = 0; i < cards.length; i++){
+                     renderFunc = renderEventPage.bind(this, cards[i].id);
+                     cardImg = $(cards[i]).find("img");
+                     cardImg.first().click(renderFunc);
+                 }
+             },
 
-               sortByKey: function(array, key, ascending) {
+             sortByKey: function(array, key, ascending) {
                 return array.sort(function(a, b) {
-                   var x = a[key]; var y = b[key];
-                   var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-                   return ascending ? diff : -1 * diff;
-               }); 
+                 var x = a[key]; var y = b[key];
+                 var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                 return ascending ? diff : -1 * diff;
+             }); 
             },
 
-		//
+        //
     });
 
+//run the functions
 
-
-this.eventList.fetch({success:function(eventList){
-  var eventListView = new EventListView({ collection: eventList });
-  eventListView.render();
-  document.getElementById("event-list-display").appendChild(eventListView.el);
-}, error:function(error){
-  console.dir(error);
+    this.buildList();
+    var modeOptions = document.getElementsByClassName("reorder-mode");
+    for (var i = 0; i < modeOptions.length; i++){
+      modeOptions[i].addEventListener("click", function(){
+        app.trendingPage.reorderList(this.innerHTML);
+    });
 }
-});
 
 },
 
+buildList: function() {
+ this.eventList = new EventList(),
+ app.trendingPage.drawList();
+},
 
+drawList: function(){
+    app.trendingPage.eventList.fetch({success:function(eventList){
+    app.trendingPage.eventListView = new EventListView({ collection: eventList });
+    app.trendingPage.eventListView.render();
+    document.getElementById("event-list-display").appendChild(app.trendingPage.eventListView.el);
+  }, error:function(error){
+      console.dir(error);
+  }
+});
+},
+
+reorderList: function(mode){
+    app.trendingPage.eventListView.organizeList(mode);
+}
 
 },
 
