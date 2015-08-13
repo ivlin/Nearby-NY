@@ -1,12 +1,12 @@
- var app = {
+var app = {
 
-   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-   viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
-   document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
-   lastPage:null,
-   Event: null,//Parse.Object.extend("Event"),
-   eventList: null,
+    PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+    PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+    viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
+    document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
+    lastPage:null,
+    Event: null,//Parse.Object.extend("Event"),
+    eventList: null,
 
     // Application Constructor
     initialize: function() {
@@ -102,274 +102,301 @@
     },
 
     signupPage: {
-       setupSignup: function(){
+     setupSignup: function(){
         var temp;
         temp = document.getElementById("signup-button");
         if (temp !== null){
-            temp.addEventListener("click", function(e){
-                var formName = document.getElementById("signup-username").value;
-                var formPass = document.getElementById("signup-password").value;
-                var formConfirmPass = document.getElementById("signup-confirm-password").value;
-                var formEmail = document.getElementById("signup-email").value;
-                if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
+          temp.addEventListener("click", function(e){
+            var formName = document.getElementById("signup-username").value;
+            var formPass = document.getElementById("signup-password").value;
+            var formConfirmPass = document.getElementById("signup-confirm-password").value;
+            var formEmail = document.getElementById("signup-email").value;
+            if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 
-                    e.preventDefault();
-                    Parse.User.signUp(formName, formPass, {},{
-                        success:function(result){
-                            document.getElementById("signup-status").innerHTML = "Registration successful";
-                        },
-                        error:function(error){
-                            console.dir(error);
-                            document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
-                        }
-                    });
-                }else{
-                    document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
+               e.preventDefault();
+               Parse.User.signUp(formName, formPass, {},{
+                success:function(result){
+                    document.getElementById("signup-status").innerHTML = "Registration successful";
+                },
+                error:function(error){
+                    console.dir(error);
+                    document.getElementById("signup-status").innerHTML = "Username already taken<br>Try again";
                 }
             });
+           }else{
+               document.getElementById("signup-status").innerHTML = "Form incorrectly filled";
+           }
+       });
 }
 }
 },
 
 signinPage: {
-    setupSignin: function(){
+	setupSignin: function(){
         var temp = document.getElementById("signin-button");
         if (temp !== null){
-            temp.addEventListener("click", function(e){
-                var formName = document.getElementById("signin-username").value;
-                var formPass = document.getElementById("signin-password").value;
-                if (formName !== "" && formPass !== ""){
-                    e.preventDefault();
-                    Parse.User.logIn(formName, formPass, {
-                        success:function(result){
-                            for (var x = 0; x < app.viewframes.length; x++){
-                                app.viewframes[x].style.display = "none";
-                            }
-                            document.getElementById("view-trending").style.display = "inline";
-                        },
-                        error:function(error){
-                            document.getElementById("signin-status").innerHTML = "Failed to sign in";
-                        }
-                    });
+          temp.addEventListener("click", function(e){
+            var formName = document.getElementById("signin-username").value;
+            var formPass = document.getElementById("signin-password").value;
+            if (formName !== "" && formPass !== ""){
+               e.preventDefault();
+               Parse.User.logIn(formName, formPass, {
+                success:function(result){
+                    for (var x = 0; x < app.viewframes.length; x++){
+                        app.viewframes[x].style.display = "none";
+                    }
+                    document.getElementById("view-trending").style.display = "inline";
+                },
+                error:function(error){
+                    document.getElementById("signin-status").innerHTML = "Failed to sign in";
                 }
             });
-        }
-    }
+           }
+       });
+      }
+  }
 },
 
 drawEventPage: function(objectId){
-    var eventObject, eventPageDisplay;
-    var query = new Parse.Query(Event);
+	var eventObject, eventPageDisplay;
+	var query = new Parse.Query(Event);
 
-    query.get(objectId,{
+	query.get(objectId,{
         success: function(result){
-            eventObject = result;
-       //     console.log(eventObject);
-       eventPageDisplay = new EventPageView();
-       eventPageDisplay.render(result);
-       app.changeViewTo("view-event");
-       document.getElementById("view-event").innerHTML = eventPageDisplay.htmlData;
-       
-       document.getElementById("goto-last").addEventListener("click", function (){
-        console.log(lastPage);
-        app.changeViewTo(lastPage);
-    });
+          eventObject = result;
+		//     console.log(eventObject);
+		eventPageDisplay = new EventPageView();
+		eventPageDisplay.render(result);
+		app.changeViewTo("view-event");
+		document.getElementById("view-event").innerHTML = eventPageDisplay.htmlData;
+		
+		document.getElementById("goto-last").addEventListener("click", function (){
+          console.log(lastPage);
+          app.changeViewTo(lastPage);
+      });
 
-   },
-   error: function(error){
-    console.dir(error);
+ },
+ error: function(error){
+  console.dir(error);
 }
 });
 
-    EventPageView = Parse.View.extend({
+	EventPageView = Parse.View.extend({
         htmlData:null,
         template:Handlebars.compile(document.getElementById("event-view-tpl").innerHTML),
         render:function(data){
-            var jsondata = data.toJSON();
+          var jsondata = data.toJSON();
 
-            /*
-Apply transformations to data
-*/
-         jsondata.time = ((Date)(jsondata.time)).toString();//toDateString() + " " + jsondata.time.toTimeString();
-         this.htmlData= this.template(jsondata);
-     }
- });
+		/*
+		  Apply transformations to data
+          */
+		jsondata.time = ((Date)(jsondata.time)).toString();//toDateString() + " " + jsondata.time.toTimeString();
+		this.htmlData= this.template(jsondata);
+ }
+});
 
 
 },
 
 trendingPage: {
 
-    sortByKey: function(array, key, ascending) {
-        return array.sort(function(a, b) {
-            var x = a[key]; var y = b[key];
-            var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-            return ascending ? diff : -1 * diff;
-        }); 
-    },
+	eventList: null,    
 
-    setupTrending: function (){
+	setupTrending: function (){
      this.buildList();
- },
-
- attachList: function() {
-    this.eventList.fetch({success:function(eventList){
-        var eventListView = new EventListView({ collection: eventList });
-        eventListView.render();
-        document.getElementById("event-list-display").appendChild(eventListView.el);
-    }, error:function(error){
-        console.dir(error);
-    }
-});
+     var modeOptions = document.getElementsByClassName("reorder-mode");
+     for (var i = 0; i < modeOptions.length; i++){
+      modeOptions[i].addEventListener("click", function(){
+        console.log(this.eventList);
+      });
+  }
 },
 
 buildList: function() {
-    EventList = Parse.Collection.extend({
-        model: Event
-    }),
+ EventList = Parse.Collection.extend({
+  model: Event
+}),
 
-    this.eventList = new EventList(),
+ this.eventList = new EventList(),
 
-    EventListView = Parse.View.extend({
-        template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
-        render:function(){
-            var collection = {event: this.collection.toJSON()};
-         //   this.collection.event = sortByKey(collection.event, mode, true);
-            this.el.innerHTML = this.template(collection);
-                //this.$el.html(this.template(collection));
-                var cards = this.el.getElementsByClassName("event-card");
+ EventListView = Parse.View.extend({
+  data:null,
+  el:null,
+  template:Handlebars.compile(document.getElementById("event-list-tpl").innerHTML),
+  render:function(){
+      var collection = this.data = {event: this.collection.toJSON()};
+		    //   this.collection.event = sortByKey(collection.event, mode, true);
+		    this.drawList("");
+		    /*
+                      this.el.innerHTML = this.template(collection);
+                      console.log(this.el);
+                      //this.$el.html(this.template(collection));
+                      var cards = this.el.getElementsByClassName("event-card");
 
-                function renderEventPage(id) {
-                    lastPage = "view-trending";
-                    app.drawEventPage(id);
-                }
+                      function renderEventPage(id) {
+                      lastPage = "view-trending";
+                      app.drawEventPage(id);
+                      }
 
-                for (var i = 0; i < cards.length; i++){
-                    renderFunc = renderEventPage.bind(this, cards[i].id);
-                    cardImg = $(cards[i]).find("img");
-                    cardImg.first().click(renderFunc);
-                }
+                      for (var i = 0; i < cards.length; i++){
+                      renderFunc = renderEventPage.bind(this, cards[i].id);
+                      cardImg = $(cards[i]).find("img");
+                      cardImg.first().click(renderFunc);
+                  }*/  
+              },
+		//
+		drawList: function(mode){
+            switch (mode.toLowerCase()){
+                default:
+                this.data.event = this.sortByKey(this.data.event, "title", true)
             }
-        });
+
+            this.el.innerHTML = this.template(this.data);
+                    //this.$el.html(this.template(collection));
+                    var cards = this.el.getElementsByClassName("event-card");
+
+                    function renderEventPage(id) {
+                       lastPage = "view-trending";
+                       app.drawEventPage(id);
+                   }
+
+                   for (var i = 0; i < cards.length; i++){
+                       renderFunc = renderEventPage.bind(this, cards[i].id);
+                       cardImg = $(cards[i]).find("img");
+                       cardImg.first().click(renderFunc);
+                   }
+               },
+
+               sortByKey: function(array, key, ascending) {
+                return array.sort(function(a, b) {
+                   var x = a[key]; var y = b[key];
+                   var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                   return ascending ? diff : -1 * diff;
+               }); 
+            },
+
+		//
+    });
 
 
 
-    this.eventList.fetch({success:function(eventList){
-        var eventListView = new EventListView({ collection: eventList });
-        eventListView.render();
-        document.getElementById("event-list-display").appendChild(eventListView.el);
-    }, error:function(error){
-        console.dir(error);
-    }
+this.eventList.fetch({success:function(eventList){
+  var eventListView = new EventListView({ collection: eventList });
+  eventListView.render();
+  document.getElementById("event-list-display").appendChild(eventListView.el);
+}, error:function(error){
+  console.dir(error);
+}
 });
 
+},
 
 
-}
 
 },
 
 mapPage: {
-    map: null,
-    eventMarkers: [],
+	map: null,
+	eventMarkers: [],
 
-    initialize: function() {
+	initialize: function() {
         var nyCoord = new google.maps.LatLng(40.7127,-74.0059);
         var canvas = document.getElementById("map-canvas");
-        /*canvas.style.width = app.style.width;
-        canvas.style.height = app.style.height;
-        */
-        this.map = new google.maps.Map(document.getElementById("map-canvas"), {
-          zoom: 16,
-          center: nyCoord,
-      });
-        //this.addMarker(40.7127,-74.0059);
-        this.plotEvents();
-    },
-
-    addMarker: function(lat, lon, id){
-        var temp = this.eventMarkers[this.eventMarkers.length] = new google.maps.Marker({
-          position: new google.maps.LatLng(lat,lon),
-          map: this.map,
-          eventId: id,
-      });
-
-        google.maps.event.addListener(temp, 'click', function(){
-            app.lastPage = "view-map";
-            app.drawEventPage(temp.eventId);
-        });
-    },
-
-    plotEvents: function(){
-      var query = new Parse.Query(Event);
-      query.find({
-        success: function(result){
-            this.eventMarkers = result;
-            var temp;
-            for (var i = 0; i < result.length; i++){
-                temp = result[i].get("location").toJSON();
-                app.mapPage.addMarker(temp.latitude, temp.longitude, result[i].id);
-            }
+            /*canvas.style.width = app.style.width;
+              canvas.style.height = app.style.height;
+              */
+              this.map = new google.maps.Map(document.getElementById("map-canvas"), {
+                  zoom: 16,
+                  center: nyCoord,
+              });
+            //this.addMarker(40.7127,-74.0059);
+            this.plotEvents();
         },
-        error: function(error){
-            console.dir(error);
-        }
-    });
-  },
+
+        addMarker: function(lat, lon, id){
+            var temp = this.eventMarkers[this.eventMarkers.length] = new google.maps.Marker({
+              position: new google.maps.LatLng(lat,lon),
+              map: this.map,
+              eventId: id,
+          });
+
+            google.maps.event.addListener(temp, 'click', function(){
+              app.lastPage = "view-map";
+              app.drawEventPage(temp.eventId);
+          });
+        },
+
+        plotEvents: function(){
+         var query = new Parse.Query(Event);
+         query.find({
+          success: function(result){
+              this.eventMarkers = result;
+              var temp;
+              for (var i = 0; i < result.length; i++){
+               temp = result[i].get("location").toJSON();
+               app.mapPage.addMarker(temp.latitude, temp.longitude, result[i].id);
+           }
+       },
+       error: function(error){
+          console.dir(error);
+      }
+  });
+     },
+ },
+
+ profilePage: {
+
+   curUser:null, 
+
+     setupProfilePage: function(){
+
+            this.curUser = Parse.User.current().toJSON();/*function (user) {
+							   this.curUser = user;
+							   console.log(this.curUser);
+                          });*/
+
+console.log(this.curUser);
+this.updateInfo();
+
+document.getElementById("edit-profile").addEventListener("click", function(){
+  app.profilePage.drawForm();
+  document.getElementById("set-bio-info").style.display = "inline";
+  document.getElementById("get-bio-info").style.display = "none";
+});
 },
 
-profilePage: {
+updateInfo: function(){
+    curUser = this.curUser;
+    document.getElementById("get-username").innerHTML = curUser.username;
+    document.getElementById("get-name").innerHTML = curUser.name;
+    document.getElementById("get-email").innerHTML = curUser.password;
+    document.getElementById("get-bio").innerHTML = curUser.biography;
+},
 
-    curUser:null, 
+drawForm: function(){
+    curUser = this.curUser;
 
-    setupProfilePage: function(){
+    document.getElementById("set-username").setAttribute("value", curUser.username);
+    document.getElementById("set-name").setAttribute("value", curUser.name);
+    document.getElementById("set-email").setAttribute("value", curUser.email);
+    document.getElementById("set-bio").innerHTML = curUser.biography;
 
-        this.curUser = Parse.User.current().toJSON();/*function (user) {
-            this.curUser = user;
-            console.log(this.curUser);
-        });*/
+    var labels = document.getElementsByTagName("label");
+    for (var i = 0; i < labels.length; i++){
+      labels[i].setAttribute("class","active");
+  }
 
-        console.log(this.curUser);
-        this.updateInfo();
+  document.getElementById("save-bio").addEventListener("click", function(){
+      Parse.User.current().set("name", document.getElementById("set-name").value);
+      Parse.User.current().set("biography", document.getElementById("set-bio").value);
+      Parse.User.current().save();
+      document.getElementById("set-bio-info").style.display = "none";
+      document.getElementById("get-bio-info").style.display = "inline";
+  });
 
-        document.getElementById("edit-profile").addEventListener("click", function(){
-            app.profilePage.drawForm();
-            document.getElementById("set-bio-info").style.display = "inline";
-            document.getElementById("get-bio-info").style.display = "none";
-        });
-    },
-
-    updateInfo: function(){
-        curUser = this.curUser;
-        document.getElementById("get-username").innerHTML = curUser.username;
-        document.getElementById("get-name").innerHTML = curUser.name;
-        document.getElementById("get-email").innerHTML = curUser.password;
-        document.getElementById("get-bio").innerHTML = curUser.biography;
-    },
-
-    drawForm: function(){
-        curUser = this.curUser;
-
-        document.getElementById("set-username").setAttribute("value", curUser.username);
-        document.getElementById("set-name").setAttribute("value", curUser.name);
-        document.getElementById("set-email").setAttribute("value", curUser.email);
-        document.getElementById("set-bio").innerHTML = curUser.biography;
-
-        var labels = document.getElementsByTagName("label");
-        for (var i = 0; i < labels.length; i++){
-            labels[i].setAttribute("class","active");
-        }
-
-        document.getElementById("save-bio").addEventListener("click", function(){
-            Parse.User.current().set("name", document.getElementById("set-name").value);
-            Parse.User.current().set("biography", document.getElementById("set-bio").value);
-            Parse.User.current().save();
-            document.getElementById("set-bio-info").style.display = "none";
-            document.getElementById("get-bio-info").style.display = "inline";
-        });
-
-    }
+}
 
 }
 
 };
+
