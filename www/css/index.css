@@ -98,3 +98,15 @@ button {
         /* offset horizontal: half of image width and text area width */
     }
 }
+
+.display {
+    padding-left: 240px;
+}
+
+.foot {
+    padding-left: 240px;
+}
+
+#signin-form > button {
+    display: inline;
+}

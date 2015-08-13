@@ -1,12 +1,8 @@
 var app = {
-
-    PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
-    PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
-    viewframes : [document.getElementById("view-signin"), document.getElementById("view-signup"), document.getElementById("view-trending"),
-    document.getElementById("view-map"), document.getElementById("view-event"), document.getElementById("view-profile")], 
-    lastPage:null,
-    Event: null,//Parse.Object.extend("Event"),
-    EventList: null,
+   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+   Event: null,
+   EventList: null,
 
     // Application Constructor
     initialize: function() {
@@ -19,80 +15,80 @@ var app = {
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
         this.onDeviceReady();
+        $(".button-collapse").sideNav();
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-
     onDeviceReady: function() {
         this.initParse();
         this.signinPage.setupSignin();
         this.signupPage.setupSignup();
         this.trendingPage.setupTrending();
         this.setupLinks();
-        if (Parse.User.current()){
+        login.initialize();
+        //trending.initialize();
+        this.setupLinks();
+        
+        if (Parse.User.current()) {
             document.getElementById("view-trending").style.display = "inline";
-        }else{
+        } else{
             document.getElementById("view-signin").style.display = "inline";
         }
     },
 
-    initParse: function(){
+    initParse: function() {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
-
         Event = Parse.Object.extend("Event");
-
         EventList = Parse.Collection.extend({
             model: Event
         });
     },
-
-    setupLinks: function(){
-        var temp = document.querySelectorAll(".goto-trending , .goto-signup , .goto-map , .goto-signin , .goto-profile, .signout");
-        for (var i = 0; i  < temp.length; i++){
-            switch (temp[i].getAttribute("class")){
-                case "goto-trending":
-                temp[i].addEventListener("click", function(){
-                    app.changeViewTo("view-trending");
+    setupLinks: function() {
+      var buttons = document.querySelectorAll(".goto-trending , .goto-signup , .goto-map , .goto-signin , .goto-profile, .signout");
+      for (var i = 0; i  < buttons.length; i++) {
+        switch (buttons[i].getAttribute("class")) {
+            case "goto-trending":
+                $(buttons[i]).click( function() {
+                    controller.changeViewTo("view-trending");
                 });
                 break;
-                case "goto-signup":
-                temp[i].addEventListener("click", function(){
-                    app.changeViewTo("view-signup");
+            case "goto-signup":
+                $(buttons[i]).click( function() {
+                    controller.changeViewTo("view-signup");
                 });
                 break;
-                case "goto-signin":
-                temp[i].addEventListener("click", function(){
-                    app.changeViewTo("view-signin");
+            case "goto-signin":
+                $(buttons[i]).click( function() {
+                    controller.changeViewTo("view-signin");
                 });
                 break;
-                case "goto-map":
-                temp[i].addEventListener("click", function(){
-                    app.changeViewTo("view-map");        
-                    app.mapPage.initialize();
+            case "goto-map":
+                $(buttons[i]).click( function() {
+                    controller.changeViewTo("view-map");        
+                    mapPage.initialize();
                 });
-                break;
-                case "goto-profile":
-                temp[i].addEventListener("click", function(){
+            case "goto-profile":
+                buttons[i].addEventListener("click", function(){
                     if (Parse.User.current()){
-                        app.changeViewTo("view-profile");
+                        controller.changeViewTo("view-profile");
                         app.profilePage.setupProfilePage();
                     }                    
                 });
                 break;
-                case "signout":
-                temp[i].addEventListener("click", function(){
+            case "signout":
+                buttons[i].addEventListener("click", function(){
                     Parse.User.logOut();
-                    app.changeViewTo("view-signin");
+                    controller.changeViewTo("view-signin");
                     app.profilePage.setupProfilePage();                        
-                })
+                });
                 break;
-                default:
+            default:
                 break;
-            }
         }
-    },
+    }
+},
 
     changeViewTo: function(viewId){
         for (var i = 0; i < this.viewframes.length; i++){
@@ -200,7 +196,7 @@ drawEventPage: function(objectId){
 trendingPage: {
 
 	eventList: null,
-    eventPageView: null,   
+  eventListView: null,   
 
 	setupTrending: function (){
 //define eventlistview
@@ -387,6 +383,5 @@ drawForm: function(){
 }
 
 }
-
 };
 
