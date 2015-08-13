@@ -138,8 +138,9 @@ signinPage: {
                e.preventDefault();
                Parse.User.logIn(formName, formPass, {
                 success:function(result){
-                    for (var x = 0; x < app.viewframes.length; x++){
-                        app.viewframes[x].style.display = "none";
+                    for (var x = 0; x < viewframes.length; x++){
+                        //viewframes[x].style.display = "none";
+                        viewframes[x].hide();
                     }
                     document.getElementById("view-trending").style.display = "inline";
                 },
@@ -372,7 +373,8 @@ drawForm: function(){
       labels[i].setAttribute("class","active");
   }
 
-  document.getElementById("save-bio").addEventListener("click", function(){
+  document.getElementById("save-bio").addEventListener("click", function(e){
+      e.preventDefault();
       Parse.User.current().set("name", document.getElementById("set-name").value);
       Parse.User.current().set("biography", document.getElementById("set-bio").value);
       Parse.User.current().save();
