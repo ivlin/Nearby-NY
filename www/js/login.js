@@ -2,7 +2,7 @@ var login = {
 	initialize: function() {
 		setupLoginHandlers();
 	}
-};
+}
 
 function setupLoginHandlers() {
 	$("#signup-button").click(validateSignUp);
@@ -16,13 +16,12 @@ function signOut() {
 }
 
 function validateSignIn() {
-	var formName = $("#form-username").val();
-	var formPass = $("#form-password").val();
+	var formName = $("#signin-username").val();
+	var formPass = $("#signin-password").val();
 	if (formName !== "" && formPass !== ""){
-		e.preventDefault();
 		Parse.User.logIn(formName, formPass, {
 			success:function(result){
-				location.href = "trending.html";
+				controller.changeViewTo("view-trending");
 			},
 			error:function(error){
 				$("#signin-status").html("Failed to sign in");
@@ -32,20 +31,19 @@ function validateSignIn() {
 }
 
 function validateSignUp() {
-	var formName = $("#form-username").val();
-	var formPass = $("#form-password").val();
-	var formConfirmPass = $("#form-confirm-password").val();
-	var formEmail = $("#form-email").val();
+	var formEmail = $("#signup-email").val();
+	var formName = $("#signup-username").val();
+	var formPass = $("#signup-password").val();
+	var formConfirmPass = $("#signup-confirm-password").val();
 	if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
-		e.preventDefault();
 		Parse.User.signUp(formName, formPass, {},{
 			success:function(result){
 				console.log("success");
 				$("#signup-status").html("Registration successful");
 			},
 			error:function(error){
-				console.dir(error);
-				$("#signup-status").html("Username already taken<br>Try again");
+				console.log(error);
+				$("#signup-status").html("Registration failed<br>Try again");
 			}
 		});
 	} else {

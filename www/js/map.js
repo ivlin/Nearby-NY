@@ -1,4 +1,4 @@
-var mapPage = {
+var map = {
     map: null,
     eventMarkers: [],
 

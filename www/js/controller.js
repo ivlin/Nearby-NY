@@ -3,7 +3,8 @@ var viewframes = [
     $("#view-signup"),
     $("#view-trending"),
     $("#view-map"),
-    $("#view-event")
+    $("#view-event"),
+    $("#view-profile")
 ];
 
 var controller = {
