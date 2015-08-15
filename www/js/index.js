@@ -1,8 +1,8 @@
 var app = {
- PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
- PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
- Event: null,
- EventList: null,
+   PARSE_APP : "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
+   PARSE_JS : "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+   Event: null,
+   EventList: null,
 
     // Application Constructor
     initialize: function() {
@@ -47,6 +47,7 @@ var app = {
             model: Event
         });
     },
+
     setupLinks: function() {
       var buttons = document.querySelectorAll(".goto-trending , .goto-signup , .goto-map , .goto-signin , .goto-profile, .signout");
       for (var i = 0; i  < buttons.length; i++) {
@@ -93,13 +94,13 @@ var app = {
     }
 },
 
-    drawEventPage: function(objectId){
-       var eventObject, eventPageDisplay;
-       var query = new Parse.Query(Event);
+drawEventPage: function(objectId){
+ var eventObject, eventPageDisplay;
+ var query = new Parse.Query(Event);
 
-       query.get(objectId,{
-        success: function(result){
-          eventObject = result;
+ query.get(objectId,{
+    success: function(result){
+      eventObject = result;
 		//     console.log(eventObject);
 		eventPageDisplay = new EventPageView();
 		eventPageDisplay.render(result);
@@ -111,27 +112,28 @@ var app = {
           app.changeViewTo(lastPage);
       });
 
-   },
-   error: function(error){
-      console.dir(error);
-  }
+ },
+ error: function(error){
+  console.dir(error);
+}
 });
 
-       EventPageView = Parse.View.extend({
-        htmlData:null,
-        template:Handlebars.compile(document.getElementById("event-view-tpl").innerHTML),
-        render:function(data){
-          var jsondata = data.toJSON();
+ EventPageView = Parse.View.extend({
+    htmlData:null,
+    template:Handlebars.compile(document.getElementById("event-view-tpl").innerHTML),
+    render:function(data){
+      var jsondata = data.toJSON();
 		/*
 		  Apply transformations to data
-        */
+          */
 		jsondata.time = ((Date)(jsondata.time)).toString();//toDateString() + " " + jsondata.time.toTimeString();
 		this.htmlData= this.template(jsondata);
-   }
+
+ }
 });
 
 
-   },
+},
 
 };
 

@@ -203,7 +203,7 @@
             <span class="card-title activator grey-text text-darken-4">
               <span id = "get-username"></span>
               <div class = "right">
-            <i id = "edit-profile" class = "material-icons">settings</i> <i class="material-icons">. . .</i>
+            <i id = "edit-bio" class = "material-icons">settings</i> <i class="material-icons">. . .</i>
               </div>
             </span>
             <p>name:<span id = "get-name"></span></p>
@@ -251,42 +251,69 @@
       <div class="collapsible-body"><p id = "event-schedule"></p></div>
     </li>
     <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Friends</div>
-      <div class="collapsible-body"><p id = "friends-list"></p></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Settings</div>
-      <div class="collapsible-body"><p id = "profile-settings"></p></div>
-    </li>
-      </ul>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
+    <div class="collapsible-body"><p id = "event-preferences">
 
-      <div class = "foot">
-    <footer class="page-footer grey darken-4">
-      <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-        <h5 class="white-text">Thanks for visiting</h5>
-        <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-              </div>
-              <div class="col l4 offset-l2 s12">
-        <h5 class="white-text">Links</h5>
-        <ul>
-          <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-          <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-        </ul>
-              </div>
-            </div>
-      </div>
-      <div class="footer-copyright">
-            <div class="container">
-              © 2015 NearbyNY
-            </div>
-      </div>
-    </footer>
+    <i id = "update-event-preferences" class = "material-icons">settings</i>
+
+      <form action="#" id = "event-preferences-form">
+        <p>
+          <input type="checkbox" id="sports" class="filled-in tag-selector"/>
+          <label for="sports">sports</label>
+        </p>
+        <p>
+          <input type="checkbox" id="technology" class="filled-in tag-selector"/>
+          <label for="technology">technology</label>
+        </p>
+        <p>
+          <input type="checkbox" id="media" class="filled-in tag-selector"/>
+          <label for="media">media</label>
+        </p>
+        <p>
+          <input type="checkbox" id="education" class="filled-in tag-selector"/>
+          <label for="education">education</label>
+        </p>
+      </form>
+
+    </p></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Friends</div>
+    <div class="collapsible-body"><p id = "friends-list"></p></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Settings</div>
+    <div class="collapsible-body"><p id = "profile-settings"></p></div>
+  </li>
+</ul>
+
+<div class = "foot">
+  <footer class="page-footer grey darken-4">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Thanks for visiting</h5>
+          <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+          </ul>
+        </div>
       </div>
     </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2015 NearbyNY
+      </div>
+    </div>
+  </footer>
+</div>
+</div>
 
 </div>
 </body>

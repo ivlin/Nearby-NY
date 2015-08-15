@@ -10,27 +10,32 @@ var profile = {
 setupProfilePage: function(){
   this.curUser = Parse.User.current().toJSON();
   this.updateInfo();
+  this.updatePreferenceForm();
 },
 
 setupHandlers: function(){
-  document.getElementById("edit-profile").addEventListener("click",function(){
+  $("#edit-bio").click(function(){
     profile.drawForm();
    // document.getElementById("set-bio-info").style.display = "inline";
    // document.getElementById("get-bio-info").style.display = "none";
    $("#set-bio-info").css("display", "inline");
- $("#get-bio-info").css("display", "none");
-});
+   $("#get-bio-info").css("display", "none");
+ });
 
-  document.getElementById("save-bio").addEventListener("click", function(e){
+  $("#save-bio").click(function(e){
     e.preventDefault();
-    Parse.User.current().set("name", document.getElementById("set-name").value);
-    Parse.User.current().set("biography", document.getElementById("set-bio").value);
+    Parse.User.current().set("name", $("#set-name").val());
+    Parse.User.current().set("biography", $("#set-bio").val());
     Parse.User.current().save();
 
-profile.setupProfilePage();
+    profile.setupProfilePage();
 
     $("#set-bio-info").css("display","none");
     $("#get-bio-info").css("display","inline");
+  });
+
+  $("#update-event-preferences").click(function(){
+    profile.updateUserPreferences();
   });
 },
 
@@ -53,5 +58,24 @@ drawForm: function(){
   }
 
 },
+
+updatePreferenceForm: function() {
+  var userTags = profile.curUser.tags;
+  for (var i = 0; i < userTags.length; i++){
+    document.getElementById(userTags[i]).checked = true;
+  }
+},
+
+updateUserPreferences: function() {
+  var tagBoxes = $(".tag-selector");
+  var tagArray = [];
+  for (var i = 0; i < tagBoxes.length; i++){
+    if (tagBoxes[i].checked){
+      tagArray[tagArray.length] = tagBoxes[i].id;
+    }
+  }
+  Parse.User.current().set("tags", tagArray);
+  Parse.User.current().save();
+}
 
 };
