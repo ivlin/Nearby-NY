@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html>
+
+<!--1280 x 720 -->
   <head>
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no" />
@@ -88,6 +90,7 @@
         <!-- Dropdown Structure -->
         <ul id='reorder-trending' class='dropdown-content'>
           <li><a href="#!" class = "reorder-mode">Popular</a></li>
+          <li><a href="#!" class = "reorder-mode">Date</a></li>
           <li><a href="#!" class = "reorder-mode">Title</a></li>
           <li><a href="#!" class = "reorder-mode">Cost</a></li>
         </ul>
@@ -160,10 +163,42 @@
 
     <!-- Maps -->
     <!-- Maps -->
-    <div id = "view-map" class = "viewframe">
-      <button class = "goto-trending">
+    <div id="view-map" class="viewframe">
+      <button class="goto-trending">
       </button>
-      <div id = "map-canvas">
+      <div id="map-key">
+      </div>
+      <div id="map-options">
+        <form action="#"><p>
+          Show visited events: (must be logged in)
+          <div class="switch">
+            <label>Off <input type="checkbox" id="map-event-visited"><span class="lever"></span>On</label>
+          </div>
+        </form></p>
+        <form action="#"><p>
+          Show only events matching my preference: (must be logged in)
+          <div class="switch">
+            <label>Off<input type="checkbox" id="map-event-preference"><span class="lever"></span>One</label>
+          </div>
+        </form></p>
+        <form action="#" id="map-event-timeframe">
+          Show events taking place within:
+          <p>
+            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-day"  />
+            <label for="show-day">One Day</label>
+            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-week" />
+            <label for="show-week">One Week</label>
+            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-month" />
+            <label for="show-month">One Month</label>
+            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-year" />
+            <label for="show-year">One Year</label>
+            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-all" checked/>
+            <label for="show-all">Eternity</label>
+          </p>
+        </form>
+        <a class="waves-effect waves-light btn" id="update-map-events"><i class="material-icons left"></i>Update Map</a>
+      </div>
+      <div id="map-canvas">
       </div>
     </div>
 
@@ -254,7 +289,7 @@
     <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
     <div class="collapsible-body"><p id = "event-preferences">
 
-    <i id = "update-event-preferences" class = "material-icons">settings</i>
+    <i id = "toggle-tag-selectors" class = "material-icons">settings</i>
 
       <form action="#" id = "event-preferences-form">
         <p>
@@ -274,7 +309,7 @@
           <label for="education">education</label>
         </p>
       </form>
-
+      <a class="waves-effect waves-light btn" id="update-event-preferences"><i class="material-icons left"></i>Update Preferences</a>
     </p></div>
   </li>
   <li>
@@ -329,7 +364,7 @@
       <span class="card-title">{{title}}</span>
     </div>
     <div class="card-content white-text">
-      <p class = "event-description">{{description}}</p>
+      <p class = "event-description">{{address}}<br>{{time}}</p>
     </div>
     <div class="card-action red darken-3 white-text z-depth-3">
       <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">

@@ -13,8 +13,9 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
+     //document.addEventListener('deviceready', this.onDeviceReady, false);
         this.onDeviceReady();
+
         $(".button-collapse").sideNav();
     },
     // deviceready Event Handler
@@ -26,13 +27,12 @@ var app = {
   //      this.signinPage.setupSignin();
      //   this.signupPage.setupSignup();
        // this.trendingPage.setupTrending();
-       this.setupLinks();
        login.initialize();
      // map.initialize()
         //map.initialize();
         trending.initialize();
         this.setupLinks();
-        
+
         if (Parse.User.current()) {
             document.getElementById("view-trending").style.display = "inline";
         } else{
@@ -104,12 +104,11 @@ drawEventPage: function(objectId){
 		//     console.log(eventObject);
 		eventPageDisplay = new EventPageView();
 		eventPageDisplay.render(result);
-		app.changeViewTo("view-event");
+		controller.changeViewTo("view-event");
 		document.getElementById("view-event").innerHTML = eventPageDisplay.htmlData;
 		
 		document.getElementById("goto-last").addEventListener("click", function (){
-          console.log(lastPage);
-          app.changeViewTo(lastPage);
+          controller.changeViewTo(lastPage);
       });
 
  },
@@ -126,7 +125,7 @@ drawEventPage: function(objectId){
 		/*
 		  Apply transformations to data
           */
-		jsondata.time = ((Date)(jsondata.time)).toString();//toDateString() + " " + jsondata.time.toTimeString();
+		jsondata.time = new Date(jsondata.time.iso);
 		this.htmlData= this.template(jsondata);
 
  }

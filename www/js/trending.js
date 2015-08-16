@@ -10,14 +10,23 @@ var trending = {
           template:Handlebars.compile($("#event-list-tpl").html()),
           render:function(){
               var collection = this.data = {event: this.collection.toJSON()};
-              this.organizeList("");
-          },
 
-          organizeList: function(mode){
+              for (var i = 0; i < this.data.event.length; i++){
+                this.data.event[i].time = new Date(this.data.event[i].time.iso);
+            }
+            
+            this.organizeList("");
+        },
+
+        organizeList: function(mode){
             switch (mode.toLowerCase()){
                 case "cost":
                 this.data.event = this.sortByKey(this.data.event, "cost", true);
                 break;
+                case "date":
+                this.data.event = this.sortByKey(this.data.event, "time", true);
+                break;
+                case "title":
                 default:
                 this.data.event = this.sortByKey(this.data.event, "title", true);
                 break;
