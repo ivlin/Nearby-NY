@@ -27,8 +27,15 @@ var trending = {
                 this.data.event = this.sortByKey(this.data.event, "time", true);
                 break;
                 case "title":
-                default:
                 this.data.event = this.sortByKey(this.data.event, "title", true);
+                break;
+                case "popular":
+                default:
+                this.data.event = this.data.event.sort(function(a, b) {
+                   var x = a["to_attend"].length; var y = b["to_attend"].length;
+                   var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                   return -1 * diff;
+               });//doesnt update trending page
                 break;
             }
 
@@ -36,23 +43,23 @@ var trending = {
             var cards = this.el.getElementsByClassName("event-card");
 
             function renderEventPage(id) {
-             lastPage = "view-trending";
-             app.drawEventPage(id);
-         }
+               lastPage = "view-trending";
+               app.drawEventPage(id);
+           }
 
-         for (var i = 0; i < cards.length; i++){
-             renderFunc = renderEventPage.bind(this, cards[i].id);
-             cardImg = $(cards[i]).find("img");
-             cardImg.first().click(renderFunc);
-         }
-     },
+           for (var i = 0; i < cards.length; i++){
+               renderFunc = renderEventPage.bind(this, cards[i].id);
+               cardImg = $(cards[i]).find("img");
+               cardImg.first().click(renderFunc);
+           }
+       },
 
-     sortByKey: function(array, key, ascending) {
+       sortByKey: function(array, key, ascending) {
         return array.sort(function(a, b) {
-         var x = a[key]; var y = b[key];
-         var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-         return ascending ? diff : -1 * diff;
-     }); 
+           var x = a[key]; var y = b[key];
+           var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+           return ascending ? diff : -1 * diff;
+       }); 
     },
 
 

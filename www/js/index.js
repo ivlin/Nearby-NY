@@ -100,14 +100,83 @@ drawEventPage: function(objectId){
 
  query.get(objectId,{
     success: function(result){
-      eventObject = result;
+          eventObject = result;
 		//     console.log(eventObject);
 		eventPageDisplay = new EventPageView();
 		eventPageDisplay.render(result);
 		controller.changeViewTo("view-event");
 		document.getElementById("view-event").innerHTML = eventPageDisplay.htmlData;
-		
-		document.getElementById("goto-last").addEventListener("click", function (){
+
+    //New stuff                
+    var upData = result.toJSON();
+
+    function addMeToArray(attr){
+        if (Parse.User.current()){
+            upData[attr].push(Parse.User.current().id);
+            result.save(upData, {
+                success:function(r){console.log("successfully updated array");},
+                error:function(e){console.log("failed to update array")}
+            });
+        }
+    };
+
+    function removeMeFromArray(attr){
+        if (Parse.User.current()){
+            var ind = findMeInArray(attr);
+            if (ind !== -1){
+                upData[attr].splice(ind, 1);
+                result.save(upData, {
+                    success:function(r){console.log("successfully updated array");},
+                    error:function(e){console.log("failed to update array")}
+                });
+            }
+        }
+    }
+
+    function findMeInArray(attr){
+        if (Parse.User.current()){
+            return upData[attr].indexOf(Parse.User.current().id);
+        }
+        return -1;//guest
+    }
+
+    $("#event-reserve").click(function (){
+        if (findMeInArray("to_attend") === -1){
+            addMeToArray("to_attend");
+        }else{
+            removeMeFromArray("to_attend");
+        }
+    });
+
+    $("#event-checkin").click(function (){
+        if (findMeInArray("attended") === -1){
+        addMeToArray("attended");
+    }else{
+        removeMeFromArray("attended");
+    }
+
+    });
+
+    $("#event-upvote").click(function (){
+        if (findMeInArray("upvotes") === -1){
+            addMeToArray("upvotes");
+            removeMeFromArray("downvotes");
+        }else{
+            removeMeFromArray("upvotes");
+        }
+    });
+
+    $("#event-downvote").click(function (){
+        if (findMeInArray("downvotes") === -1){
+            addMeToArray("downvotes");
+            removeMeFromArray("upvotes");
+        }else{
+            removeMeFromArray("downvotes");
+        }
+    });
+
+		//
+		$("#goto-last").click(function (){
           controller.changeViewTo(lastPage);
       });
 

@@ -87,6 +87,7 @@
       <div id = "view-trending" class = "viewframe">
     <div class = "head">
       <div class="navbar-fixed">
+
         <!-- Dropdown Structure -->
         <ul id='reorder-trending' class='dropdown-content'>
           <li><a href="#!" class = "reorder-mode">Popular</a></li>
@@ -98,18 +99,19 @@
         <!-- Top Nav Bar -->   
         <nav>
           <div class="nav-wrapper grey darken-4">
-        <!-- Dropdown Trigger -->
-        <ul id="nav-mobile" class="right">
-          <!-- Dropdown Trigger -->
-          <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
-          <li class = "signout"><a href="#">Signout</a></li>
-        </ul>
+
+            <!-- Dropdown Trigger -->
+            <ul id="nav-mobile" class="right">
+              <!-- Dropdown Trigger -->
+              <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li class = "signout"><a href="#">Signout</a></li>
+            </ul>
           </div>
           <ul id="slide-out" class="side-nav fixed">
-        <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-        <li class = "goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-        <li class = "goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
-        <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
+            <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
+            <li class = "goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
+            <li class = "goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
+            <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
           </ul>
           <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         </nav>
@@ -289,8 +291,6 @@
     <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
     <div class="collapsible-body"><p id = "event-preferences">
 
-    <i id = "toggle-tag-selectors" class = "material-icons">settings</i>
-
       <form action="#" id = "event-preferences-form">
         <p>
           <input type="checkbox" id="sports" class="filled-in tag-selector"/>
@@ -395,6 +395,11 @@
     address: <p>{{address}}</p><br>
     cost: <p>{{cost}}</p><br>
     description: <p>{{description}}</p><br>
+    <a class="waves-effect waves-light btn" id="event-reserve"><i class="material-icons left"></i>Plan to Attend</a>
+    <a class="waves-effect waves-light btn" id="event-checkin"><i class="material-icons left"></i>Check In</a>
+    <i class="material-icons left" id="event-upvote">thumb_up</i>
+    <i class="material-icons left" id="event-downvote">thumb_down</i>
+    <i class="material-icons left" id="event-votes">thumbs_up_down</i>
   </div>
 </script>
 
