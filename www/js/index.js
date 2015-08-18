@@ -17,6 +17,7 @@ var app = {
         this.onDeviceReady();
 
         $(".button-collapse").sideNav();
+        $('.parallax').parallax();
     },
     // deviceready Event Handler
     //

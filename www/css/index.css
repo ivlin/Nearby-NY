@@ -117,3 +117,15 @@ button {
 #signin-form > button {
     display: inline;
 }
+
+.section-caption {
+    font-size: 1.7rem;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.event-info-row {
+    margin: auto;
+    width: 80%;
+}
