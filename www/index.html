@@ -112,6 +112,15 @@
             <li class = "goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
             <li class = "goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
             <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
+            <li>
+            <form>
+                  <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label for="search"><i class="material-icons" id="search-trending">search</i></label>
+                    <i class="material-icons" id="search-close">close</i>
+                  </div>
+                </form>
+            </li>
           </ul>
           <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
         </nav>
@@ -123,17 +132,7 @@
     </div>
     <div class = "foot">
 
-      <div class="navbar-fixed">
-        <nav>
-          <div class="nav-wrapper">
-        <a href="#!" class="brand-logo">Logo</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="sass.html">Sass</a></li>
-          <li><a href="badges.html">Components</a></li>
-        </ul>
-          </div>
-        </nav>
-      </div>
+
 
       <footer class="page-footer grey darken-4">
         <div class="container">
@@ -355,6 +354,7 @@
 <script type="text/javascript" src="phonegap.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
 <script id = "event-list-tpl" type="text/x-handlebars-template">
+<div id="list-template-display">
   <div class="row">
     {{#each event}}
     <div class="col s12 m12 l6 event-card" id = "{{objectId}}">
@@ -375,6 +375,7 @@
       </div>
     </div>
     {{/each}}
+  </div>
   </div>
 </script>
 

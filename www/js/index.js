@@ -34,9 +34,9 @@ var app = {
         this.setupLinks();
 
         if (Parse.User.current()) {
-            document.getElementById("view-trending").style.display = "inline";
+            $("#view-trending").css("display","inline");
         } else{
-            document.getElementById("view-signin").style.display = "inline";
+            $("#view-signin").css("display", "inline");
         }
     },
 
