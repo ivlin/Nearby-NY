@@ -12,7 +12,7 @@ var trending = {
           el:null,
           template:Handlebars.compile($("#event-list-tpl").html()),
           render:function(){
-              this.data = {event: this.collection };
+              this.data = {event: this.collection};
               for (var i = 0; i < this.data.event.length; i++){
                 this.data.event[i].time = new Date(this.collection[i].time.iso);
             }
@@ -76,7 +76,22 @@ this.buildList();
    },
 
    drawList: function(){
-    trending.eventList.fetch({success:function(eventList){
+
+     var query = new Parse.Query(Event);
+     var today = new Date();
+     query.greaterThanOrEqualTo("time", today);
+     query.find({success:function(eventList){
+        for (var i = 0; i < eventList.length; i++){
+            eventList[i] = eventList[i].toJSON();
+        }
+        trending.eventListView = new EventListView({ collection: eventList});
+        trending.eventListView.render();
+        $("#event-list-display").append(trending.eventListView.el);
+    }, error:function(error){
+      console.dir(error);
+  }
+});
+   /*trending.eventList.fetch({success:function(eventList){
         trending.eventListView = new EventListView({ collection: eventList.toJSON()});
         console.log(trending.eventListView.collection);
         trending.eventListView.render();
@@ -84,7 +99,7 @@ this.buildList();
     }, error:function(error){
       console.dir(error);
   }
-});
+});*/
 },
 
 reorderList: function(mode){
