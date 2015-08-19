@@ -35,6 +35,7 @@ var profile = {
         });
 
         $("#set-profile-pic").change(function() {
+            // if we've selected a picture from the file picker, let this button be pressed
             $("#upload-profile-pic").removeClass("disabled");
         });
 
