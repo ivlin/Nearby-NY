@@ -159,7 +159,7 @@ drawEventPage: function(objectId){
     });
 
     $("#event-upvote").click(function (){
-        if (findMeInArray("upvotes") === -1){
+        if (findMeInArray("attended") >= 0 && findMeInArray("upvotes") === -1){
             addMeToArray("upvotes");
             removeMeFromArray("downvotes");
         }else{
@@ -168,7 +168,7 @@ drawEventPage: function(objectId){
     });
 
     $("#event-downvote").click(function (){
-        if (findMeInArray("downvotes") === -1){
+        if (findMeInArray("attended") >= 0 && findMeInArray("downvotes") === -1){
             addMeToArray("downvotes");
             removeMeFromArray("upvotes");
         }else{
