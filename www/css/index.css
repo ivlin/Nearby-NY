@@ -16,103 +16,114 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- * {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
 body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-attachment:fixed;
-    font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
-    width:100%;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    text-transform:uppercase;
+    -webkit-touch-callout: none;
+    /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;
+    /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;
+    /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-attachment: fixed;
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-transform: uppercase;
 }
+
 
 /* Portrait layout (default) */
+
 .app {
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 }
 
-#signin-form, #signup-form{
+#signin-form,
+#signup-form {
     text-align: center;
     margin: 0 auto;
 }
 
-#nearbylogo{
+#nearbylogo {
     margin: 20px auto;
     display: block;
-    width:80%;
-    height:auto;
-    
+    width: 80%;
+    height: auto;
 }
 
-.event-item{
+.event-item {
     width: 100%;
     height: 120px;
-    background-color:#DDD;
+    background-color: #DDD;
     border-bottom: 1px solid #BBB;
     position: relative;
 }
 
-#eventList{
-    width:100%;
+#eventList {
+    width: 100%;
     height: 100px;
-    position:relative;
-    background-color:red;
+    position: relative;
+    background-color: red;
 }
 
-#map-canvas{
-    width:100%;
-    height:95%;
-    position:absolute;
+#map-canvas {
+    width: 100%;
+    height: 95%;
+    position: absolute;
 }
 
-#map-options{
-    background-color:rgb(240,240,240);
-    padding:10px;
+#map-options {
+    background-color: rgb(240, 240, 240);
+    padding: 10px;
 }
 
-.viewframe{
-    display:none;
-    height:100%;
-    width:100%;
+.viewframe {
+    display: none;
+    height: 100%;
+    width: 100%;
 }
 
-#set-bio-info{
-    display:none;
+#set-bio-info {
+    display: none;
 }
 
 button {
-    height:100px;
-    width:150px;
+    height: 100px;
+    width: 150px;
 }
 
+
 /* Landscape layout (with min-width) */
+
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
     .app {
-        background-position:left center;
-        padding:0;
+        background-position: left center;
+        padding: 0;
         /*padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:0;
-       /* margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
+        margin: 0;
+        /* margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
         /* offset horizontal: half of image width and text area width */
     }
 }
 
-.display {
+
+/*.display {
     padding-left: 240px;
 }
 
 .foot {
     padding-left: 240px;
 }
+*/
 
 #signin-form > button {
     display: inline;
@@ -127,5 +138,4 @@ button {
 
 .event-info-row {
     margin: auto;
-    width: 80%;
 }

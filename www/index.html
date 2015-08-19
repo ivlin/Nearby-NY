@@ -1,485 +1,477 @@
 <!DOCTYPE html>
 <html>
-
 <!--1280 x 720 -->
-  <head>
-    <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 
-      <!-- 3rd Party CSS Libraries -->
+<head>
+  <meta charset="utf-8" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <!-- 3rd Party CSS Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
   <!-- Custom CSS -->
   <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <title>Sign In</title>
+</head>
 
-    <title>Sign In</title>
-  </head>
-  <body>
-    <div class = "app" id = "app">
-
-      <!-- Login -->
-      <!-- Login -->
-      <div id = "view-signin" class = "viewframe">
-    <img id = "nearbylogo" src = "img/nearbylogo.png"/>
-    <div id = "signin-form">
-      <div id = "signin-status"></div>
-      username: <input type = "text" name = "email" id = "signin-username"><br>
-      password: <input type = "text" name = "password" id = "signin-password"><br>
-      login with facebook: under construction<br>
-      <button id = "signin-button">Login</button><br>
-      <button class = "goto-signup">Sign Up</button><br>
-      <button class = "goto-trending">Continue as Guest</button><br>
-    </div>
+<body>
+  <div class="app" id="app">
+    <!-- Login -->
+    <!-- Login -->
+    <div id="view-signin" class="viewframe">
+      <img id="nearbylogo" src="img/nearbylogo.png" />
+      <div id="signin-form">
+        <div id="signin-status"></div>
+        username:
+        <input type="text" name="email" id="signin-username">
+        <br> password:
+        <input type="text" name="password" id="signin-password">
+        <br> login with facebook: under construction
+        <br>
+        <button id="signin-button">Login</button>
+        <br>
+        <button class="goto-signup">Sign Up</button>
+        <br>
+        <button class="goto-trending">Continue as Guest</button>
+        <br>
       </div>
 
-      <!-- Signup -->
-      <!-- Signup -->
-      <div id = "view-signup" class = "viewframe">
-    <img id = "nearbylogo" src = "img/nearbylogo.png"/>
-    <div id = "signup-form">
-      <div id = "signup-status"></div>
-      e-mail: <input type = "text" name = "email" id = "signup-email"><br>
-      username: <input type = "text" name = "username" id = "signup-username"><br>
-      password: <input type = "text" name = "password" id = "signup-password"><br>     
-      confirm password: <input type = "text" name = "confirm-password" id = "signup-confirm-password"><br>
-      login with facebook: under construction<br>
-      <button id = "signup-button">Sign Up</button><br>
-      <button class = "goto-signin">Go Back</button><br>
     </div>
-      </div>
-
-      <!-- Friends -->
-      <!-- Friends -->
-      <div id = "view-friends" class = "viewframe">
-    <div class = "head">
-      <div class="navbar-fixed">
-        <!-- Top Nav Bar -->   
-        <nav>
-              <div class="nav-wrapper grey darken-4">
-        <ul id="nav-mobile" class="right">
-          <li class = "signout"><a href="#">Signout</a></li>
-        </ul>
-              </div>
-        </nav>
+    <!-- Signup -->
+    <!-- Signup -->
+    <div id="view-signup" class="viewframe">
+      <img id="nearbylogo" src="img/nearbylogo.png" />
+      <div id="signup-form">
+        <div id="signup-status"></div>
+        e-mail:
+        <input type="text" name="email" id="signup-email">
+        <br> username:
+        <input type="text" name="username" id="signup-username">
+        <br> password:
+        <input type="text" name="password" id="signup-password">
+        <br> confirm password:
+        <input type="text" name="confirm-password" id="signup-confirm-password">
+        <br> login with facebook: under construction
+        <br>
+        <button id="signup-button">Sign Up</button>
+        <br>
+        <button class="goto-signin">Go Back</button>
+        <br>
       </div>
     </div>
-
-    <!-- Side Nav Bar -->
-    <nav>
-      <ul id="slide-out" class="side-nav fixed">
-        <li><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-        <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-        <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
-      </ul>
-      <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-    </nav>
-
-    <div class="display">
-      <div id="friend-list-display"></div>
-    </div>
-      </div>
-
-      <!-- Trending -->
-      <!-- Trending -->
-      <div id = "view-trending" class = "viewframe">
-    <div class = "head">
-      <div class="navbar-fixed">
-
-        <!-- Dropdown Structure -->
-        <ul id='reorder-trending' class='dropdown-content'>
-          <li><a href="#!" class="reorder-mode">Popular</a></li>
-          <li><a href="#!" class="reorder-mode">Date</a></li>
-          <li><a href="#!" class="reorder-mode">Title</a></li>
-          <li><a href="#!" class="reorder-mode">Cost</a></li>
-          <li><a href="#!" id="reorder-mode-preference">Preference</a></li>
-        </ul>
-
-        <!-- Top Nav Bar -->   
-        <nav>
-          <div class="nav-wrapper grey darken-4">
-
-            <!-- Dropdown Trigger -->
-            <ul id="nav-mobile" class="right">
-              <!-- Dropdown Trigger -->
-              <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
-              <li class = "signout"><a href="#">Signout</a></li>
-            </ul>
-          </div>
-          <ul id="slide-out" class="side-nav fixed">
-            <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-            <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-            <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
-            <li class="goto-friends"><a href="#!"><i class="material-icons left">contacts</i>Friends</a></li>
-            <li>
-            <form>
-                  <div class="input-field">
-                    <input id="search" type="search" required>
-                    <label for="search"><i class="material-icons" id="search-trending">search</i></label>
-                    <i class="material-icons" id="search-close">close</i>
-                  </div>
-                </form>
-            </li>
-          </ul>
-          <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-        </nav>
-
-      </div>
-    </div>
-    <div class="display">
-      <div id="event-list-display"></div>
-    </div>
-    <div class = "foot">
-
-
-
-      <footer class="page-footer grey darken-4">
-        <div class="container">
-          <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Thanks for visiting</h5>
-          <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-          </ul>
-        </div>
-          </div>
-        </div>
-        <div class="footer-copyright">
-          <div class="container">
-        © 2015 NearbyNY
-          </div>
-        </div>
-      </footer>
-    </div>
-      </div>
-    </div>
-
-    <!-- Maps -->
-    <!-- Maps -->
-    <div id="view-map" class="viewframe">
-      <button class="goto-trending">
-      </button>
-      <div id="map-key">
-      </div>
-      <div id="map-options">
-        <form action="#"><p>
-          Show visited events: (must be logged in)
-          <div class="switch">
-            <label>Off <input type="checkbox" id="map-event-visited"><span class="lever"></span>On</label>
-          </div>
-        </form></p>
-        <form action="#"><p>
-          Show only events matching my preference: (must be logged in)
-          <div class="switch">
-            <label>Off<input type="checkbox" id="map-event-preference"><span class="lever"></span>One</label>
-          </div>
-        </form></p>
-        <form action="#" id="map-event-timeframe">
-          Show events taking place within:
-          <p>
-            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-day"  />
-            <label for="show-day">One Day</label>
-            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-week" />
-            <label for="show-week">One Week</label>
-            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-month" />
-            <label for="show-month">One Month</label>
-            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-year" />
-            <label for="show-year">One Year</label>
-            <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-all" checked/>
-            <label for="show-all">Eternity</label>
-          </p>
-        </form>
-        <a class="waves-effect waves-light btn" id="update-map-events"><i class="material-icons left"></i>Update Map</a>
-      </div>
-      <div id="map-canvas">
-      </div>
-    </div>
-
-    <!-- Event Page -->
-    <!-- Event Page -->
-    <div id = "view-event" class = "viewframe">
-
-    </div>
-
-    <!-- Profile Page -->
-    <!-- Profile Page -->
-    <div id = "view-profile" class = "viewframe">
-      <div class = "head">
-    <div class="navbar-fixed">
-      <nav>
+    <!-- Friends -->
+    <!-- Friends -->
+    <div id="view-friends" class="viewframe">
+      <div class="head">
+        <div class="navbar-fixed">
+          <!-- Top Nav Bar -->
+          <nav>
             <div class="nav-wrapper grey darken-4">
-              <a href="#" class="brand-logo">NearbyNY</a>
-              <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li class = "goto-trending"><a href="#">Upcoming Events</a></li>
-        <li><a href="#">Friends</a></li>
-        <li><a href="#">Profile</a></li>
+              <ul id="nav-mobile" class="right">
+                <li class="signout"><a href="#">Signout</a></li>
               </ul>
             </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Side Nav Bar -->
+      <nav>
+        <ul id="slide-out" class="side-nav fixed">
+          <li><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
+          <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
+          <li><a href="#!"><i class="material-icons left">contacts</i>Friends</a></li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
       </nav>
+      <div class="display">
+        <div id="friend-list-display"></div>
+      </div>
     </div>
-      </div>
-
-      <div class="card">
-    <img class="circle profile-pic" height="200px" src="img/matt_damon.png">
-    <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="img/nyc_skyline.gif">
-    </div>
-    <div class="card-content">
-
-      <!-- Personal Info -->
-      <div id = "get-bio-info">
-            <span class="card-title activator grey-text text-darken-4">
-              <span id = "get-username"></span>
-              <div class = "right">
-            <i id = "edit-bio" class = "material-icons">settings</i> <i class="material-icons">. . .</i>
-              </div>
-            </span>
-            <p>name:<span id = "get-name"></span></p>
-            <p>email:<span id = "get-email"></span></p>
-            <p><span id = "get-bio"></span></p>
-      </div>
-
-
-      <div id = "set-bio-info">
-            <div class="row">
-              <form class="col s12">
-            <div class="input-field col s12">
-              <input disabled id="set-username" type="text" class="validate">
-              <label for="username">username</label>
-            </div>
-            <div class="input-field col s12">
-              <input disabled id="set-email" type="text" class="validate">
-              <label for="email">email</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="set-name" type="text" class="validate">
-              <label for="name">Name</label>
-            </div>
-            <div class="input-field col s12">
-              <textarea id="set-bio" value = "A" class="materialize-textarea"></textarea>
-              <label class="active" for="biography">Biography</label>
-            </div>
-            <button class="btn waves-effect waves-light" name="action" id = "save-bio">Save
-              <i class="material-icons">send</i>
-            </button>
-              </form>
-            </div>
-      </div>
-
-    </div>
-      </div>
-
-      <ul class="collapsible" data-collapsible="expandable">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Attended</div>
-      <div class="collapsible-body"><p id = "event-history"></p></div>
-    </li>
-    <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Planned to Attend</div>
-      <div class="collapsible-body"><p id = "event-schedule"></p></div>
-    </li>
-    <li>
-    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
-    <div class="collapsible-body"><p id = "event-preferences">
-
-      <form action="#" id = "event-preferences-form">
-        <p>
-          <input type="checkbox" id="sports" class="filled-in tag-selector"/>
-          <label for="sports">sports</label>
-        </p>
-        <p>
-          <input type="checkbox" id="technology" class="filled-in tag-selector"/>
-          <label for="technology">technology</label>
-        </p>
-        <p>
-          <input type="checkbox" id="media" class="filled-in tag-selector"/>
-          <label for="media">media</label>
-        </p>
-        <p>
-          <input type="checkbox" id="education" class="filled-in tag-selector"/>
-          <label for="education">education</label>
-        </p>
-      </form>
-      <a class="waves-effect waves-light btn" id="update-event-preferences"><i class="material-icons left"></i>Update Preferences</a>
-    </p></div>
-  </li>
-  <li>
-    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Friends</div>
-    <div class="collapsible-body"><p id = "friends-list"></p></div>
-  </li>
-  <li>
-    <div class="collapsible-header"><i class="material-icons">filter_drama</i>Settings</div>
-    <div class="collapsible-body"><p id = "profile-settings"></p></div>
-  </li>
-</ul>
-
-<div class = "foot">
-  <footer class="page-footer grey darken-4">
-    <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Thanks for visiting</h5>
-          <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-            <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+    <!-- Trending -->
+    <!-- Trending -->
+    <div id="view-trending" class="viewframe">
+      <div class="head">
+        <div class="navbar-fixed">
+          <!-- Dropdown Structure -->
+          <ul id='reorder-trending' class='dropdown-content'>
+            <li><a href="#!" class="reorder-mode">Popular</a></li>
+            <li><a href="#!" class="reorder-mode">Date</a></li>
+            <li><a href="#!" class="reorder-mode">Title</a></li>
+            <li><a href="#!" class="reorder-mode">Cost</a></li>
+            <li><a href="#!" id="reorder-mode-preference">Preference</a></li>
           </ul>
+          <!-- Top Nav Bar -->
+          <nav>
+            <div class="nav-wrapper grey darken-4">
+              <!-- Dropdown Trigger -->
+              <ul id="nav-mobile" class="right">
+                <!-- Dropdown Trigger -->
+                <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li class="signout"><a href="#">Signout</a></li>
+              </ul>
+              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+              <!-- Top Nav Bar -->
+              <ul class="side-nav" id="mobile-demo">
+                <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
+                <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
+                <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
+                <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
+                <li>
+                  <form>
+                    <div class="input-field">
+                      <input id="search" type="search" required>
+                      <label for="search"><i class="material-icons" id="search-trending">search</i></label>
+                      <i class="material-icons" id="search-close">close</i>
+                    </div>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <div class="display">
+        <div id="event-list-display"></div>
+      </div>
+      <div class="foot">
+        <footer class="page-footer grey darken-4">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Thanks for visiting</h5>
+                <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Links</h5>
+                <ul>
+                  <li class="goto-profile"><a class="grey-text text-lighten-3" href="#!">Profile</a></li>
+                  <li class="goto-map"><a class="grey-text text-lighten-3" href="#!">Map</a></li>
+                  <li class="goto-friends"><a class="grey-text text-lighten-3" href="#!">Friends</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+              © 2015 NearbyNY
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <!-- Maps -->
+  <!-- Maps -->
+  <div id="view-map" class="viewframe">
+    <button class="goto-trending">
+    </button>
+    <div id="map-key">
+    </div>
+    <div id="map-options">
+      <form action="#">
+        <p>
+          Show visited events: (must be logged in)
+          <div class="switch">
+            <label>Off
+              <input type="checkbox" id="map-event-visited"><span class="lever"></span>On</label>
+            </div>
+          </form>
+        </p>
+        <form action="#">
+          <p>
+            Show only events matching my preference: (must be logged in)
+            <div class="switch">
+              <label>Off
+                <input type="checkbox" id="map-event-preference"><span class="lever"></span>One</label>
+              </div>
+            </form>
+          </p>
+          <form action="#" id="map-event-timeframe">
+            Show events taking place within:
+            <p>
+              <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-day" />
+              <label for="show-day">One Day</label>
+              <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-week" />
+              <label for="show-week">One Week</label>
+              <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-month" />
+              <label for="show-month">One Month</label>
+              <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-year" />
+              <label for="show-year">One Year</label>
+              <input class="with-gap map-event-timeframe" name="map-event-timeframe" type="radio" id="show-all" checked/>
+              <label for="show-all">Eternity</label>
+            </p>
+          </form>
+          <a class="waves-effect waves-light btn" id="update-map-events"><i class="material-icons left"></i>Update Map</a>
+        </div>
+        <div id="map-canvas">
+        </div>
+      </div>
+      <!-- Event Page -->
+      <!-- Event Page -->
+      <div id="view-event" class="viewframe">
+      </div>
+      <!-- Profile Page -->
+      <!-- Profile Page -->
+      <div id="view-profile" class="viewframe">
+        <div class="head">
+          <nav>
+            <div class="nav-wrapper nav-wrapper grey darken-4">
+              <a href="#!" class="brand-logo">NearbyNY</a>
+              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+              <ul class="side-nav" id="mobile-demo">
+                <li><a href="#">Upcoming Events</a></li>
+                <li><a href="#">Friends</a></li>
+                <li><a href="#">Profile</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="card">
+          <img class="circle profile-pic" height="200px" src="img/matt_damon.png">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator" src="img/nyc_skyline.gif">
+          </div>
+          <div class="card-content">
+            <!-- Personal Info -->
+            <div id="get-bio-info">
+              <span class="card-title activator grey-text text-darken-4">
+                <span id = "get-username"></span>
+                <div class="right">
+                  <i id="edit-bio" class="material-icons">settings</i> <i class="material-icons">. . .</i>
+                </div>
+              </span>
+              <p>name:<span id="get-name"></span></p>
+              <p>email:<span id="get-email"></span></p>
+              <p><span id="get-bio"></span></p>
+            </div>
+            <div id="set-bio-info">
+              <div class="row">
+                <form class="col s12">
+                  <div class="input-field col s12">
+                    <input disabled id="set-username" type="text" class="validate">
+                    <label for="username">username</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input disabled id="set-email" type="text" class="validate">
+                    <label for="email">email</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <input id="set-name" type="text" class="validate">
+                    <label for="name">Name</label>
+                  </div>
+                  <div class="input-field col s12">
+                    <textarea id="set-bio" value="A" class="materialize-textarea"></textarea>
+                    <label class="active" for="biography">Biography</label>
+                  </div>
+                  <button class="btn waves-effect waves-light" name="action" id="save-bio">Save
+                    <i class="material-icons">send</i>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="collapsible" data-collapsible="expandable">
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Attended</div>
+            <div class="collapsible-body">
+              <p id="event-history"></p>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Planned to Attend</div>
+            <div class="collapsible-body">
+              <p id="event-schedule"></p>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
+            <div class="collapsible-body">
+              <p id="event-preferences">
+                <form action="#" id="event-preferences-form">
+                  <p>
+                    <input type="checkbox" id="sports" class="filled-in tag-selector" />
+                    <label for="sports">sports</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="technology" class="filled-in tag-selector" />
+                    <label for="technology">technology</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="media" class="filled-in tag-selector" />
+                    <label for="media">media</label>
+                  </p>
+                  <p>
+                    <input type="checkbox" id="education" class="filled-in tag-selector" />
+                    <label for="education">education</label>
+                  </p>
+                </form>
+                <a class="waves-effect waves-light btn" id="update-event-preferences"><i class="material-icons left"></i>Update Preferences</a>
+              </p>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Friends</div>
+            <div class="collapsible-body">
+              <p id="friends-list"></p>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Settings</div>
+            <div class="collapsible-body">
+              <p id="profile-settings"></p>
+            </div>
+          </li>
+        </ul>
+        <div class="foot">
+          <footer class="page-footer grey darken-4">
+            <div class="container">
+              <div class="row">
+                <div class="col l6 s12">
+                  <h5 class="white-text">Thanks for visiting</h5>
+                  <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                  <h5 class="white-text">Links</h5>
+                  <ul>
+                    <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+                    <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="footer-copyright">
+              <div class="container">
+                © 2015 NearbyNY
+              </div>
+            </div>
+          </footer>
         </div>
       </div>
     </div>
-    <div class="footer-copyright">
-      <div class="container">
-        © 2015 NearbyNY
+  </body>
+  <script type="text/javascript" src="phonegap.js"></script>
+  <script type="text/javascript" src="cordova.js"></script>
+  <script id="event-list-tpl" type="text/x-handlebars-template">
+    <div id="list-template-display">
+      <div class="row">
+        {{#each event}}
+        <div class="col s12 m12 l6 event-card" id="{{objectId}}">
+          <div class="card grey darken-3">
+            <div class="card-image">
+              <img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">
+              <span class="card-title">{{title}}</span>
+            </div>
+            <div class="card-content white-text">
+              <p class="event-description">{{address}}
+                <br>{{time}}</p>
+              </div>
+              <div class="card-action red darken-3 white-text z-depth-3">
+                <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
+                  playlist_add
+                </i></a>
+                <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>
+              </div>
+            </div>
+          </div>
+          {{/each}}
+        </div>
       </div>
-    </div>
-  </footer>
-</div>
-</div>
-
-</div>
+    </script>
+    <script id="friend-list-tpl" type="text/x-handlebars-template">
+      <div class="row">
+        {{#each friend}}
+        <p> FRIENDS </p>
+        {{/each}}
+      </div>
+    </script>
+    <script id="event-view-tpl" type="text/x-handlebars-template">
+      <div class="event-view-display">
+        <nav>
+          <div class="nav-wrapper grey darken-4">
+            <button class="grey darken-4 waves-effect waves-light btn-large left" id="goto-last">Return
+              <i class="large material-icons"> replay </i>
+            </button>
+          </div>
+        </nav>
+        <div class="parallax-container">
+          <div class="parallax"><img src={{img_url}}></div>
+        </div>
+        <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+          <a class="btn-floating btn-large red">
+            <i class="large material-icons">add</i>
+          </a>
+        </div>
+        <div class="row event-info-row">
+          <h2>{{title}}</h2>
+          <p>{{description}}</p>
+        </div>
+        <div class="row event-info-row">
+          <div class="col s4">
+            <div class="center">
+              <i class="large material-icons">schedule</i>
+              <p class="section-caption">Time</p>
+              <p class="light center">{{time}}</p>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="center">
+              <i class="large material-icons">room</i>
+              <p class="section-caption">Address</p>
+              <p class="light center">{{address}}</p>
+            </div>
+          </div>
+          <div class="col s4">
+            <div class="center">
+              <i class="large material-icons">credit_card</i>
+              <p class="section-caption">Cost</p>
+              <p class="light center">${{cost}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row event-info-row">
+          <div class="col s4">
+            <a class="waves-effect waves-light btn" id="event-reserve"><i class="material-icons left"></i>Plan to Attend</a>
+          </div>
+          <div class="col s4">
+            <a class="waves-effect waves-light btn" id="event-checkin"><i class="material-icons left"></i>Check In</a>
+          </div>
+        </div>
+        <div class="row event-info-row">
+          <i class="material-icons left" id="event-upvote">thumb_up</i>
+          <i class="material-icons left" id="event-downvote">thumb_down</i>
+          <i class="material-icons left" id="event-votes">thumbs_up_down</i>
+        </div>
+      </div>
+    </script>
+    <!-- 3rd Party JS Libraries -->
+    <script type="text/javascript" src="phonegap.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="lib/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
+    <script type="text/javascript" src="lib/parse-1.5.0.js"></script>
+    <script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="js/controller.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/trending.js"></script>
+    <script type="text/javascript" src="js/friends.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+//Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
+app.initialize();
+</script>
 </body>
-<script type="text/javascript" src="phonegap.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script id = "event-list-tpl" type="text/x-handlebars-template">
-<div id="list-template-display">
-  <div class="row">
-    {{#each event}}
-    <div class="col s12 m12 l6 event-card" id = "{{objectId}}">
-      <div class="card grey darken-3">
-    <div class="card-image">
-      <img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">
-      <span class="card-title">{{title}}</span>
-    </div>
-    <div class="card-content white-text">
-      <p class = "event-description">{{address}}<br>{{time}}</p>
-    </div>
-    <div class="card-action red darken-3 white-text z-depth-3">
-      <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
-              playlist_add
-          </i></a>
-          <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>
-        </div>
-      </div>
-    </div>
-    {{/each}}
-  </div>
-  </div>
-</script>
 
-<script id = "friend-list-tpl" type="text/x-handlebars-template">
-  <div class="row">
-    {{#each friend}}
-    <p> FRIENDS </p>
-    {{/each}}
-  </div>
-</script>
-
-<script id = "event-view-tpl" type="text/x-handlebars-template">
-<<<<<<< Updated upstream
-  <div class = "event-view-display">
-    <button id = "goto-last">Return</button>
-    <h1>{{title}}</h1><br>
-    <img src = {{img_url}}><br>
-    time: <p>{{time}}</p><br>
-    address: <p>{{address}}</p><br>
-    cost: <p>{{cost}}</p><br>
-    description: <p>{{description}}</p><br>
-    <a class="waves-effect waves-light btn" id="event-reserve"><i class="material-icons left"></i>Plan to Attend</a>
-    <a class="waves-effect waves-light btn" id="event-checkin"><i class="material-icons left"></i>Check In</a>
-    <i class="material-icons left" id="event-upvote">thumb_up</i>
-    <i class="material-icons left" id="event-downvote">thumb_down</i>
-    <i class="material-icons left" id="event-votes">thumbs_up_down</i>
-=======
-  <div class="event-view-display">
-    <nav>
-      <div class="nav-wrapper grey darken-4">
-        <a href="#" class="brand-logo right">{{title}}</a>
-        <button class="grey darken-4 waves-effect waves-light btn-large left" id="goto-last">Return
-        <i class="large material-icons"> replay </i>
-        </button>
-      </div>
-    </nav>
-
-    <div class="parallax-container">
-      <div class="parallax"><img src={{img_url}}></div>
-    </div>
-
-    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large red">
-        <i class="large material-icons">add</i>
-      </a>
-    </div>
-
-    <div class="row event-info-row">
-              <p>{{description}}</p>
-    </div>
-    <div class="right card-action">
-              <i class="material-icons">thumb_up</i>
-              <i class="material-icons">thumb_down</i>
-    </div>
-    <div class="row event-info-row">
-      <div class="col s4">
-        <div class="center">
-        <i class="large material-icons">schedule</i>
-        <p class="section-caption">Time</p>
-        <p class="light center">{{time}}</p>
-        </div>
-      </div>
-      <div class="col s4">
-        <div class="center">
-        <i class="large material-icons">room</i>
-        <p class="section-caption">Address</p>
-        <p class="light center">{{address}}</p>
-        </div>
-      </div>
-      <div class="col s4">
-        <div class="center">
-          <i class="large material-icons">credit_card</i>
-          <p class="section-caption">Cost</p>
-          <p class="light center">${{cost}}</p>
-        </div>
-      </div>
-    </div>
->>>>>>> Stashed changes
-  </div>
-</script>
-
-<!-- 3rd Party JS Libraries -->
-<script type="text/javascript" src="phonegap.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="lib/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-<script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
-<script type="text/javascript" src="lib/parse-1.5.0.js"></script>
-<script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
-
-<!-- Custom JS -->
-<script type="text/javascript" src="js/controller.js"></script>
-<script type="text/javascript" src="js/map.js"></script>
-<script type="text/javascript" src="js/login.js"></script>
-<script type="text/javascript" src="js/trending.js"></script>
-<script type="text/javascript" src="js/friends.js"></script>
-<script type="text/javascript" src="js/profile.js"></script>
-
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript">
-  //Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
-  app.initialize();
-</script>
-</body>
 </html>

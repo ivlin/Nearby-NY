@@ -4,7 +4,8 @@ var viewframes = [
     $("#view-trending"),
     $("#view-map"),
     $("#view-event"),
-    $("#view-profile")
+    $("#view-profile"),
+    $("#view-friends")
 ];
 
 var controller = {
