@@ -24,13 +24,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         this.initParse();
-        //      this.signinPage.setupSignin();
-        //   this.signupPage.setupSignup();
-        // this.trendingPage.setupTrending();
         login.initialize();
-        friends.buildList();
-        // map.initialize()
-        //map.initialize();
         trending.initialize();
         this.setupLinks();
 
@@ -84,7 +78,8 @@ var app = {
                     break;
                 case "goto-friends":
                   $(buttons[i]).click(function() {
-                    controller.changeViewTo("view-friends");
+                    friends.buildList();
+                  controller.changeViewTo("view-friends");
                   });
                 break;    
                 case "signout":
