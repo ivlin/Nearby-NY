@@ -13,8 +13,8 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        //document.addEventListener('deviceready', this.onDeviceReady, false);
-        this.onDeviceReady();
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        //this.onDeviceReady();
 
         $(".button-collapse").sideNav();
     },
@@ -30,6 +30,7 @@ var app = {
 
         if (Parse.User.current()) {
             $("#view-trending").css("display", "inline");
+         //   friends.buildList();
         } else {
             $("#view-signin").css("display", "inline");
         }
@@ -79,7 +80,7 @@ var app = {
                 case "goto-friends":
                   $(buttons[i]).click(function() {
                     friends.buildList();
-                  controller.changeViewTo("view-friends");
+                    controller.changeViewTo("view-friends");
                   });
                 break;    
                 case "signout":

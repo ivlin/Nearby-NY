@@ -117,7 +117,7 @@ var app = {
                         upData[attr].push(Parse.User.current().id);
                         result.save(upData, {
                             success: function(r) {
-                                console.log("successfully updated array");
+                                console.log("successfully added to array");
                             },
                             error: function(e) {
                                 console.log("failed to update array")
@@ -133,7 +133,7 @@ var app = {
                             upData[attr].splice(ind, 1);
                             result.save(upData, {
                                 success: function(r) {
-                                    console.log("successfully updated array");
+                                    console.log("successfully removed from array");
                                 },
                                 error: function(e) {
                                     console.log("failed to update array")
@@ -153,16 +153,52 @@ var app = {
                 $("#event-reserve").click(function() {
                     if (findMeInArray("to_attend") === -1) {
                         addMeToArray("to_attend");
+                        var query = new Parse.Query(Parse.User);
+                        query.get(Parse.User.current().id, {
+                            success:function(r){
+                                var temp = r.get("to_attend");
+                                temp.push(objectId);
+                                r.set("to_attend", temp);
+                                r.save();
+                            }
+                        });
                     } else {
                         removeMeFromArray("to_attend");
+                        var query = new Parse.Query(Parse.User);
+                        query.get(Parse.User.current().id, {
+                            success:function(r){
+                                var temp = r.get("to_attend");
+                                temp.splice(temp.indexOf(objectId), 1);
+                                r.set("to_attend", temp);
+                                r.save();
+                            }
+                        });
                     }
                 });
 
                 $("#event-checkin").click(function() {
                     if (findMeInArray("attended") === -1) {
                         addMeToArray("attended");
+                        var query = new Parse.Query(Parse.User);
+                        query.get(Parse.User.current().id, {
+                            success:function(r){
+                                var temp = r.get("attended");
+                                temp.push(objectId);
+                                r.set("attended", temp);
+                                r.save();
+                            }
+                        });
                     } else {
                         removeMeFromArray("attended");
+                        var query = new Parse.Query(Parse.User);
+                        query.get(Parse.User.current().id, {
+                            success:function(r){
+                                var temp = r.get("attended");
+                                temp.push(objectId);
+                                r.set("attended", temp);
+                                r.save();
+                            }
+                        });
                     }
 
                 });

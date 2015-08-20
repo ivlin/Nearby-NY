@@ -139,3 +139,7 @@ button {
 .event-info-row {
     margin: auto;
 }
+
+#profile-preview {
+    display: none;
+}
