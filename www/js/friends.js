@@ -10,24 +10,22 @@ var friends = {
 
         FriendListView = Parse.View.extend({
             data:null,
-            collection:null,
             template:Handlebars.compile(document.getElementById("friend-list-tpl").innerHTML),
             render:function() {
-                this.el.innerHTML = this.template(this.collection);
+                this.data = {friend: this.collection};
+                this.el.innerHTML = this.template(this.data);
             }
         });
 
         var friendIds = Parse.User.current().get("friends");
         var query = new Parse.Query(Parse.User);
         query.containedIn("objectId",friendIds);
-        query.find({success:function(r){
-            for (var i = 0; i < r.length; r++){
-                r[i] = r[i].toJSON();
+        query.find({success:function(result){
+            for (var i = 0; i < result.length; i++){
+                result[i] = result[i].toJSON();
             }
-            friends.friendListView = new FriendListView();
-            friends.friendListView.collection = r;
+            friends.friendListView = new FriendListView({collection:result});
             friends.friendListView.render();
-            console.log(friends.friendListView.el);
             $("#friend-list-display").append(friends.friendListView.el);
 
         },error:function(e){

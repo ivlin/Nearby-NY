@@ -76,14 +76,14 @@
         </div>
       </div>
       <!-- Side Nav Bar -->
-      <nav>
+   <!--   <nav>
         <ul id="slide-out" class="side-nav fixed">
           <li><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
           <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
           <li><a href="#!"><i class="material-icons left">contacts</i>Friends</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      </nav>
+      </nav>-->
       <div class="display">
         <div id="friend-list-display"></div>
       </div>
@@ -117,14 +117,12 @@
                 <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
                 <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
                 <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
-                <li>
-                  <form>
-                    <div class="input-field">
+                <li><form>
+                  <div class="input-field">
                       <input id="search" type="search" required>
                       <label for="search"><i class="material-icons" id="search-trending">search</i></label>
                       <i class="material-icons" id="search-close">close</i>
-                    </div>
-                  </form>
+                    </div></form> 
                 </li>
               </ul>
             </div>
@@ -290,7 +288,7 @@
             </div>
           </li>
           <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Interests</div>
             <div class="collapsible-body">
               <p id="event-preferences">
                 <form action="#" id="event-preferences-form">
@@ -319,12 +317,6 @@
             <div class="collapsible-header"><i class="material-icons">filter_drama</i>Friends</div>
             <div class="collapsible-body">
               <p id="friends-list"></p>
-            </div>
-          </li>
-          <li>
-            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Settings</div>
-            <div class="collapsible-body">
-              <p id="profile-settings"></p>
             </div>
           </li>
         </ul>
@@ -388,7 +380,17 @@
     <script id="friend-list-tpl" type="text/x-handlebars-template">
       <div class="row">
         {{#each friend}}
-        <p> FRIENDS </p>
+        <p>{{username}} {{objectId}} {{name}}</p>
+        {{/each}}
+      </div>
+    </script>
+    <script id="calendar-list-tpl" type="text/x-handlebars-template">
+      <div class="row">
+        {{#each event}}
+        <p>{{title}}</p>
+        <p>{{address}}</p>
+        <p>{{time}}</p>
+        <p>{{cost}}</p>
         {{/each}}
       </div>
     </script>
@@ -473,5 +475,11 @@
 app.initialize();
 </script>
 </body>
-
+<!--<form>
+                    <div class="input-field">
+                      <input id="search" type="search" required>
+                      <label for="search"><i class="material-icons" id="search-trending">search</i></label>
+                      <i class="material-icons" id="search-close">close</i>
+                    </div>             SEARCH BAR
+                  </form>--> 
 </html>

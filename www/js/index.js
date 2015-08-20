@@ -30,6 +30,7 @@ var app = {
 
         if (Parse.User.current()) {
             $("#view-trending").css("display", "inline");
+         //   friends.buildList();
         } else {
             $("#view-signin").css("display", "inline");
         }
@@ -79,7 +80,7 @@ var app = {
                 case "goto-friends":
                   $(buttons[i]).click(function() {
                     friends.buildList();
-                  controller.changeViewTo("view-friends");
+                    controller.changeViewTo("view-friends");
                   });
                 break;    
                 case "signout":

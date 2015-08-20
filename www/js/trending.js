@@ -76,7 +76,6 @@ this.buildList();
    },
 
    drawList: function(){
-
      var query = new Parse.Query(Event);
      var today = new Date();
      query.greaterThanOrEqualTo("time", today);

@@ -3,6 +3,16 @@ var profile = {
  curUser:null, 
 
  initialize: function(){
+
+  CalendarView = Parse.View.extend({
+    data:null,
+    template:Handlebars.compile(document.getElementById("calendar-list-tpl").innerHTML),
+    render:function() {
+      this.data = {event: this.collection};
+      this.el.innerHTML = this.template(this.data);
+    }
+  });
+
   this.setupProfilePage();
   this.setupHandlers();
 },
@@ -11,6 +21,8 @@ setupProfilePage: function(){
   this.curUser = Parse.User.current().toJSON();
   this.updateInfo();
   this.updatePreferenceForm();
+  this.updateUserHistory();
+  this.updateUserSchedule();
 },
 
 setupHandlers: function(){
@@ -76,6 +88,52 @@ updateUserPreferences: function() {
   }
   Parse.User.current().set("tags", tagArray);
   Parse.User.current().save();
-}
+},
 
+updateUserHistory: function() {
+  var query = new Parse.Query(Parse.User);
+  query.get(Parse.User.current().id,{
+    success:function(result){
+      profile.makeEventList(result.get("attended"),"event-history");
+    },
+    error:function(error){
+      console.log("failed");
+    }
+  });
+},
+
+updateUserSchedule: function() {
+  var query = new Parse.Query(Parse.User);
+  query.get(Parse.User.current().id,{
+    success:function(result){
+      profile.makeEventList(result.get("to_attend"),"event-schedule");
+    },
+    error:function(error){
+      console.log("failed");
+    }
+  });
+},
+
+makeEventList: function(array,sectionId){
+  var query = new Parse.Query(Event);
+  query.containedIn("objectId",array);
+  query.find({
+    success:function(result){
+      for (var i = 0; i < result.length; i++){
+        result[i] = result[i].toJSON();
+        result[i].time = (Date)(result[i].time);
+      }
+      result.sort(function(a, b) {
+       var x = a["time"]; var y = b["time"];
+       var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+       return diff;
+     });
+      var calendarList = new CalendarView({collection:result});
+      calendarList.render();
+      $("#" + sectionId).append(calendarList.el);
+      return calendarList.el;
+    },
+    error:function(error){console.log("failed to get eventlist")}
+  });
+}
 };
