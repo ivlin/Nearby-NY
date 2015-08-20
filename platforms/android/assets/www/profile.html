@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="cordova.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <link rel="stylesheet" href="css/profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+  <div class = "head">
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper grey darken-4">
+          <a href="#" class="brand-logo">NearbyNY</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Upcoming Events</a></li>
+            <li><a href="badges.html">Friends</a></li>
+            <li><a href="collapsible.html">Profile</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div class="card">
+    <img class="circle profile-pic" height="200px" src="img/matt_damon.png">
+    <div class="card-image waves-effect waves-block waves-light">
+      <img class="activator" src="img/nyc_skyline.gif">
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4"><span id = "name-text"></span><div class = "right"><i id = "edit-profile" class = "material-icons">settings</i> <i class="material-icons">. . .</i></div></span>
+      <p><span id = "bio-text"></span></p>
+    </div>
+  </div>
+
+  <ul class="collection">
+    <li class="collection-item"><div>Events I'm Attending<a href="#!" class="secondary-content"><i class="material-icons">></i></a></div></li>
+    <li class="collection-item"><div>Past Events<a href="#!" class="secondary-content"><i class="material-icons">></i></a></div></li>
+    <li class="collection-item"><div>Friends<a href="#!" class="secondary-content"><i class="material-icons">></i></a></div></li>
+    <li class="collection-item"><div>Settings<a href="#!" class="secondary-content"><i class="material-icons">></i></a></div></li>
+  </ul>
+
+  <div class = "foot">
+    <footer class="page-footer grey darken-4">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Thanks for visiting</h5>
+            <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+          </div>
+          <div class="col l4 offset-l2 s12">
+            <h5 class="white-text">Links</h5>
+            <ul>
+              <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+              <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          © 2015 NearbyNY
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/parse-1.5.0.js"></script>
+  <script>
+
+Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84","T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
+
+    var curUser = Parse.User.current();
+    console.log(Parse.User.current());
+    document.getElementById("name-text").innerHTML = Parse.User.current().get("name");
+    document.getElementById("bio-text").inneHTML = Parse.User.current().get("bio");
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+</body>
+</html>

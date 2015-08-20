@@ -13,10 +13,10 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/com.phonegap.plugins.facebookconnect/www/phonegap/plugin/facebookConnectPlugin/facebookConnectPlugin.js",
+        "file": "plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js",
         "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
         "clobbers": [
-            "window.facebookConnectPlugin"
+            "facebookConnectPlugin"
         ]
     },
     {
@@ -32,7 +32,7 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.0.0",
     "plugin.google.maps": "1.2.5",
-    "com.phonegap.plugins.facebookconnect": "0.8.0",
+    "com.phonegap.plugins.facebookconnect": "0.11.0",
     "plugin.http.request": "1.0.4",
     "com.google.playservices": "23.0.0"
 }
