@@ -41,7 +41,6 @@
     <param name="APP_ID" value="1674447189454316" />
     <param name="APP_NAME" value="Nearby NY" />
   </gap:plugin>
-  <gap:plugin name="plugin.google.maps.menusito" version="1.2.5" />
   <!--FACEBOOK-->
   <icon src="icon.png"/>
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
