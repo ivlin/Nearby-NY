@@ -8,15 +8,6 @@
     <feature name="HttpRequest">
         <param name="android-package" value="plugin.http.request.HttpRequest" />
     </feature>
-    <feature name="GoogleMaps">
-        <param name="android-package" value="plugin.google.maps.GoogleMaps" />
-    </feature>
-    <feature name="External">
-        <param name="android-package" value="plugin.google.maps.External" />
-    </feature>
-    <feature name="Geocoder">
-        <param name="android-package" value="plugin.google.maps.MyGeocoder" />
-    </feature>
     <feature name="FacebookConnectPlugin">
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
     </feature>
@@ -26,6 +17,10 @@
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
     <allow-intent href="market:*" />
+    <icon density="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
+    <icon density="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
+    <icon density="hdpi" src="www/res/icon/android/icon-72-hdpi.png" />
+    <icon density="xhdpi" src="www/res/icon/android/icon-96-xhdpi.png" />
     <name>Nearby NY</name>
     <description />
     <author email="support@phonegap.com" href="http://phonegap.com">PhoneGap Team</author>
@@ -63,11 +58,10 @@
     <gap:plugin name="org.apache.cordova.network-information" />
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
-    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.11.0">
-        <param name="APP_ID" value="1674447189454316" />
-        <param name="APP_NAME" value="Nearby NY" />
+    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.9.0">
+        <param name="APP_ID" value="431786020341798" />
+        <param name="APP_NAME" value="NearbyNY-test" />
     </gap:plugin>
-    <gap:plugin name="plugin.google.maps.menusito" version="1.2.5" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
