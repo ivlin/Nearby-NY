@@ -4,17 +4,19 @@ var profile = {
 
     initialize: function() {
 
-      CalendarView = Parse.View.extend({
-        data:null,
-        template:Handlebars.compile(document.getElementById("calendar-list-tpl").innerHTML),
-        render:function() {
-          this.data = {event: this.collection};
-          this.el.innerHTML = this.template(this.data);
-        }
-      });
+        CalendarView = Parse.View.extend({
+            data: null,
+            template: Handlebars.compile(document.getElementById("calendar-list-tpl").innerHTML),
+            render: function() {
+                this.data = {
+                    event: this.collection
+                };
+                this.el.innerHTML = this.template(this.data);
+            }
+        });
 
-      this.setupProfilePage();
-      this.setupHandlers();
+        this.setupProfilePage();
+        this.setupHandlers();
     },
 
     setupProfilePage: function() {
@@ -23,6 +25,17 @@ var profile = {
         this.updatePreferenceForm();
         this.updateUserHistory();
         this.updateUserSchedule();
+        this.setupProfilePicture();
+    },
+
+    setupProfilePicture: function() {
+        // See if we have an image saved
+        picture = localStorage.getItem("testProfilPic");
+        if (picture) {
+            $("#profile-pic").attr("src", localStorage.getItem("testProfilPic"));
+        } else {
+            $("#profile-pic").attr("src", "img/logo.png");
+        }
     },
 
     setupHandlers: function() {
@@ -60,6 +73,7 @@ var profile = {
             reader.onloadend = function() {
                 preview.attr("src", reader.result);
                 $("#profile-preview").show();
+                localStorage.setItem("testProfilPic", reader.result);
             };
 
             if (imageFile) {
@@ -115,55 +129,60 @@ var profile = {
         }
         Parse.User.current().set("tags", tagArray);
         Parse.User.current().save();
-      },
+    },
 
-      updateUserHistory: function() {
+    updateUserHistory: function() {
         var query = new Parse.Query(Parse.User);
-        query.get(Parse.User.current().id,{
-          success:function(result){
-            console.log("history :" + result);
-            profile.makeEventList(result.get("attended"),"event-history");
-          },
-          error:function(error){
-            console.log("failed");
-          }
-        });
-      },
-
-      updateUserSchedule: function() {
-        var query = new Parse.Query(Parse.User);
-        query.get(Parse.User.current().id,{
-          success:function(result){
-            console.log("sched :" + result);
-            profile.makeEventList(result.get("to_attend"),"event-schedule");
-          },
-          error:function(error){
-            console.log("failed");
-          }
-        });
-      },
-
-      makeEventList: function(array,sectionId){
-        var query = new Parse.Query(Event);
-        query.containedIn("objectId",array);
-        query.find({
-          success:function(result){
-            for (var i = 0; i < result.length; i++){
-              result[i] = result[i].toJSON();
-              result[i].time = (Date)(result[i].time);
+        query.get(Parse.User.current().id, {
+            success: function(result) {
+                console.log("history :" + result);
+                profile.makeEventList(result.get("attended"), "event-history");
+            },
+            error: function(error) {
+                console.log("failed");
             }
-            result.sort(function(a, b) {
-             var x = a["time"]; var y = b["time"];
-             var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-             return diff;
-           });
-            var calendarList = new CalendarView({collection:result});
-            calendarList.render();
-            $("#" + sectionId).append(calendarList.el);
-            return calendarList.el;
-          },
-          error:function(error){console.log("failed to get eventlist")}
         });
-      }
+    },
+
+    updateUserSchedule: function() {
+        var query = new Parse.Query(Parse.User);
+        query.get(Parse.User.current().id, {
+            success: function(result) {
+                console.log("sched :" + result);
+                profile.makeEventList(result.get("to_attend"), "event-schedule");
+            },
+            error: function(error) {
+                console.log("failed");
+            }
+        });
+    },
+
+    makeEventList: function(array, sectionId) {
+        var query = new Parse.Query(Event);
+        query.containedIn("objectId", array);
+        query.find({
+            success: function(result) {
+                for (var i = 0; i < result.length; i++) {
+                    result[i] = result[i].toJSON();
+                    result[i].time = (Date)(result[i].time);
+                }
+                result.sort(function(a, b) {
+                    var x = a["time"];
+                    var y = b["time"];
+                    var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    return diff;
+                });
+                var calendarList = new CalendarView({
+                    collection: result
+                });
+                calendarList.render();
+                $("#" + sectionId).append(calendarList.el);
+                return calendarList.el;
+            },
+            error: function(error) {
+                console.log("failed to get eventlist")
+            }
+        });
+    }
 
 };

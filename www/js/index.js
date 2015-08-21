@@ -30,7 +30,7 @@ var app = {
 
         if (Parse.User.current()) {
             $("#view-trending").css("display", "inline");
-         //   friends.buildList();
+            //   friends.buildList();
         } else {
             $("#view-signin").css("display", "inline");
         }
@@ -78,11 +78,11 @@ var app = {
                     });
                     break;
                 case "goto-friends":
-                  $(buttons[i]).click(function() {
-                    friends.buildList();
-                    controller.changeViewTo("view-friends");
-                  });
-                break;    
+                    $(buttons[i]).click(function() {
+                        controller.changeViewTo("view-friends");
+                        friends.buildList();
+                    });
+                    break;
                 case "signout":
                     buttons[i].addEventListener("click", function() {
                         Parse.User.logOut();
@@ -155,7 +155,7 @@ var app = {
                         addMeToArray("to_attend");
                         var query = new Parse.Query(Parse.User);
                         query.get(Parse.User.current().id, {
-                            success:function(r){
+                            success: function(r) {
                                 var temp = r.get("to_attend");
                                 temp.push(objectId);
                                 r.set("to_attend", temp);
@@ -166,7 +166,7 @@ var app = {
                         removeMeFromArray("to_attend");
                         var query = new Parse.Query(Parse.User);
                         query.get(Parse.User.current().id, {
-                            success:function(r){
+                            success: function(r) {
                                 var temp = r.get("to_attend");
                                 temp.splice(temp.indexOf(objectId), 1);
                                 r.set("to_attend", temp);
@@ -181,7 +181,7 @@ var app = {
                         addMeToArray("attended");
                         var query = new Parse.Query(Parse.User);
                         query.get(Parse.User.current().id, {
-                            success:function(r){
+                            success: function(r) {
                                 var temp = r.get("attended");
                                 temp.push(objectId);
                                 r.set("attended", temp);
@@ -192,7 +192,7 @@ var app = {
                         removeMeFromArray("attended");
                         var query = new Parse.Query(Parse.User);
                         query.get(Parse.User.current().id, {
-                            success:function(r){
+                            success: function(r) {
                                 var temp = r.get("attended");
                                 temp.push(objectId);
                                 r.set("attended", temp);
