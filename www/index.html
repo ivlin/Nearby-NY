@@ -8,7 +8,7 @@
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
     <!-- 3rd Party CSS Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+    <link rel="stylesheet" href="css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="css/index.css" />
@@ -17,6 +17,21 @@
 
 <body>
     <div class="app" id="app">
+        <!-- Slide out Nav Bar -->
+        <ul class="side-nav" id="mobile-demo">
+            <li class="goto-trending"><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
+            <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
+            <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
+            <li>
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label for="search"><i class="material-icons" id="search-trending">search</i></label>
+                        <i class="material-icons" id="search-close">close</i>
+                    </div>
+                </form>
+            </li>
+        </ul>
         <!-- Login -->
         <!-- Login -->
         <div id="view-signin" class="viewframe">
@@ -67,6 +82,7 @@
                     <!-- Top Nav Bar -->
                     <nav>
                         <div class="nav-wrapper grey darken-4">
+                            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right">
                                 <li class="signout"><a href="#">Signout</a></li>
                             </ul>
@@ -74,15 +90,6 @@
                     </nav>
                 </div>
             </div>
-            <!-- Side Nav Bar -->
-            <nav>
-                <ul id="slide-out" class="side-nav fixed">
-                    <li><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-                    <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-                    <li><a href="#!"><i class="material-icons left">contacts</i>Friends</a></li>
-                </ul>
-                <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-            </nav>
             <div class="display">
                 <div id="friend-list-display"></div>
             </div>
@@ -92,7 +99,6 @@
         <div id="view-trending" class="viewframe">
             <div class="head">
                 <div class="navbar-fixed">
-                    <!-- Dropdown Structure -->
                     <ul id='reorder-trending' class='dropdown-content'>
                         <li><a href="#!" class="reorder-mode">Popular</a></li>
                         <li><a href="#!" class="reorder-mode">Date</a></li>
@@ -100,32 +106,13 @@
                         <li><a href="#!" class="reorder-mode">Cost</a></li>
                         <li><a href="#!" id="reorder-mode-preference">Preference</a></li>
                     </ul>
-                    <!-- Top Nav Bar -->
                     <nav>
                         <div class="nav-wrapper grey darken-4">
-                            <!-- Dropdown Trigger -->
                             <ul id="nav-mobile" class="right">
-                                <!-- Dropdown Trigger -->
                                 <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
                                 <li class="signout"><a href="#">Signout</a></li>
                             </ul>
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                            <!-- Top Nav Bar -->
-                            <ul class="side-nav" id="mobile-demo">
-                                <li><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-                                <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-                                <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
-                                <li><a href="#!"><i class="material-icons left">settings</i>Settings</a></li>
-                                <li>
-                                    <form>
-                                        <div class="input-field">
-                                            <input id="search" type="search" required>
-                                            <label for="search"><i class="material-icons" id="search-trending">search</i></label>
-                                            <i class="material-icons" id="search-close">close</i>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
                         </div>
                     </nav>
                 </div>
@@ -133,35 +120,36 @@
             <div class="display">
                 <div id="event-list-display"></div>
             </div>
-            <div class="foot">
-                <footer class="page-footer grey darken-4">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col l6 s12">
-                                <h5 class="white-text">Thanks for visiting</h5>
-                                <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-                            </div>
-                            <div class="col l4 offset-l2 s12">
-                                <h5 class="white-text">Links</h5>
-                                <ul>
-                                    <li class="goto-profile"><a class="grey-text text-lighten-3" href="#!">Profile</a></li>
-                                    <li class="goto-map"><a class="grey-text text-lighten-3" href="#!">Map</a></li>
-                                    <li class="goto-friends"><a class="grey-text text-lighten-3" href="#!">Friends</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-                                    <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="footer-copyright">
-                        <div class="container">
-                            © 2015 NearbyNY
-                        </div>
-                    </div>
-                </footer>
+            <!-- <div class="foot">
+    <footer class="page-footer grey darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Thanks for visiting</h5>
+                    <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li class="goto-profile"><a class="grey-text text-lighten-3" href="#!">Profile</a></li>
+                        <li class="goto-map"><a class="grey-text text-lighten-3" href="#!">Map</a></li>
+                        <li class="goto-friends"><a class="grey-text text-lighten-3" href="#!">Friends</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                    </ul>
+                </div>
             </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2015 NearbyNY
+            </div>
+        </div>
+    </footer>
+</div>
+ -->
         </div>
     </div>
     <!-- Maps -->
@@ -222,16 +210,11 @@
                 <div class="nav-wrapper nav-wrapper grey darken-4">
                     <a href="#!" class="brand-logo">NearbyNY</a>
                     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                    <ul class="side-nav" id="mobile-demo">
-                        <li><a href="#">Upcoming Events</a></li>
-                        <li><a href="#">Friends</a></li>
-                        <li><a href="#">Profile</a></li>
-                    </ul>
                 </div>
             </nav>
         </div>
         <div class="card">
-            <img class="circle profile-pic" height="200px" src="img/matt_damon.png">
+            <img id="profile-pic" class="circle profile-pic" height="200px">
             <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="img/nyc_skyline.gif">
             </div>
@@ -336,32 +319,33 @@
                 </div>
             </li>
         </ul>
-        <div class="foot">
-            <footer class="page-footer grey darken-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col l6 s12">
-                            <h5 class="white-text">Thanks for visiting</h5>
-                            <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-                        </div>
-                        <div class="col l4 offset-l2 s12">
-                            <h5 class="white-text">Links</h5>
-                            <ul>
-                                <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-                                <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-                            </ul>
-                        </div>
-                    </div>
+        <!-- <div class="foot">
+    <footer class="page-footer grey darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">Thanks for visiting</h5>
+                    <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
                 </div>
-                <div class="footer-copyright">
-                    <div class="container">
-                        © 2015 NearbyNY
-                    </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Links</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
+                        <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
+                    </ul>
                 </div>
-            </footer>
+            </div>
         </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © 2015 NearbyNY
+            </div>
+        </div>
+    </footer>
+</div>
+ -->
     </div>
     </div>
 </body>
@@ -398,10 +382,10 @@
         {{#each friend}}
         <p>{{username}} {{objectId}} {{name}}</p>
         {{/each}}
-      </div>
-    </script>
-    <script id="calendar-list-tpl" type="text/x-handlebars-template">
-      <div class="row">
+    </div>
+</script>
+<script id="calendar-list-tpl" type="text/x-handlebars-template">
+    <div class="row">
         {{#each event}}
         <p>{{title}}</p>
         <p>{{address}}</p>
@@ -477,7 +461,7 @@
 <script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
 <script type="text/javascript" src="lib/parse-1.5.0.js"></script>
 <script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+<script type="text/javascript" src="lib/materialize.min.js"></script>
 <!-- Custom JS -->
 <script type="text/javascript" src="js/controller.js"></script>
 <script type="text/javascript" src="js/map.js"></script>
@@ -497,5 +481,6 @@ app.initialize();
                       <label for="search"><i class="material-icons" id="search-trending">search</i></label>
                       <i class="material-icons" id="search-close">close</i>
                     </div>             SEARCH BAR
-                  </form>--> 
+                  </form>-->
+
 </html>
