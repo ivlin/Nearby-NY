@@ -11,7 +11,14 @@ function setupLoginHandlers() {
 }
 
 function signOut() {
-	Parse.User.logOut();
+    alert('in');
+    try {
+       logout();
+    }
+    catch(e){
+        alert(e);   
+    }
+    Parse.User.logOut();
     controller.changeViewTo("view-signin");
 }
 
