@@ -37,9 +37,9 @@
   <gap:plugin name="org.apache.cordova.splashscreen"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <!--FACEBOOK-->
-  <gap:plugin name="com.phonegap.plugins.facebookconnect" version= "0.11.0">
-    <param name="APP_ID" value="1674447189454316" />
-    <param name="APP_NAME" value="Nearby NY" />
+  <gap:plugin name="com.phonegap.plugins.facebookconnect" version= "0.9.0">
+    <param name="APP_ID" value="431786020341798" />
+    <param name="APP_NAME" value="NearbyNY-test" />
   </gap:plugin>
   <!--FACEBOOK-->
   <icon src="icon.png"/>
