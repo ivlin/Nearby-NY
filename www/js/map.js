@@ -15,7 +15,7 @@ var map = {
         });
         //this.addMarker(40.7127,-74.0059);
         this.setupHandlers();
-        this.plotEvents(true, true, "show-all");
+        this.plotEvents(false, false, "show-all");
       },
 
       setupHandlers: function(){
@@ -53,71 +53,77 @@ var map = {
       },
 
       plotEvents: function(showVisited, showPreference, timeframe){
-        var query = new Parse.Query(Event);
-        var endDate = new Date();
-        switch (timeframe){
-          case "show-day":
-          endDate.setDate(endDate.getDate() + 1); 
-          break;
-          case "show-week":
-          endDate.setDate(endDate.getDate() + 7); 
-          break;
-          case "show-month":
-          endDate.setMonth(endDate.getMonth() + 1); 
-          break;
-          case "show-year":
-          endDate.setYear(endDate.getYear() + 1); 
-          break;
-          case "show-all":
-          default:
-          break;
-        }
-        if (timeframe !== "show-all"){
-          query.lessThanOrEqualTo("time",endDate);
-        }
-        query.greaterThanOrEqualTo("time", new Date());
+        var futureQuery = new Parse.Query(Event); 
+        var histQuery = new Parse.Query(Event);
+        var mainQuery;
+//timequery
+var endDate = new Date();
+switch (timeframe){
+  case "show-day":
+  endDate.setDate(endDate.getDate() + 1); 
+  break;
+  case "show-week":
+  endDate.setDate(endDate.getDate() + 7); 
+  break;
+  case "show-month":
+  endDate.setMonth(endDate.getMonth() + 1); 
+  break;
+  case "show-year":
+  endDate.setYear(endDate.getYear() + 1); 
+  break;
+  case "show-all":
+  default:
+  break;
+}
+if (timeframe !== "show-all"){
+  futureQuery.lessThanOrEqualTo("time",endDate);
+}
+futureQuery.greaterThanOrEqualTo("time", new Date());
+if (showVisited){
+  histQuery.equalTo("attended",Parse.User.current().id);
+  mainQuery = Parse.Query.or(futureQuery, histQuery);
+}else{
+  mainQuery = Parse.Query.or(futureQuery);
+}
+that = this;
 
-        var userPref = Parse.User.current().toJSON().tags;
-        that = this;
-        
-        function hasSharedElements(a1, a2){
-          for (var i = 0; i < a1.length; i++){
-            if (a2.includes(a1[i])){
-              return true;
-            }
-          }
-          return false;
-        }
+function hasSharedElements(a1, a2){
+  for (var i = 0; i < a1.length; i++){
+    if (a2.indexOf(a1[i]) >= 0){
+      return true;
+    }
+  }
+  return false;
+}
 
-        query.find({
-          success: function(result){
-            for (var i = 0; i < map.eventMarkers.length; i++) {
-              map.eventMarkers[i].setMap(null); //clear markers
+  mainQuery.find({
+  success: function(result){
+    for (var i = 0; i < map.eventMarkers.length; i++){
+      map.eventMarkers[i].setMap(null);
+    }
+    map.eventMarkers = [];
+    var temp, isVisited, isPreference;
+    var userPref = new Parse.Query(Parse.User);
+    userPref.get(Parse.User.current().id, {
+      success:function(r){
+        for (var i = 0; i < result.length; i++){
+          temp = result[i].get("location").toJSON();
+          isVisited = hasSharedElements(r.get("attended"), [result[i].id]);
+          isPreference = hasSharedElements(result[i].get("tags"), r.get("tags"));
+          if (showPreference){
+            if (isPreference){
+              map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
             }
-            map.eventMarkers = result;
-            var temp, isVisited, isPreference;
-            if (showVisited){
-              var userHistoryQuery = new Parse.Query(Parse.User);
-              userHistoryQuery.get(Parse.User.current().id, {
-                success:function(r){
-              for (var i = 0; i < result.length / 2; i++){ //absolutely no clue why it duplicates as you go along the list
-                temp = result[i].get("location").toJSON();
-                isVisited = r.get("attended").includes(result[i].id);
-                isPreference = hasSharedElements(result[i].get("tags"), userPref);
-                map.eventMarkers[i] = that.addMarker(temp.latitude, temp.longitude, result[i].id, false, isPreference);
-              }
-            },error:function(e){}
-          });
-            }else{
-              for (var i = 0; i < result.length / 2; i++){ //absolutely no clue why it duplicates as you go along the list
-                temp = result[i].get("location").toJSON();
-                isPreference = hasSharedElements(result[i].get("tags"), userPref);
-                map.eventMarkers[i] = that.addMarker(temp.latitude, temp.longitude, result[i].id, false, isPreference);
-              }
-            }
-          }, error: function(error){
-            console.dir(error);
+          }else{
+            map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
           }
-        });
+        }
+      },error:function(e){}
+    });
+  }, error: function(error){
+    console.dir(error);
+  }
+
+});
 },
-};
+}
