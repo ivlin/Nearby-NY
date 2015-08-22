@@ -83,15 +83,17 @@ var app = {
                         friends.buildList();
                     });
                     break;
-                case "signout":
+                    case "signout":
                     buttons[i].addEventListener("click", function() {
-                        Parse.User.logOut();
-                        logout();
+                       if (Parse.User.current()){
+                         Parse.User.logOut();
+                        //logout();
                         controller.changeViewTo("view-signin");
-                        //       app.profilePage.setupProfilePage();                        
-                    });
+                        //       app.profilePage.setupProfilePage(); 
+                    }                       
+                });
                     break;
-                default:
+                    default:
                     break;
             }
         }
