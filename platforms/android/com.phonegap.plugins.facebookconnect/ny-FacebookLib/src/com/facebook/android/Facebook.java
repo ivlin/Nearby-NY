@@ -133,7 +133,7 @@ public class Facebook {
      */
     @Deprecated
     public void authorize(Activity activity, final DialogListener listener) {
-        authorize(activity, new String[]{}, DEFAULT_AUTH_ACTIVITY_CODE, SessionLoginBehavior.SSO_WITH_FALLBACK,
+        authorize(activity, new String[]{}, FORCE_DIALOG_AUTH, SessionLoginBehavior.SSO_WITH_FALLBACK,
                 listener);
     }
 
@@ -146,7 +146,7 @@ public class Facebook {
      */
     @Deprecated
     public void authorize(Activity activity, String[] permissions, final DialogListener listener) {
-        authorize(activity, permissions, DEFAULT_AUTH_ACTIVITY_CODE, SessionLoginBehavior.SSO_WITH_FALLBACK, listener);
+        authorize(activity, permissions, FORCE_DIALOG_AUTH, SessionLoginBehavior.SSO_WITH_FALLBACK, listener);
     }
 
     /**

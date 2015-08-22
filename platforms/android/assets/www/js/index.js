@@ -86,6 +86,7 @@ var app = {
                 case "signout":
                     buttons[i].addEventListener("click", function() {
                         Parse.User.logOut();
+                        logout();
                         controller.changeViewTo("view-signin");
                         //       app.profilePage.setupProfilePage();                        
                     });
