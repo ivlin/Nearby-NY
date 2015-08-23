@@ -143,3 +143,8 @@ button {
 #profile-preview {
     display: none;
 }
+
+
+#add-friends-prompt {
+    display:none;
+}

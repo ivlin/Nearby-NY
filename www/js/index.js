@@ -38,9 +38,38 @@ var app = {
 
     initParse: function() {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
+        
         Event = Parse.Object.extend("Event");
         EventList = Parse.Collection.extend({
             model: Event
+        });
+
+        PendingFriendList = Parse.Collection.extend({
+            model: Parse.User,
+        });
+        PendingFriendListView = Parse.View.extend({
+            data: null,
+            template: Handlebars.compile(document.getElementById("pending-friends-tpl").innerHTML),
+            render: function() {
+                this.data = {
+                    friend: this.collection
+                };
+                this.el.innerHTML = this.template(this.data);
+            }
+        });
+
+        FriendList = Parse.Collection.extend({
+            model: Parse.User,
+        });
+        FriendListView = Parse.View.extend({
+            data: null,
+            template: Handlebars.compile(document.getElementById("friend-list-tpl").innerHTML),
+            render: function() {
+                this.data = {
+                    friend: this.collection
+                };
+                this.el.innerHTML = this.template(this.data);
+            }
         });
     },
 
@@ -80,7 +109,7 @@ var app = {
                 case "goto-friends":
                     $(buttons[i]).click(function() {
                         controller.changeViewTo("view-friends");
-                        friends.buildList();
+                        friends.initialize();
                     });
                     break;
                     case "signout":
