@@ -7,16 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "plugin.google.maps": {
-        "source": {
-            "type": "registry",
-            "id": "plugin.google.maps"
-        },
-        "is_top_level": true,
-        "variables": {
-            "API_KEY_FOR_ANDROID": "AIzaSyCsJrLiL-AfRD3uzVUCz8V46RuWf2SODlU"
-        }
-    },
     "plugin.http.request": {
         "source": {
             "type": "registry",

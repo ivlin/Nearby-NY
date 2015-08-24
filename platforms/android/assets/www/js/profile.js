@@ -135,7 +135,6 @@ var profile = {
         var query = new Parse.Query(Parse.User);
         query.get(Parse.User.current().id, {
             success: function(result) {
-                console.log("history :" + result);
                 profile.makeEventList(result.get("attended"), "event-history");
             },
             error: function(error) {
@@ -148,7 +147,6 @@ var profile = {
         var query = new Parse.Query(Parse.User);
         query.get(Parse.User.current().id, {
             success: function(result) {
-                console.log("sched :" + result);
                 profile.makeEventList(result.get("to_attend"), "event-schedule");
             },
             error: function(error) {

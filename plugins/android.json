@@ -17,10 +17,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"GoogleMaps\"><param name=\"android-package\" value=\"plugin.google.maps.GoogleMaps\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"External\"><param name=\"android-package\" value=\"plugin.google.maps.External\" /></feature>",
                             "count": 1
                         },
@@ -59,11 +55,11 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<string name=\"fb_app_id\">1674447189454316</string>",
+                            "xml": "<string name=\"fb_app_id\">431786020341798</string>",
                             "count": 1
                         },
                         {
-                            "xml": "<string name=\"fb_app_name\">Nearby NY</string>",
+                            "xml": "<string name=\"fb_app_name\">NearbyNY-test</string>",
                             "count": 1
                         }
                     ]
@@ -129,13 +125,9 @@
         "cordova-plugin-whitelist": {
             "PACKAGE_NAME": "com.phonegap.helloworld"
         },
-        "plugin.google.maps": {
-            "API_KEY_FOR_ANDROID": "AIzaSyCsJrLiL-AfRD3uzVUCz8V46RuWf2SODlU",
-            "PACKAGE_NAME": "com.phonegap.helloworld"
-        },
         "com.phonegap.plugins.facebookconnect": {
-            "APP_ID": "1674447189454316",
-            "APP_NAME": "Nearby NY",
+            "APP_ID": "431786020341798",
+            "APP_NAME": "NearbyNY-test",
             "PACKAGE_NAME": "lfour.nearby.ny"
         }
     },

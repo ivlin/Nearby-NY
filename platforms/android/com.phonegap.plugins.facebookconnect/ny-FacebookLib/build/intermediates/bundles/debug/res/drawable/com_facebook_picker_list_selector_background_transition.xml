@@ -18,4 +18,4 @@
     <item android:drawable="@drawable/com_facebook_picker_list_pressed"  />
     <item android:drawable="@drawable/com_facebook_picker_list_longpressed"  />
 </transition>
-<!-- From: file:/Users/christianjohngarrido/Sites/Nearby/platforms/android/com.phonegap.plugins.facebookconnect/ny-FacebookLib/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->
+<!-- From: file:/C:/Users/laptop/Desktop/nearbyny/platforms/android/com.phonegap.plugins.facebookconnect/ny-FacebookLib/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->

@@ -10,6 +10,7 @@
     <!-- 3rd Party CSS Libraries -->
     <link rel="stylesheet" href="css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <title>Sign In</title>
@@ -22,6 +23,7 @@
             <li class="goto-trending"><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
             <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
             <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
+            <li class="goto-friends"><a href="#!"><i class="material-icons left">person_pin</i>Friends</a></li>
             <li>
                 <form>
                     <div class="input-field">
@@ -44,13 +46,10 @@
                 <input type="text" name="password" id="signin-password">
                 <br> login with facebook: under construction
                 <br>
-                <button id="signin-button">Login</button>
-                <br>
-                <button onclick="fblogin()">Facebook Login</button><br>
-                <button class="goto-signup">Sign Up</button>
-                <br>
-                <button class="goto-trending">Continue as Guest</button>
-                <br>
+                <div id="signin-button"><a class="waves-effect waves-light col s6">Login</a></div>
+                <div><a class="waves-effect waves-light btn-large" onclick="fblogin()">Facebook Login</a></div>
+                <div class="goto-signup"><a class="waves-effect waves-light btn-large">Sign Up</a></div>
+                <div class="goto-trending"><a class="waves-effect waves-light btn-large goto-trending">Continue as Guest</a></div>
             </div>
         </div>
         <!-- Signup -->
@@ -69,10 +68,10 @@
                 <input type="text" name="confirm-password" id="signup-confirm-password">
                 <br> login with facebook: under construction
                 <br>
-                <button id="signup-button">Sign Up</button>
-                <br>
+                <div id="signup-button"><a class="waves-effect waves-light btn-large">Sign Up</a></div>
+<!--                                 <div><a class="waves-effect waves-light btn-large" onclick="fbsignup()">Sign Up with Facebook</a></div> -->                
                 <button onclick = "fbsignup();">Sign Up with Facebook</button><br>
-                <button class="goto-signin">Go Back</button>
+                <div class="goto-signin"><a class="waves-effect waves-light btn-large">Go Back</a></div>
                 <br>
             </div>
         </div>
@@ -93,7 +92,19 @@
                 </div>
             </div>
             <div class="display">
-                <div id="friend-list-display"></div>
+              <a class="waves-effect waves-light btn" id ="add-friends-button"><i class="material-icons left">person_pin</i>Add Friend</a>
+              <!-- Add a friend prompt -->
+              <div class="row" id="add-friends-prompt">
+                <div class="input-field col s6">
+                  <input id="friend-id" type="text" class="validate">
+                  <label class="active" for="friend-id">Username or E-mail</label>
+                  <a class="btn-floating btn-large waves-effect waves-light red" id="check-friend-id"><i class="material-icons">add</i></a>
+                  <div class="col l4 offset-l2 s12" id="add-friend-prompt-status"></div>
+                </div>
+              </div>
+              <!--  -->
+              <div id="pending-list-display"></div>
+              <div id="friend-list-display"></div>
             </div>
         </div>
         <!-- Trending -->
@@ -369,8 +380,8 @@
                     </div>
                     <div class="card-action red darken-3 white-text z-depth-3">
                         <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
-                  playlist_add
-                </i></a>
+                          playlist_add
+                        </i></a>
                         <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>
                     </div>
                 </div>
@@ -379,10 +390,17 @@
         </div>
     </div>
 </script>
+<script id="pending-friends-tpl" type="text/x-handlebars-template">
+    <div class="row">
+        {{#each friend}}
+        <p>{{username}}</p>
+        {{/each}}
+    </div>
+</script>
 <script id="friend-list-tpl" type="text/x-handlebars-template">
     <div class="row">
         {{#each friend}}
-        <p>{{username}} {{objectId}} {{name}}</p>
+        <p>{{username}} {{objectId}}</p>
         {{/each}}
     </div>
 </script>
@@ -441,17 +459,23 @@
             </div>
         </div>
         <div class="row event-info-row">
-            <div class="col s4">
-                <a class="waves-effect waves-light btn" id="event-reserve"><i class="material-icons left"></i>Plan to Attend</a>
+            <div class="col s6 center">
+                <i class="large material-icons" id="event-reserve">done</i>
+                <p class="section-caption ">Planning to Attend</p>
+                <p class="light center">Attending:{{to_attend}}<br>People You Know:{{friends_to_attend}}</p>
             </div>
-            <div class="col s4">
-                <a class="waves-effect waves-light btn" id="event-checkin"><i class="material-icons left"></i>Check In</a>
+            <div class="col s6 center">
+              <i class="large material-icons" id="event-checkin">done_all</i>
+              <p class="section-caption">Checked In</p>
+              <p class="light center">Attended:{{attended}}<br>People You Know:{{friends_attended}}</p>
             </div>
         </div>
-        <div class="row event-info-row">
-            <i class="material-icons left" id="event-upvote">thumb_up</i>
-            <i class="material-icons left" id="event-downvote">thumb_down</i>
-            <i class="material-icons left" id="event-votes">thumbs_up_down</i>
+        <div class="container event-info-row grey-text">
+            <i class="large material-icons left" id="event-upvote">thumb_up</i>
+            <div class="section-caption black-text left" id="event-upvote-count">{{upvotes}}</div>
+            <!--<i class="large material-icons center" id="event-votes">thumbs_up_down</i>-->
+            <i class="large material-icons right" id="event-downvote">thumb_down</i>            
+            <div class="section-caption red-text right" id="event-downvote-count">{{downvotes}}</div>
         </div>
     </div>
 </script>

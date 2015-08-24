@@ -43,31 +43,20 @@ function validateSignUp() {
 	var formPass = $("#signup-password").val();
 	var formConfirmPass = $("#signup-confirm-password").val();
 	if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
-		Parse.User.signUp(formName, formPass, {},{
-			success:function(result){
+		Parse.User.signUp(formName, formPass, {
+			email:formEmail, name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[]
+		}, {
+			success: function(user) {
 				console.log("success");
-				$("#signup-status").html("Registration successful");
+				controller.changeViewTo("view-trending");
 			},
-			error:function(error){
-				console.log(error);
-				$("#signup-status").html("Registration failed<br>Try again");
+			error: function(user, error) {
+					$("#signup-username").val("");
+					$("#signup-password").val("");
+					$("#signup-status").html("Registration failed.<br>Make sure all fields are valid and try again.");
 			}
 		});
 	} else {
 		$("#signup-status").html("Form incorrectly filled");
 	}
 }
-
-
-
-/* Facebook login */
-// var fbLoginSuccess = function (userData) {
-// 	alert("UserInfo: " + JSON.stringify(userData));
-// };
-
-// $('#signin-button').click(function(e) {
-// 	facebookConnectPlugin.login(["public_profile", "email", "user_friends"],
-// 		fbLoginSuccess,
-// 		function (error) { alert("" + error);}
-// 		);
-// });
