@@ -46,13 +46,10 @@
                 <input type="text" name="password" id="signin-password">
                 <br> login with facebook: under construction
                 <br>
-                <button id="signin-button">Login</button>
-                <br>
-                <button onclick="fblogin()">Facebook Login</button><br>
-                <button class="goto-signup">Sign Up</button>
-                <br>
-                <button class="goto-trending">Continue as Guest</button>
-                <br>
+                <div id="signin-button"><a class="waves-effect waves-light btn-large">Login</a></div>
+                <div><a class="waves-effect waves-light btn-large" onclick="fblogin()">Facebook Login</a></div>
+                <div class="goto-signup"><a class="waves-effect waves-light btn-large">Sign Up</a></div>
+                <div class="goto-trending"><a class="waves-effect waves-light btn-large goto-trending">Continue as Guest</a></div>
             </div>
         </div>
         <!-- Signup -->
@@ -71,10 +68,10 @@
                 <input type="text" name="confirm-password" id="signup-confirm-password">
                 <br> login with facebook: under construction
                 <br>
-                <button id="signup-button">Sign Up</button>
-                <br>
+                <div id="signup-button"><a class="waves-effect waves-light btn-large">Sign Up</a></div>
+<!--                                 <div><a class="waves-effect waves-light btn-large" onclick="fbsignup()">Sign Up with Facebook</a></div> -->                
                 <button onclick = "fbsignup();">Sign Up with Facebook</button><br>
-                <button class="goto-signin">Go Back</button>
+                <div class="goto-signin"><a class="waves-effect waves-light btn-large">Go Back</a></div>
                 <br>
             </div>
         </div>
@@ -383,8 +380,8 @@
                     </div>
                     <div class="card-action red darken-3 white-text z-depth-3">
                         <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
-                  playlist_add
-                </i></a>
+                          playlist_add
+                        </i></a>
                         <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>
                     </div>
                 </div>
@@ -462,17 +459,23 @@
             </div>
         </div>
         <div class="row event-info-row">
-            <div class="col s4">
-                <a class="waves-effect waves-light btn" id="event-reserve"><i class="material-icons left"></i>Plan to Attend</a>
+            <div class="col s6 center">
+                <i class="large material-icons" id="event-reserve">done</i>
+                <p class="section-caption ">Planning to Attend</p>
+                <p class="light center">Attending:{{to_attend}}<br>People You Know:{{friends_to_attend}}</p>
             </div>
-            <div class="col s4">
-                <a class="waves-effect waves-light btn" id="event-checkin"><i class="material-icons left"></i>Check In</a>
+            <div class="col s6 center">
+              <i class="large material-icons" id="event-checkin">done_all</i>
+              <p class="section-caption">Checked In</p>
+              <p class="light center">Attended:{{attended}}<br>People You Know:{{friends_attended}}</p>
             </div>
         </div>
-        <div class="row event-info-row">
-            <i class="material-icons left" id="event-upvote">thumb_up</i>
-            <i class="material-icons left" id="event-downvote">thumb_down</i>
-            <i class="material-icons left" id="event-votes">thumbs_up_down</i>
+        <div class="container event-info-row grey-text">
+            <i class="large material-icons left" id="event-upvote">thumb_up</i>
+            <div class="section-caption black-text left" id="event-upvote-count">{{upvotes}}</div>
+            <!--<i class="large material-icons center" id="event-votes">thumbs_up_down</i>-->
+            <i class="large material-icons right" id="event-downvote">thumb_down</i>            
+            <div class="section-caption red-text right" id="event-downvote-count">{{downvotes}}</div>
         </div>
     </div>
 </script>

@@ -46,7 +46,7 @@ var map = {
         }
 
         google.maps.event.addListener(temp, 'click', function(){
-          app.drawEventPage(temp.eventId);
+          app.drawEventPage(temp.eventId,"view-map");
         });
 
         return temp;
@@ -98,28 +98,39 @@ function hasSharedElements(a1, a2){
 
   mainQuery.find({
   success: function(result){
+
     for (var i = 0; i < map.eventMarkers.length; i++){
       map.eventMarkers[i].setMap(null);
     }
     map.eventMarkers = [];
     var temp, isVisited, isPreference;
-    var userPref = new Parse.Query(Parse.User);
-    userPref.get(Parse.User.current().id, {
-      success:function(r){
-        for (var i = 0; i < result.length; i++){
-          temp = result[i].get("location").toJSON();
-          isVisited = hasSharedElements(r.get("attended"), [result[i].id]);
-          isPreference = hasSharedElements(result[i].get("tags"), r.get("tags"));
-          if (showPreference){
-            if (isPreference){
+
+    if (!Parse.User.current()){
+      for (var i = 0; i < result.length; i++){
+        temp = result[i].get("location").toJSON();
+        isVisited = false;
+        isPreference = false;
+        map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
+      }
+    }else{
+      var userPref = new Parse.Query(Parse.User);
+      userPref.get(Parse.User.current().id, {
+        success:function(r){
+          for (var i = 0; i < result.length; i++){
+            temp = result[i].get("location").toJSON();
+            isVisited = hasSharedElements(r.get("attended"), [result[i].id]);
+            isPreference = hasSharedElements(result[i].get("tags"), r.get("tags"));
+            if (showPreference){
+              if (isPreference){
+                map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
+              }
+            }else{
               map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
             }
-          }else{
-            map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
           }
-        }
-      },error:function(e){}
-    });
+        },error:function(e){}
+      });
+    }
   }, error: function(error){
     console.dir(error);
   }
