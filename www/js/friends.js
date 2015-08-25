@@ -53,7 +53,6 @@ var friends = {
 },
 
 buildPendingList:function() {
-    console.log("A");
     var query = new Parse.Query(Parse.User);
     query.get(Parse.User.current().id).then(function(me){
         var pendingList = me.get("pending_friends");
@@ -61,6 +60,7 @@ buildPendingList:function() {
         pendingQuery.containedIn("objectId",pendingList);
         pendingQuery.find({
             success: function(result) {
+                console.log(result);
                 for (var i = 0; i < result.length; i++) {
                     result[i] = result[i].toJSON();
                 }
