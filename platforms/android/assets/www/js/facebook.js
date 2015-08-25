@@ -39,14 +39,14 @@ facebookConnectPlugin.login(["email"], function(response) {
 			facebookConnectPlugin.api('/me', null,
 				function(response) {
 					
-						var formEmail = 'none';
+						var formEmail = response.id+'@nearby.com';
 						var formName = response.name;
 						var formPass = response.id;
 						var formConfirmPass = response.id;
 						if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 							Parse.User.signUp(formName, formPass, {
                                 
-								email:"",name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[], pending_friends:[], profile_img:"",
+								email:formEmail,name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[], pending_friends:[], profile_img:"",
                                 
 							},{
 								success:function(result){
@@ -66,11 +66,11 @@ facebookConnectPlugin.login(["email"], function(response) {
                         
 						console.log(error);
                         var p = error;
-                        for (var key in p) {
+                        /*for (var key in p) {
                         if (p.hasOwnProperty(key)) {
                                 alert(key + " -> " + p[key]);
                             }
-                        }
+                        }*/
 						$("#signup-status").html("Registration failed<br>Try again");
 						}
 						});

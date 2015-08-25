@@ -78,6 +78,8 @@ var app = {
         switch (buttons[i].getAttribute("class")) {
           case "goto-trending":
           $(buttons[i]).click(function() {
+            $(".sidebar-button").removeClass("grey lighten-4");
+            $("#sidebar-trending").addClass("grey lighten-4");
             controller.changeViewTo("view-trending");
           });
           break;
@@ -93,6 +95,8 @@ var app = {
           break;
           case "goto-map":
           $(buttons[i]).click(function() {
+            $(".sidebar-button").removeClass("grey lighten-4");
+            $("#sidebar-map").addClass("grey lighten-4");
             controller.changeViewTo("view-map");
             map.initialize();
           });
@@ -100,6 +104,8 @@ var app = {
           case "goto-profile":
           $(buttons[i]).click(function() {
             if (Parse.User.current()) {
+              $(".sidebar-button").removeClass("grey lighten-4");
+              $("#sidebar-profile").addClass("grey lighten-4");
               controller.changeViewTo("view-profile");
               profile.initialize();
             }
@@ -107,6 +113,8 @@ var app = {
           break;
           case "goto-friends":
           $(buttons[i]).click(function() {
+            $(".sidebar-button").removeClass("grey lighten-4");
+            $("#sidebar-friends").addClass("grey lighten-4");
             controller.changeViewTo("view-friends");
             friends.initialize();
           });
@@ -116,8 +124,8 @@ var app = {
             if (Parse.User.current()){
               Parse.User.logOut();
             }
-            fblogout();
-            controller.changeViewTo("view-signin");                  
+            controller.changeViewTo("view-signin");  
+            fblogout();                
           });
           break;
           default:

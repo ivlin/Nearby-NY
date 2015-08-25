@@ -18,6 +18,16 @@ info = {
 
                 info.setupHandlers(objectId, result);
 
+                $(".goto-friends").click(function(){
+                  $("#invite-friends-prompt").slideToggle();
+                });
+
+                $("#send-invites").click(function(){
+                  Materialize.toast("Successfully sent notices.",500);
+                  $("#friend-notification, #friend-email-notification, #friend-user-notification").val("");
+                  $("#invite-friends-prompt").slideToggle();
+                })
+
                 //moved inside asyncdata
                 if (result.get("upvotes").indexOf(Parse.User.current().id) >= 0){                
                   $("#event-upvote").attr("class","large material-icons left black-text");
@@ -143,6 +153,7 @@ EventPageView = Parse.View.extend({
               r.save();
             }
           });
+          Materialize.toast('<span>You have shown interest in attending.</span>', 5000);
         } else {
           removeMeFromArray("to_attend");
           var query = new Parse.Query(Parse.User);
@@ -154,6 +165,7 @@ EventPageView = Parse.View.extend({
               r.save();
             }
           });
+          Materialize.toast('<span>You are no longer interested in attending.</span>', 5000);
         }
         $("#event-to-attend-num").html(upData.to_attend.length);
       });
@@ -171,8 +183,11 @@ EventPageView = Parse.View.extend({
               r.save();
             }
           });
+          Materialize.toast('<span>Checked in! You can now rate this event.</span>', 5000);
         } else {
-          removeMeFromArray("attended");
+          removeMeFromArray("attended");          
+          removeMeFromArray("upvotes");
+          removeMeFromArray("downvotes");
           var query = new Parse.Query(Parse.User);
           query.get(Parse.User.current().id, {
             success: function(r) {
@@ -182,6 +197,11 @@ EventPageView = Parse.View.extend({
               r.save();
             }
           });
+          Materialize.toast('<span>You are no longer registered as having checked in.</span>', 5000);
+          $("#event-upvote").attr("class","large material-icons left grey-text");
+          $("#event-upvote-count").html(result.get("upvotes").length);
+          $("#event-downvote").attr("class","large material-icons left grey-text");
+          $("#event-downvote-count").html(result.get("downvotes").length);
         }
         $("#event-attended-num").html(upData.attended.length);
       });

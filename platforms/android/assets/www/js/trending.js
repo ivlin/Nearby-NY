@@ -139,6 +139,7 @@ setupHandlers: function(){
   }
 
   $("#search-trending").click(function (){
+    $("#search-close").css('visibility', 'visible');
     var searchTerm = $("#search").val();
     var tagQuery = new Parse.Query(Event);
     tagQuery.equalTo("tags",searchTerm);
@@ -165,6 +166,7 @@ setupHandlers: function(){
 });
 
   $("#search-close").click(function (){
+    $(this).css('visibility', 'hidden');
     $("#event-list-display").empty().append(trending.eventListView.el);
 });
 }

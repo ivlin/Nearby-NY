@@ -20,19 +20,10 @@
   <div class="app" id="app">
     <!-- Slide out Nav Bar -->
     <ul class="side-nav" id="mobile-demo">
-      <li class="goto-trending"><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-      <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-      <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
-      <li class="goto-friends"><a href="#!"><i class="material-icons left">person_pin</i>Friends</a></li>
-      <li>
-        <form>
-          <div class="input-field">
-            <input id="search" type="search" required>
-            <label for="search"><i class="material-icons" id="search-trending">search</i></label>
-            <i class="material-icons" id="search-close">close</i>
-          </div>
-        </form>
-      </li>
+      <li class="goto-trending"><div class="sidebar-button" id="sidebar-trending"><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></div></li>
+      <li class="goto-profile"><div class="sidebar-button" id="sidebar-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></div></li>
+      <li class="goto-map"><div class="sidebar-button" id="sidebar-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></div></li>
+      <li class="goto-friends"><div class="sidebar-button" id="sidebar-friends"><a href="#!"><i class="material-icons left">person_pin</i>Friends</a></div></li>
     </ul>
     <!-- Login -->
     <!-- Login -->
@@ -58,19 +49,19 @@
       <div id="signup-form">
         <div id="signup-status"></div>
         e-mail:
-        <input type="text" name="email" id="signup-email">
+        <input type="text" name="email" id="signup-email" style="text-align:center">
         <br> username:
-        <input type="text" name="username" id="signup-username">
+        <input type="text" name="username" id="signup-username" style="text-align:center">
         <br> password:
-        <input type="password" name="password" id="signup-password">
+        <input type="password" name="password" id="signup-password" style="text-align:center">
         <br> confirm password:
-        <input type="text" name="confirm-password" id="signup-confirm-password">
+        <input type="password" name="confirm-password" id="signup-confirm-password" style="text-align:center">
         <br>
-        <div id="signup-button"><a class="waves-effect waves-light btn-large">Sign Up</a></div>
-        <!--                                 <div><a class="waves-effect waves-light btn-large" onclick="fbsignup()">Sign Up with Facebook</a></div> -->                
-        <button onclick = "fbsignup();">Sign Up with Facebook</button><br>
-        <div class="goto-signin"><a class="waves-effect waves-light btn-large">Go Back</a></div>
-        <br>
+        <div class="row">
+          <div id="signup-button"><a class="waves-effect waves-light btn-large">Sign Up</a></div>
+          <div onclick="fbsignup()"><a class="waves-effect waves-light btn-large">Sign Up with Facebook</a></div>                      <div class="goto-signin"><a class="waves-effect waves-light btn-large">Go Back</a></div>
+          <br>
+        </div>
       </div>
     </div>
     <!-- Friends Page -->
@@ -83,6 +74,7 @@
             <div class="nav-wrapper grey darken-4">
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
               <ul id="nav-mobile" class="right">
+                <li id ="add-friends-button"><a><i class="material-icons left" >person_pin</i>Add Friend</a></li>
                 <li class="signout"><a href="#">Signout</a></li>
               </ul>
             </div>
@@ -90,17 +82,38 @@
         </div>
       </div>
       <div class="display">
-        <a class="waves-effect waves-light btn" id ="add-friends-button"><i class="material-icons left">person_pin</i>Add Friend</a>
         <!-- Add a friend prompt -->
         <div class="row" id="add-friends-prompt">
-          <div class="input-field col s6">
-            <input id="friend-id" type="text" class="validate">
-            <label class="active" for="friend-id">Username or E-mail</label>
-            <a class="btn-floating btn-large waves-effect waves-light red" id="check-friend-id"><i class="material-icons">add</i></a>
-            <div class="col l4 offset-l2 s12" id="add-friend-prompt-status"></div>
+          <div class="card-panel col s12 grey lighten-4" style="padding:4px">
           </div>
         </div>
+
+        <div class="input-field col s10">
+          <input id="friend-user-notification" type="password" class="validate">
+          <label for="password">Friend Username</label>
+        </div>
+        <div class="input-field col s10">
+          <input id="friend-email-notification" type="password" class="validate">
+          <label for="friend-email-notification">Friend Emails</label>
+        </div>
+        <div class="input-field col s10">
+          <input id="friend-notification" type="text" class="validate">
+          <label class="active" for="friend-notification">Notification Message</label>
+        </div>
+
         <!--  -->
+        <!-- Notification -->
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea id="textarea1" class="materialize-textarea"></textarea>
+                <label for="textarea1">Textarea</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!-- -->
         <div id="pending-list-display"></div>
         <div id="friend-list-display"></div>
       </div>
@@ -120,18 +133,27 @@
           <nav>
             <div class="nav-wrapper grey darken-4">
               <ul id="nav-mobile" class="right">
-                <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
-                <li class="signout"><a href="#">Signout</a></li>
-              </ul>
-              <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            </div>
-          </nav>
-        </div>
+                <li>
+                 <form>
+                  <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label for="search"><i class="material-icons" id="search-trending">search</i></label>
+                  </div>
+                </form>
+              </li>
+              <li><i class="material-icons" id="search-close" style="visibility:hidden">close</i></li>
+              <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
+              <li class="signout"><a href="#">Signout</a></li>
+            </ul>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+          </div>
+        </nav>
       </div>
-      <div class="display">
-        <div id="event-list-display">
-        </div>
+    </div>
+    <div class="display">
+      <div id="event-list-display">
       </div>
+    </div>
             <!-- <div class="foot">
     <footer class="page-footer grey darken-4">
         <div class="container">
@@ -172,6 +194,7 @@
       <nav>
         <div class="nav-wrapper grey darken-4">
           <ul id="nav-mobile" class="right">
+            <li id="display-map-options"><a href="#">Options</a></li>
             <li class="signout"><a href="#">Signout</a></li>
           </ul>
           <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -181,7 +204,7 @@
   </div>
   <div id="map-key">
   </div>
-  <div id="map-options">
+  <div id="map-options" style="display:none">
     <form action="#">
       <p>
         Show visited events: (must be logged in)
@@ -232,6 +255,23 @@
       </nav>
       <div id="event-info-body">
       </div>
+      <div class="row">
+        <div id="invite-friends-prompt" class="col s12" style="display:none">
+          <div class="input-field col s12">
+            <input id="friend-user-notification" type="text" class="validate">
+            <label for="password">Friend Usernames</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="friend-email-notification" type="text" class="validate">
+            <label for="friend-email-notification">Friend Emails</label>
+          </div>
+          <div class="input-field col s12">
+            <textarea id="friend-notification" class="materialize-textarea"></textarea>
+            <label for="textarea1">Notification Message</label>
+          </div>
+          <a id="send-invites" class="waves-effect waves-light btn">Send invites</a>
+        </div>
+      </div>
     </div>
     <!-- Profile Page -->
     <!-- Profile Page -->
@@ -245,7 +285,7 @@
         </nav>
       </div>
       <div class="card">
-        <img id="profile-pic" class="circle profile-pic" height="200px">
+        <center><img id="profile-pic" class="circle profile-pic" height="200px"></center>
         <div class="card-image waves-effect waves-block waves-light">
           <img class="activator" src="img/nyc_skyline.gif">
         </div>
@@ -440,143 +480,167 @@
       {{#each event}}
       <div class="col s12 m12 l6 event-card" id="{{objectId}}">
         <div class="card grey darken-3">
-          <div class="card-image" style="height:400px;overflow:hidden">
-             <!--<img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">-->
-             <img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">
-            <span class="card-title">{{title}}</span>
+          <div class="card-image" style="height:400px;overflow:hidden;display:block">
+           <!--<img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">-->
+           <img src="{{img_url}}" style="height:400px;width:auto;display:block;margin:auto">
+           <span class="card-title">{{title}}</span>
+         </div>
+         <div class="card-content white-text">
+          <p class="event-description">{{address}}
+            <br>{{time}}
+            <br>{{cost}}</p>
           </div>
-          <div class="card-content white-text">
-            <p class="event-description">{{address}}
-              <br>{{time}}
-              <br>{{cost}}</p>
-            </div>
-            <div class="card-action red darken-3 white-text z-depth-3">
-              <i class="material-icons left">thumb_up</i>
-              <div class="left">{{upvotes}}</div>
-              <i class="material-icons left">thumb_down</i>
-              <div class="left">{{downvotes}}</div>
-              <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
-                playlist_add
-              </i></a>
-              <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>
-            </div>
-          </div>
-        </div>
-        {{/each}}
-      </div>
-    </div>
-  </script>
-  <script id="pending-friends-tpl" type="text/x-handlebars-template">
-      <div class="pending-friend-item row card-panel grey lighten-3 black-text">
-      {{#each friend}}
-      <img class="col s4" src="img/logo_nearby.png" style="max-height:6em;width:auto">
-        <span class="col s8"><h5>{{username}}</h5></span>
-        <span class="col s8">not registered as friends</span>
-      {{/each}}
-      </div>
-  </script>
-  <script id="friend-list-tpl" type="text/x-handlebars-template">
-    <div class="friend-item row card-panel grey lighten-3 black-text">
-      {{#each friend}}
-      <img class="col s4" src="{{profile_img}}" style="max-height:6em;width:auto">
-        <span class="col s8"><h5>{{username}}</h5></span>
-        <span class="col s8">name: {{name}}</span>
-        <span class="col s8">email: {{email}}</span>
-      {{/each}}
-    </div>
-  </script>
-  <script id="calendar-list-tpl" type="text/x-handlebars-template">
-    <div class="row">
-      {{#each event}}
-      <p>{{title}}</p>
-      <p>{{address}}</p>
-      <p>{{time}}</p>
-      <p>{{cost}}</p>
-      {{/each}}
-    </div>
-  </script>
-  <script id="event-view-tpl" type="text/x-handlebars-template">
-    <div class="event-view-display">
+          <div class="card-action red darken-3 white-text z-depth-3">
+            <a class="white-text"><div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
+            </a>
+            <a class="white-text"><div class="left">{{downvotes}}</div><i class="material-icons left card-icon">thumb_down</i></a>
 
-      <div class="parallax-container">
-        <div class="parallax"><img src={{img_url}}></div>
-      </div>
-      <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <a class="btn-floating btn-large red">
-          <i class="large material-icons">add</i>
-        </a>
-      </div>
-      <div class="row event-info-row">
-        <h2>{{title}}</h2>
-        <p>{{description}}</p>
-        <p>{{#each tags}}<div class="tagbox col s4 white center-align">{{this}}</div>{{/each}}</p>
-      </div>
-      <div class="row event-info-row">
-        <div class="col s4">
-          <div class="center">
-            <i class="large material-icons">schedule</i>
-            <p class="section-caption">Time</p>
-            <p class="light center">{{time}}</p>
-          </div>
+            <!--        <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
+            playlist_add
+          </i></a>
+          <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>-->
         </div>
-        <div class="col s4">
-          <div class="center">
-            <i class="large material-icons">room</i>
-            <p class="section-caption">Address</p>
-            <p class="light center">{{address}}</p>
-          </div>
-        </div>
-        <div class="col s4">
-          <div class="center">
-            <i class="large material-icons">credit_card</i>
-            <p class="section-caption">Cost</p>
-            <p class="light center">${{cost}}</p>
-          </div>
-        </div>
-      </div>
-      <div class="row event-info-row">
-        <div class="col s6 center">
-          <i class="large material-icons" id="event-reserve">done</i>
-          <p class="section-caption ">Planning to Attend</p>
-          <p class="light center">Attending:<span id="event-to-attend-num">{{to_attend}}</span>
-          <br>People You Know</p>
-        </div>
-        <div class="col s6 center">
-          <i class="large material-icons" id="event-checkin">done_all</i>
-          <p class="section-caption">Checked In</p>
-          <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div>
-          <br>People You Know</p>
-        </div>
-      </div>
-      <div class="container event-info-row grey-text">
-        <i class="large material-icons left" id="event-upvote">thumb_up</i>
-        <div class="section-caption black-text left" id="event-upvote-count">{{upvotes}}</div>
-        <!--<i class="large material-icons center" id="event-votes">thumbs_up_down</i>-->
-        <i class="large material-icons right" id="event-downvote">thumb_down</i>            
-        <div class="section-caption red-text right" id="event-downvote-count">{{downvotes}}</div>
       </div>
     </div>
-  </script>
-  <!-- 3rd Party JS Libraries -->
-  <script type="text/javascript" src="phonegap.js"></script>
-  <script type="text/javascript" src="cordova.js"></script>
-  <script type="text/javascript" src="lib/jquery.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
-  <script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
-  <script type="text/javascript" src="lib/parse-1.5.0.js"></script>
-  <script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
-  <script type="text/javascript" src="lib/materialize.min.js"></script>
-  <!-- Custom JS -->
-  <script type="text/javascript" src="js/controller.js"></script>
-  <script type="text/javascript" src="js/map.js"></script>
-  <script type="text/javascript" src="js/facebook.js"></script>
-  <script type="text/javascript" src="js/login.js"></script>
-  <script type="text/javascript" src="js/trending.js"></script>
-  <script type="text/javascript" src="js/friends.js"></script>
-  <script type="text/javascript" src="js/profile.js"></script>
-  <script type="text/javascript" src="js/index.js"></script>
-  <script type="text/javascript" src="js/info.js"></script>
-  <script type="text/javascript">
+    {{/each}}
+  </div>
+</div>
+</script>
+<script id="pending-friends-tpl" type="text/x-handlebars-template">
+  <ul class="collection with-header">      
+    <li class="collection-header">Pending Friends</li>
+    {{#each friend}}
+    <li class="collection-item avatar">
+      <img src="img/logo_nearby.png" alt="" class="circle">
+      <span class="title">{{username}}</span>
+      <p>user not yet registered as friend</p>
+    </li>
+    {{/each}}
+  </ul>
+</script>
+<script id="friend-list-tpl" type="text/x-handlebars-template">
+  <ul class="collection with-header">
+    <li class="collection-header">Friends</li>
+    {{#each friend}}
+    <li class="collection-item avatar">    
+      <p>
+        <input type="checkbox" id="test5" />
+        <label for="test5">Red</label>
+      </p>
+      <div class="avatar">
+        <img src="{{profile_img}}" alt="" class="circle">
+        <span class="title">{{username}}</span>
+        <p>name: {{name}} <br>
+         email: {{email}}<br>
+         <li class="collection-item expanded-avatar" style="display:none">
+          <p>bio: {{biography}} <br>
+           tagged: {{tags}}<br>
+         </li>
+       </div>
+     </li>
+     {{/each}}
+   </ul>
+ </script>
+ <script id="calendar-list-tpl" type="text/x-handlebars-template">
+  <ul class="collection">
+    {{#each event}}
+    <div class="row">
+      <li class="collection-item">
+        <p class="col s12">{{title}}</p>
+        <p class="col s12">{{address}}</p>
+        <p class="col s12">{{time}}</p>
+        <p class="col s12">{{cost}}</p>
+      </li>
+    </div>
+    {{/each}}
+  </ul>
+</script>
+<script id="event-view-tpl" type="text/x-handlebars-template">
+  <div class="event-view-display">
+
+    <div class="parallax-container">
+      <div class="parallax"><img src={{img_url}}></div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+      </a>
+    </div>
+    <div class="row event-info-row">
+      <h2>{{title}}</h2>
+      <p>{{{description}}}</p>
+      <p>Tags: {{#each tags}}<div class="tagbox col s4 white center-align">{{this}}</div>{{/each}}</p>
+    </div>
+    <div class="row event-info-row">
+      <div class="col s4">
+        <div class="center">
+          <i class="large material-icons">schedule</i>
+          <p class="section-caption">Time</p>
+          <p class="light center">{{time}}</p>
+        </div>
+      </div>
+      <div class="col s4">
+        <div class="center">
+          <i class="large material-icons">room</i>
+          <p class="section-caption">Address</p>
+          <p class="light center">{{address}}</p>
+        </div>
+      </div>
+      <div class="col s4">
+        <div class="center">
+          <i class="large material-icons">credit_card</i>
+          <p class="section-caption">Cost</p>
+          <p class="light center">${{cost}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="row event-info-row">
+      <div class="col s4 center">
+        <i class="large material-icons" id="event-reserve">done</i>
+        <p class="section-caption ">Interest</p>
+        <p class="light center">Attending:<span id="event-to-attend-num">{{to_attend}}</span></p>
+      </div>
+
+      <div class="col s4 center">
+        <span class="goto-friends"><i class="large material-icons" id="event-invite-friends">recent_actors</i></span>
+        <p class="section-caption ">Invite</p>
+      </div>
+
+      <div class="col s4 center">
+        <i class="large material-icons" id="event-checkin">done_all</i>
+        <p class="section-caption">Check In</p>
+        <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div></p>
+      </div>
+    </div>
+    <div class="container event-info-row grey-text">
+      <i class="large material-icons left" id="event-upvote">thumb_up</i>
+      <div class="section-caption black-text left" id="event-upvote-count">{{upvotes}}</div>
+      <!--<i class="large material-icons center" id="event-votes">thumbs_up_down</i>-->
+      <i class="large material-icons right" id="event-downvote">thumb_down</i>            
+      <div class="section-caption red-text right" id="event-downvote-count">{{downvotes}}</div>
+    </div>
+  </div>
+</script>
+<!-- 3rd Party JS Libraries -->
+<script type="text/javascript" src="phonegap.js"></script>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="lib/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
+<script type="text/javascript" src="lib/parse-1.5.0.js"></script>
+<script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
+<script type="text/javascript" src="lib/materialize.min.js"></script>
+<!-- Custom JS -->
+<script type="text/javascript" src="js/controller.js"></script>
+<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" src="js/facebook.js"></script>
+<script type="text/javascript" src="js/login.js"></script>
+<script type="text/javascript" src="js/trending.js"></script>
+<script type="text/javascript" src="js/friends.js"></script>
+<script type="text/javascript" src="js/profile.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/info.js"></script>
+<script type="text/javascript">
 //Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
 app.initialize();
 </script>
@@ -588,4 +652,4 @@ app.initialize();
                       <i class="material-icons" id="search-close">close</i>
                     </div>             SEARCH BAR
                   </form>-->
-</html>
+                  </html>
