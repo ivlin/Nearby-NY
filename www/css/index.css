@@ -154,3 +154,16 @@ button {
     border:solid 1px black;
     border-radius:5px
 }
+
+.friend-item, .pending-friend-item{
+    margin:2px;
+}
+
+.card-image{ 
+    max-width: 100%;
+    height: 400px;
+
+    /* add following */
+    background-size:cover;
+    background-position:50% 50%;
+}
