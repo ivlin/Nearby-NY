@@ -19,6 +19,11 @@ var map = {
       },
 
       setupHandlers: function(){
+
+        $("#display-map-options").click(function(){
+          $("#map-options").slideToggle();
+        });
+
         $("#update-map-events").click(function(){
           var preference, visited
           if (Parse.User.current()){
