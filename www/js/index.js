@@ -104,8 +104,8 @@ var app = {
           case "goto-profile":
           $(buttons[i]).click(function() {
             if (Parse.User.current()) {
-            $(".sidebar-button").removeClass("grey lighten-4");
-            $("#sidebar-profile").addClass("grey lighten-4");
+              $(".sidebar-button").removeClass("grey lighten-4");
+              $("#sidebar-profile").addClass("grey lighten-4");
               controller.changeViewTo("view-profile");
               profile.initialize();
             }
@@ -124,8 +124,8 @@ var app = {
             if (Parse.User.current()){
               Parse.User.logOut();
             }
-            fblogout();
-            controller.changeViewTo("view-signin");                  
+            controller.changeViewTo("view-signin");  
+            fblogout();                
           });
           break;
           default:

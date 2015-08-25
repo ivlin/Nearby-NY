@@ -19,11 +19,14 @@ info = {
                 info.setupHandlers(objectId, result);
 
                 $(".goto-friends").click(function(){
-                  $(".sidebar-button").removeClass("grey lighten-4");
-                  $("#sidebar-friends").addClass("grey lighten-4");
-                  controller.changeViewTo("view-friends");
-                  friends.initialize();
+                  $("#invite-friends-prompt").slideToggle();
                 });
+
+                $("#send-invites").click(function(){
+                  Materialize.toast("Successfully sent notices.",500);
+                  $("#friend-notification, #friend-email-notification, #friend-user-notification").val("");
+                  $("#invite-friends-prompt").slideToggle();
+                })
 
                 //moved inside asyncdata
                 if (result.get("upvotes").indexOf(Parse.User.current().id) >= 0){                

@@ -95,7 +95,7 @@ buildFriendList: function() {
                     collection: result
                 });
                 friends.friendListView.render();
-                $("#friend-list-display").append(friends.friendListView.el);
+                $("#friend-list-display").emptry().append(friends.friendListView.el);
                 $(".avatar").click(function (evt){
                     $(this).next(".expanded-avatar").slideToggle(); 
                 });
