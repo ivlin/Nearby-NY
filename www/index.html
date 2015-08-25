@@ -131,7 +131,8 @@
         </div>
       </div>
       <div class="display">
-        <div id="event-list-display"></div>
+        <div id="event-list-display">
+        </div>
       </div>
             <!-- <div class="foot">
     <footer class="page-footer grey darken-4">
@@ -168,8 +169,18 @@
 <!-- Maps -->
 <!-- Maps -->
 <div id="view-map" class="viewframe">
-  <button class="goto-trending">
-  </button>
+  <div class="head">
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper grey darken-4">
+          <ul id="nav-mobile" class="right">
+            <li class="signout"><a href="#">Signout</a></li>
+          </ul>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+      </nav>
+    </div>
+  </div>
   <div id="map-key">
   </div>
   <div id="map-options">
@@ -214,6 +225,15 @@
     <!-- Event Page -->
     <!-- Event Page -->
     <div id="view-event" class="viewframe">
+      <nav>
+        <div class="nav-wrapper grey darken-4">
+          <button class="grey darken-4 waves-effect waves-light btn-large left" id="goto-last">Return
+            <i class="large material-icons"> replay </i>
+          </button>
+        </div>
+      </nav>
+      <div id="event-info-body">
+      </div>
     </div>
     <!-- Profile Page -->
     <!-- Profile Page -->
@@ -473,13 +493,7 @@
   </script>
   <script id="event-view-tpl" type="text/x-handlebars-template">
     <div class="event-view-display">
-      <nav>
-        <div class="nav-wrapper grey darken-4">
-          <button class="grey darken-4 waves-effect waves-light btn-large left" id="goto-last">Return
-            <i class="large material-icons"> replay </i>
-          </button>
-        </div>
-      </nav>
+
       <div class="parallax-container">
         <div class="parallax"><img src={{img_url}}></div>
       </div>
@@ -491,6 +505,7 @@
       <div class="row event-info-row">
         <h2>{{title}}</h2>
         <p>{{description}}</p>
+        <p>{{#each tags}}<div class="tagbox col s4 white center-align">{{this}}</div>{{/each}}</p>
       </div>
       <div class="row event-info-row">
         <div class="col s4">
@@ -520,13 +535,13 @@
           <i class="large material-icons" id="event-reserve">done</i>
           <p class="section-caption ">Planning to Attend</p>
           <p class="light center">Attending:<span id="event-to-attend-num">{{to_attend}}</span>
-          <br>People You Know:{{friends_to_attend}}</p>
+          <br>People You Know</p>
         </div>
         <div class="col s6 center">
           <i class="large material-icons" id="event-checkin">done_all</i>
           <p class="section-caption">Checked In</p>
           <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div>
-          <br>People You Know:{{friends_attended}}</p>
+          <br>People You Know</p>
         </div>
       </div>
       <div class="container event-info-row grey-text">
@@ -556,6 +571,7 @@
   <script type="text/javascript" src="js/friends.js"></script>
   <script type="text/javascript" src="js/profile.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/info.js"></script>
   <script type="text/javascript">
 //Parse.initialize("bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg");
 app.initialize();

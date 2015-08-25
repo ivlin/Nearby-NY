@@ -47,7 +47,7 @@ var trending = {
             var cards = this.el.getElementsByClassName("event-card");
 
             function renderEventPage(id) {
-             app.drawEventPage(id,"view-trending");
+             info.drawEventPage(id,"view-trending");
          }
 
          for (var i = 0; i < cards.length; i++){

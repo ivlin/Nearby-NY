@@ -43,7 +43,9 @@ facebookConnectPlugin.login(["email"], function(response) {
 						var formPass = response.id;
 						var formConfirmPass = response.id;
 						if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
-							Parse.User.signUp(formName, formPass, {},{
+							Parse.User.signUp(formName, formPass, {
+								email:"",name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[]
+							},{
 								success:function(result){
 								console.log("success");
 								$("#signup-status").html("Registration successful");
