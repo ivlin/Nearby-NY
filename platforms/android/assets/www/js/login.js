@@ -44,7 +44,7 @@ function validateSignUp() {
 	var formConfirmPass = $("#signup-confirm-password").val();
 	if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 		Parse.User.signUp(formName, formPass, {
-			email:formEmail, name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[]
+			email:formEmail, name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[], pending_friends:[], profile_img:"",
 		}, {
 			success: function(user) {
 				console.log("success");

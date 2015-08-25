@@ -73,8 +73,8 @@
         <br>
       </div>
     </div>
-    <!-- Friends -->
-    <!-- Friends -->
+    <!-- Friends Page -->
+    <!-- Friends Page -->
     <div id="view-friends" class="viewframe">
       <div class="head">
         <div class="navbar-fixed">
@@ -440,8 +440,9 @@
       {{#each event}}
       <div class="col s12 m12 l6 event-card" id="{{objectId}}">
         <div class="card grey darken-3">
-          <div class="card-image">
-            <img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">
+          <div class="card-image" style="height:400px;overflow:hidden">
+             <!--<img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">-->
+             <img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">
             <span class="card-title">{{title}}</span>
           </div>
           <div class="card-content white-text">
@@ -466,16 +467,21 @@
     </div>
   </script>
   <script id="pending-friends-tpl" type="text/x-handlebars-template">
-    <div class="row">
+      <div class="pending-friend-item row card-panel grey lighten-3 black-text">
       {{#each friend}}
-      <p>{{username}}</p>
+      <img class="col s4" src="img/logo_nearby.png" style="max-height:6em;width:auto">
+        <span class="col s8"><h5>{{username}}</h5></span>
+        <span class="col s8">not registered as friends</span>
       {{/each}}
-    </div>
+      </div>
   </script>
   <script id="friend-list-tpl" type="text/x-handlebars-template">
-    <div class="row">
+    <div class="friend-item row card-panel grey lighten-3 black-text">
       {{#each friend}}
-      <p>{{username}} {{objectId}}</p>
+      <img class="col s4" src="{{profile_img}}" style="max-height:6em;width:auto">
+        <span class="col s8"><h5>{{username}}</h5></span>
+        <span class="col s8">name: {{name}}</span>
+        <span class="col s8">email: {{email}}</span>
       {{/each}}
     </div>
   </script>
