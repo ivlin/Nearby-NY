@@ -20,19 +20,10 @@
   <div class="app" id="app">
     <!-- Slide out Nav Bar -->
     <ul class="side-nav" id="mobile-demo">
-      <li class="goto-trending"><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></li>
-      <li class="goto-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></li>
-      <li class="goto-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></li>
-      <li class="goto-friends"><a href="#!"><i class="material-icons left">person_pin</i>Friends</a></li>
-      <li>
-        <form>
-          <div class="input-field">
-            <input id="search" type="search" required>
-            <label for="search"><i class="material-icons" id="search-trending">search</i></label>
-            <i class="material-icons" id="search-close">close</i>
-          </div>
-        </form>
-      </li>
+      <li class="goto-trending"><div class="sidebar-button" id="sidebar-trending"><a href="#!"><i class="material-icons left">supervisor_account</i>Events</a></div></li>
+      <li class="goto-profile"><div class="sidebar-button" id="sidebar-profile"><a href="#!"><i class="material-icons left">perm_identity</i>My Profile</a></div></li>
+      <li class="goto-map"><div class="sidebar-button" id="sidebar-map"><a href="#!"><i class="material-icons left">location_on</i>Map</a></div></li>
+      <li class="goto-friends"><div class="sidebar-button" id="sidebar-friends"><a href="#!"><i class="material-icons left">person_pin</i>Friends</a></div></li>
     </ul>
     <!-- Login -->
     <!-- Login -->
@@ -83,6 +74,7 @@
             <div class="nav-wrapper grey darken-4">
               <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
               <ul id="nav-mobile" class="right">
+                <li id ="add-friends-button"><a><i class="material-icons left" >person_pin</i>Add Friend</a></li>
                 <li class="signout"><a href="#">Signout</a></li>
               </ul>
             </div>
@@ -90,14 +82,15 @@
         </div>
       </div>
       <div class="display">
-        <a class="waves-effect waves-light btn" id ="add-friends-button"><i class="material-icons left">person_pin</i>Add Friend</a>
         <!-- Add a friend prompt -->
         <div class="row" id="add-friends-prompt">
-          <div class="input-field col s6">
+        <div class="card-panel col s12 grey lighten-4" style="padding:4px">
+          <div class="input-field col s8">
             <input id="friend-id" type="text" class="validate">
             <label class="active" for="friend-id">Username or E-mail</label>
-            <a class="btn-floating btn-large waves-effect waves-light red" id="check-friend-id"><i class="material-icons">add</i></a>
-            <div class="col l4 offset-l2 s12" id="add-friend-prompt-status"></div>
+            <a class="waves-effect waves-light btn red" id="check-friend-id">Stuff</a>
+            <div class="col s12" id="add-friend-prompt-status"></div>
+          </div>
           </div>
         </div>
         <!--  -->
@@ -120,6 +113,15 @@
           <nav>
             <div class="nav-wrapper grey darken-4">
               <ul id="nav-mobile" class="right">
+                <li>
+                 <form>
+                  <div class="input-field">
+                    <input id="search" type="search" required>
+                    <label for="search"><i class="material-icons" id="search-trending">search</i></label>
+                  </div>
+                 </form>
+                </li>
+                <li><i class="material-icons" id="search-close" style="visibility:hidden">close</i></li>
                 <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort<i class="material-icons right">arrow_drop_down</i></a></li>
                 <li class="signout"><a href="#">Signout</a></li>
               </ul>
@@ -440,9 +442,9 @@
       {{#each event}}
       <div class="col s12 m12 l6 event-card" id="{{objectId}}">
         <div class="card grey darken-3">
-          <div class="card-image" style="height:400px;overflow:hidden">
+          <div class="card-image" style="height:400px;overflow:hidden;display:block">
              <!--<img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">-->
-             <img src="http://wirednewyork.com/images/museums/moma/moma3.jpg">
+             <img src="{{img_url}}" style="height:400px;width:auto;display:block;margin:auto">
             <span class="card-title">{{title}}</span>
           </div>
           <div class="card-content white-text">
@@ -451,14 +453,14 @@
               <br>{{cost}}</p>
             </div>
             <div class="card-action red darken-3 white-text z-depth-3">
-              <i class="material-icons left">thumb_up</i>
-              <div class="left">{{upvotes}}</div>
-              <i class="material-icons left">thumb_down</i>
-              <div class="left">{{downvotes}}</div>
-              <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
+              <a class="white-text"><div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
+              </a>
+              <a class="white-text"><div class="left">{{downvotes}}</div><i class="material-icons left card-icon">thumb_down</i></a>
+              
+      <!--        <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
                 playlist_add
               </i></a>
-              <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>
+              <a class="white-text" href="#"><i class="material-icons left">info_outline</i></a>-->
             </div>
           </div>
         </div>
@@ -467,23 +469,39 @@
     </div>
   </script>
   <script id="pending-friends-tpl" type="text/x-handlebars-template">
-      <div class="pending-friend-item row card-panel grey lighten-3 black-text">
+      <ul class="collection with-header">      
+      <li class="collection-header">Pending Friends</li>
       {{#each friend}}
-      <img class="col s4" src="img/logo_nearby.png" style="max-height:6em;width:auto">
-        <span class="col s8"><h5>{{username}}</h5></span>
-        <span class="col s8">not registered as friends</span>
+      <li class="collection-item avatar">
+      <img src="img/logo_nearby.png" alt="" class="circle">
+      <span class="title">{{username}}</span>
+      <p>user not yet registered as friend</p>
+      </li>
       {{/each}}
-      </div>
+      </ul>
   </script>
   <script id="friend-list-tpl" type="text/x-handlebars-template">
-    <div class="friend-item row card-panel grey lighten-3 black-text">
+      <ul class="collection with-header">
+      <li class="collection-header">Friends</li>
       {{#each friend}}
-      <img class="col s4" src="{{profile_img}}" style="max-height:6em;width:auto">
-        <span class="col s8"><h5>{{username}}</h5></span>
-        <span class="col s8">name: {{name}}</span>
-        <span class="col s8">email: {{email}}</span>
+      <li class="collection-item avatar">    
+    <p>
+      <input type="checkbox" id="test5" />
+      <label for="test5">Red</label>
+    </p>
+      <div class="avatar">
+      <img src="{{profile_img}}" alt="" class="circle">
+      <span class="title">{{username}}</span>
+      <p>name: {{name}} <br>
+         email: {{email}}<br>
+      <li class="collection-item expanded-avatar" style="display:none">
+      <p>bio: {{biography}} <br>
+         tagged: {{tags}}<br>
+      </li>
+      </div>
+      </li>
       {{/each}}
-    </div>
+      </ul>
   </script>
   <script id="calendar-list-tpl" type="text/x-handlebars-template">
     <div class="row">
@@ -509,7 +527,7 @@
       <div class="row event-info-row">
         <h2>{{title}}</h2>
         <p>{{description}}</p>
-        <p>{{#each tags}}<div class="tagbox col s4 white center-align">{{this}}</div>{{/each}}</p>
+        <p>Tags: {{#each tags}}<div class="tagbox col s4 white center-align">{{this}}</div>{{/each}}</p>
       </div>
       <div class="row event-info-row">
         <div class="col s4">
@@ -535,17 +553,21 @@
         </div>
       </div>
       <div class="row event-info-row">
-        <div class="col s6 center">
+        <div class="col s4 center">
           <i class="large material-icons" id="event-reserve">done</i>
-          <p class="section-caption ">Planning to Attend</p>
-          <p class="light center">Attending:<span id="event-to-attend-num">{{to_attend}}</span>
-          <br>People You Know</p>
+          <p class="section-caption ">Interest</p>
+          <p class="light center">Attending:<span id="event-to-attend-num">{{to_attend}}</span></p>
         </div>
-        <div class="col s6 center">
+
+        <div class="col s4 center">
+          <span class="goto-friends"><i class="large material-icons" id="event-reserve">recent_actors</i></span>
+          <p class="section-caption ">Invite</p>
+        </div>
+
+        <div class="col s4 center">
           <i class="large material-icons" id="event-checkin">done_all</i>
-          <p class="section-caption">Checked In</p>
-          <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div>
-          <br>People You Know</p>
+          <p class="section-caption">Check In</p>
+          <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div></p>
         </div>
       </div>
       <div class="container event-info-row grey-text">

@@ -32,7 +32,9 @@ var friends = {
                     var self = new Parse.Query(Parse.User);
                     self.get(Parse.User.current().id,{
                         success:function(me){
-                            if (me.get("friends").indexOf(result.id) == -1 && me.get("pending_friends").indexOf(result.id) == -1){
+                            if (result === undefined){
+                                console.log($("add-friend-prompt-status"));
+                            }else if (me.get("friends").indexOf(result.id) == -1 && me.get("pending_friends").indexOf(result.id) == -1){
                                 $("#add-friend-prompt-status").html("Successfully sent friend request");
                                 var newPending = me.get("pending_friends");
                                 newPending.push(result.id);
@@ -49,7 +51,9 @@ var friends = {
                     $("add-friend-prompt-status").html("Failed to retrieve user with that id");
                 }
             });
-});
+        });
+
+
 },
 
 buildPendingList:function() {
@@ -60,7 +64,6 @@ buildPendingList:function() {
         pendingQuery.containedIn("objectId",pendingList);
         pendingQuery.find({
             success: function(result) {
-                console.log(result);
                 for (var i = 0; i < result.length; i++) {
                     result[i] = result[i].toJSON();
                 }
@@ -93,6 +96,9 @@ buildFriendList: function() {
                 });
                 friends.friendListView.render();
                 $("#friend-list-display").append(friends.friendListView.el);
+                $(".avatar").click(function (evt){
+                    $(this).next(".expanded-avatar").slideToggle(); 
+                });
             },
             error: function(e) {
                 console.dir(e);

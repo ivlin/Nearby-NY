@@ -1,1 +1,0 @@
-1. Remove traces of google maps plugin from plugins.json and fetch.json
