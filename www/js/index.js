@@ -115,7 +115,8 @@ var app = {
           $(buttons[i]).click(function() {
             if (Parse.User.current()){
               Parse.User.logOut();
-            }     
+            }
+            fblogout();
             controller.changeViewTo("view-signin");                  
           });
           break;

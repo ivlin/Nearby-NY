@@ -11,13 +11,14 @@ facebookConnectPlugin.login(["email"], function(response) {
 		if (response.authResponse) {
 			facebookConnectPlugin.api('/me', null,
 				function(response) {
-					alert('Welcome, ' +
-						response.name + '.' + response.id);
+					
 						var formName = response.name;
 						var formPass = response.id;
 						if (formName !== "" && formPass !== "") {
 							Parse.User.logIn(formName, formPass, {
 								success: function(result) {
+                                    alert('Welcome, ' +
+						              response.name);
 									controller.changeViewTo("view-trending");
 								},
 								error: function(error) {
@@ -44,7 +45,7 @@ facebookConnectPlugin.login(["email"], function(response) {
 						var formConfirmPass = response.id;
 						if (formName !== "" && formEmail !== "" && formPass !== "" && formConfirmPass === formPass){
 							Parse.User.signUp(formName, formPass, {
-								email:"",name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[]
+								email:formEmail,name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[]
 							},{
 								success:function(result){
 								console.log("success");
@@ -60,7 +61,14 @@ facebookConnectPlugin.login(["email"], function(response) {
 							});
 						},
 						error:function(error){
+                        
 						console.log(error);
+                        var p = error;
+                        for (var key in p) {
+                        if (p.hasOwnProperty(key)) {
+                                alert(key + " -> " + p[key]);
+                            }
+                        }
 						$("#signup-status").html("Registration failed<br>Try again");
 						}
 						});
@@ -145,7 +153,7 @@ var getStatus = function() {
 			alert(JSON.stringify(response))
 		});
 }
-var logout = function () { 
+var fblogout = function () { 
     //alert('start');
                 facebookConnectPlugin.logout( 
                     function (response) { //alert(JSON.stringify(response) + '1') 

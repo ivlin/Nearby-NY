@@ -15,6 +15,8 @@ var trending = {
               this.data = {event: this.collection};
               for (var i = 0; i < this.data.event.length; i++){
                 this.data.event[i].time = new Date(this.collection[i].time.iso);
+                this.data.event[i].upvotes = this.data.event[i].upvotes.length;
+                this.data.event[i].downvotes = this.data.event[i].downvotes.length;
             }
             
             this.organizeList("");
@@ -45,7 +47,7 @@ var trending = {
             var cards = this.el.getElementsByClassName("event-card");
 
             function renderEventPage(id) {
-             app.drawEventPage(id,"view-trending");
+             info.drawEventPage(id,"view-trending");
          }
 
          for (var i = 0; i < cards.length; i++){
