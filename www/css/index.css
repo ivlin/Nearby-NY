@@ -23,7 +23,7 @@
 }
 
 html {
-    font-family: GillSans, Calibri, Trebuchet, sans-serif;
+    font-weight: 200 !important;
 }
 
 body {
@@ -44,7 +44,6 @@ body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    text-transform: uppercase;
 }
 
 
@@ -158,7 +157,7 @@ button {
 }
 
 .tagbox {
-    margin: 2px;
+    margin-right: 20px;
     border: solid 1px black;
     border-radius: 5px
 }
@@ -223,4 +222,15 @@ button {
 
 .bottom-padded {
     margin-bottom: 20px;
+}
+
+.grey-out {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.grey-out > img {
+    height: auto;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }

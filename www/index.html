@@ -567,17 +567,19 @@
 </script>
 <script id="event-view-tpl" type="text/x-handlebars-template">
     <div class="event-view-display">
-        <div class="parallax-container">
-            <div class="parallax"><img src={{img_url}}></div>
+        <div class="grey-out">
+            <img src={{img_url}}>
         </div>
         <div class="display-container">
             <div class="row event-info-row bottom-padded">
                 <h4>{{title}}</h4>
                 <p class="flow-text">{{{description}}}</p>
-                <p>Tags: {{#each tags}}
-                    <div class="tagbox col s4 white center-align">{{this}}</div>
+                <p>Tags:</p>
+                <div class="row">
+                    {{#each tags}}
+                    <div class="tagbox col s3 white center-align">{{this}}</div>
                     {{/each}}
-                </p>
+                </div>
             </div>
             <div class="divider"></div>
             <div class="row event-info-row">
