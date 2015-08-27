@@ -22,7 +22,15 @@
     /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+html {
+    font-weight: 200 !important;
+}
+
 body {
+    /* Better Font Rendering */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     -webkit-touch-callout: none;
     /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;
@@ -36,7 +44,6 @@ body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    text-transform: uppercase;
 }
 
 
@@ -51,6 +58,7 @@ body {
 #signup-form {
     text-align: center;
     margin: 0 auto;
+    width: 80%;
 }
 
 #nearbylogo {
@@ -144,22 +152,116 @@ button {
     display: none;
 }
 
-
 #add-friends-prompt {
-    display:none;
+    display: none;
 }
 
-.tagbox{
-    margin:2px;
-    border:solid 1px black;
-    border-radius:5px
+.tagbox {
+    margin-right: 20px;
+    border: solid 1px black;
+    border-radius: 5px
 }
 
-.friend-item, .pending-friend-item{
-    margin:2px;
+.friend-item,
+.pending-friend-item {
+    margin: 2px;
 }
 
-.card-icon{
+.card-icon {
     margin-left: 5px;
     margin-right: 5px;
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    /* Preferred icon size */
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Material Icons'), local('MaterialIcons-Regular'), url(../iconfont/MaterialIcons-Regular.woff2) format('woff2'), url(../iconfont/MaterialIcons-Regular.woff) format('woff'), url(../iconfont/MaterialIcons-Regular.ttf) format('truetype');
+}
+
+.login-button {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.card-image > img {
+    height: auto;
+    width: 100%;
+}
+
+.card-title {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.display-container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.bottom-padded {
+    margin-bottom: 20px;
+}
+
+.grey-out {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.grey-out > img {
+    height: auto;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.3;
+    max-height: 300px;
+}
+
+#event-title {
+    background-color: black;
+    position: absolute;
+    margin-top: -50px;
+    text-align: center;
+    width: 100%;
+}
+
+
+/*fixing the icons in the side nav*/
+
+#mobile-demo .material-icons {
+    margin-right: 20px;
+    margin-top: 10%;
+}
+
+#see-more {
+    color: red;
+    font-weight: 500;
+    display: none;
+}
+
+#see-less {
+    color: red;
+    font-weight: 500;
+    display: none;
 }
