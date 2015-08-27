@@ -71,12 +71,13 @@ var app = {
             friend: this.collection
           };
           this.el.innerHTML = this.template(this.data);
+
         }
       });
     },
 
     successHandler: function(result) {
-      Materialize.toast('Callback Success! Result = '+result,500);
+      Materialize.toast('Callback Success! Result = '+ result,500);
     },
 
     errorHandler:function(error) {

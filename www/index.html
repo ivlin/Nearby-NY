@@ -87,6 +87,7 @@
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right">
                                 <li id="add-friends-button"><a><i class="material-icons left" >person_pin</i>Add Friend</a></li>
+                                <li id="remove-friends-button"><a><i class="material-icons left" >person_pin</i>Remove Friend</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -95,33 +96,15 @@
             <div class="display">
                 <!-- Add a friend prompt -->
                 <div class="row" id="add-friends-prompt">
-                    <div class="card-panel col s12 grey lighten-4" style="padding:4px">
+                	<div class="card-panel col s12 grey lighten-4" style="padding:4px">
+                		<div class="input-field col s12">
+                			<input id="friend-id" type="text" class="validate">
+                			<label for="friend-id">Nearby NY Registered Username or Password</label>
+                			<a class="waves-effect waves-light btn" id="check-friend-id">Find</a>
+                		</div>
                     </div>
                 </div>
-                <div class="input-field col s10">
-                    <input id="friend-user-notification" type="password" class="validate">
-                    <label for="password">Friend Username</label>
-                </div>
-                <div class="input-field col s10">
-                    <input id="friend-email-notification" type="password" class="validate">
-                    <label for="friend-email-notification">Friend Emails</label>
-                </div>
-                <div class="input-field col s10">
-                    <input id="friend-notification" type="text" class="validate">
-                    <label class="active" for="friend-notification">Notification Message</label>
-                </div>
-                <!--  -->
-                <!-- Notification -->
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                <label for="textarea1">Textarea</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <!-- -->
                 <!-- -->
                 <div id="pending-list-display"></div>
                 <div id="friend-list-display"></div>
@@ -534,23 +517,21 @@
     <ul class="collection with-header">
         <li class="collection-header">Friends</li>
         {{#each friend}}
-        <li class="collection-item avatar">
-            <p>
-                <input type="checkbox" id="test5" />
-                <label for="test5">Red</label>
-            </p>
-            <div class="avatar">
-                <img src="{{profile_img}}" alt="" class="circle">
+        <li class="collection-item avatar" id="{{objectId}}">
+                <img src="{{profilePic.url}}" alt="" class="circle">
                 <span class="title">{{username}}</span>
                 <p>name: {{name}}
                     <br> email: {{email}}
-                    <br>
+                    <br></p>
                     <li class="collection-item expanded-avatar" style="display:none">
                         <p>bio: {{biography}}
-                            <br> tagged: {{tags}}
-                            <br>
+                        	<br> tagged:
+                        <div class="row">
+                        {{#each tags}}
+                        <div class="tagbox col s3 white">{{this}}</div>
+                        {{/each}}</div></p>
+                       <div class="card-action right" style="font-size:16px"><a href="#" class="notify-friend-button">Notify</a> <a href="#" class="delete-friend-button">Delete</a></div>
                     </li>
-            </div>
         </li>
         {{/each}}
     </ul>
@@ -563,7 +544,7 @@
                 <p class="col s12">{{title}}</p>
                 <p class="col s12">{{address}}</p>
                 <p class="col s12">{{time}}</p>
-                <p class="col s12">{{cost}}</p>
+                <p class="col s12">${{cost}}</p>
             </li>
         </div>
         {{/each}}

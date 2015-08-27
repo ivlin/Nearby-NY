@@ -51,7 +51,7 @@ var map = {
         }
 
         google.maps.event.addListener(temp, 'click', function(){
-          app.drawEventPage(temp.eventId,"view-map");
+          info.drawEventPage(temp.eventId,"view-map");
         });
 
         return temp;

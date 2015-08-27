@@ -32,6 +32,10 @@ info = {
                 });
 
                 $("#send-invites").click(function() {
+                    // $(".sidebar-button").removeClass("grey lighten-4");
+                    // $("#sidebar-friends").addClass("grey lighten-4");
+                    // controller.changeViewTo("view-friends");
+                    // friends.initialize();
                     Materialize.toast("Successfully sent notices.", 500);
                     $("#friend-notification, #friend-email-notification, #friend-user-notification").val("");
                     $("#invite-friends-prompt").slideToggle();
@@ -64,58 +68,7 @@ info = {
             error: function(error) {
                 console.dir(error);
             }
-        });
-
-
-        //                 function loadAsyncData(result, eventPageDisplay){
-        //                   var jsondata = eventPageDisplay.jsonVersion;
-        //                   if (Parse.User.current()){
-        //                     var getMe = new Parse.Query(Parse.User);
-        //                     getMe.get(Parse.User.current().id).then(function(me){
-        //                       var myfriends = me.get("friends");
-        //                       for (var i = 0; i < myfriends.length; i++){
-        //                         if (result.get("to_attend").indexOf(myfriends[i]) >= 0){
-        //                           jsondata.num_friends_to_attend ++;
-        //                           if (jsondata.friends_to_attend.length < 3){
-        //                             jsondata.friends_to_attend.push(myfriends[i]);
-        //                           }
-        //                         }
-        //                         if (result.get("attended").indexOf(myfriends[i]) >= 0){
-        //                           jsondata.num_friends_attended ++;
-        //                           if (jsondata.friends_attended.length < 3){
-        //                             jsondata.friends_attended.push(myfriends[i]);
-        //                           }
-        //                         }
-        //                       }
-        //                     }).then(function(){
-        //                       var attendingQuery = new Parse.Query(Parse.User);
-        //                       var attendedQuery = new Parse.Query(Parse.User);
-        //                       attendingQuery.containedIn("objectId",jsondata.friends_to_attend);
-        //                       attendedQuery.containedIn("objectId",jsondata.friends_attended);
-        //                       attendingQuery.find().then(function (r){
-        //                         jsondata.friends_to_attend = [];
-        //                         for (var i = 0; i < r.length; i++){
-        //                           jsondata.friends_to_attend.push(r[i].get("username"));
-        //                         }
-        //                         return attendedQuery.find();
-        //                       }).then(function (r){
-        //                         jsondata.friends_attended = [];
-        //                         for (var i = 0; i < r.length; i++){
-        //                           jsondata.friends_attended.push(r[i].get("username"));
-        //                         }
-        //                       }).then(function (r){
-        //                         jsondata.to_attend = jsondata.to_attend.length;
-        //                       }).then(function(){
-        //                         eventPageDisplay.htmlData = eventPageDisplay.template(jsondata);
-        //                       }).then(function(r){
-        //                         eventPageDisplay.htmlData = eventPageDisplay.template(jsondata);
-        //                         document.getElementById("view-event").innerHTML = eventPageDisplay.htmlData;
-        //                       });
-        //                     });
-        // }
-        // console.log("okay");
-        // }                
-
+        });     
 
         EventPageView = Parse.View.extend({
             htmlData: null,
@@ -298,9 +251,9 @@ info = {
                     }
                 });
                 Materialize.toast('<span>You are no longer registered as having checked in.</span>', 5000);
-                $("#event-upvote").attr("class", "large material-icons left grey-text");
+                $("#event-upvote").attr("class", "medium material-icons left grey-text");
                 $("#event-upvote-count").html(result.get("upvotes").length);
-                $("#event-downvote").attr("class", "large material-icons left grey-text");
+                $("#event-downvote").attr("class", "medium material-icons right grey-text");
                 $("#event-downvote-count").html(result.get("downvotes").length);
             }
             $("#event-attended-num").html(upData.attended.length);
@@ -311,12 +264,12 @@ info = {
                 if (findMeInArray("upvotes") === -1) {
                     addMeToArray("upvotes");
                     removeMeFromArray("downvotes");
-                    $(this).attr("class", "large material-icons left black-text");
-                    $("#event-downvote").attr("class", "large material-icons right grey-text");
+                    $(this).attr("class", "medium material-icons left black-text");
+                    $("#event-downvote").attr("class", "medium material-icons right grey-text");
                     $("#event-downvote-count").html(result.get("downvotes").length);
                 } else {
                     removeMeFromArray("upvotes");
-                    $(this).attr("class", "large material-icons left grey-text");
+                    $(this).attr("class", "medium material-icons left grey-text");
                 }
                 $("#event-upvote-count").html(result.get("upvotes").length);
             } else {
@@ -329,12 +282,12 @@ info = {
                 if (findMeInArray("downvotes") === -1) {
                     addMeToArray("downvotes");
                     removeMeFromArray("upvotes");
-                    $(this).attr("class", "large material-icons right red-text");
-                    $("#event-upvote").attr("class", "large material-icons left grey-text");
+                    $(this).attr("class", "medium material-icons right red-text");
+                    $("#event-upvote").attr("class", "medium material-icons left grey-text");
                     $("#event-upvote-count").html(result.get("upvotes").length);
                 } else {
                     removeMeFromArray("downvotes");
-                    $(this).attr("class", "large material-icons right grey-text");
+                    $(this).attr("class", "medium material-icons right grey-text");
                 }
                 $("#event-downvote-count").html(result.get("downvotes").length);
             } else {

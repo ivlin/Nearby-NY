@@ -29,19 +29,13 @@ var profile = {
     },
 
     setupProfilePicture: function() {
-        // // See if we have an image saved
-        // picture = localStorage.getItem("testProfilPic");
-        // if (picture) {
-        //      $("#profile-pic").attr("src", localStorage.getItem("testProfilPic"));
-        //     });
-        // } else {
-        //     $("#profile-pic").attr("src", "img/logo.png");
-        // }
         var findMe = new Parse.Query(Parse.User);
         findMe.get(Parse.User.current().id, {
             success:function(me){
                 var pic = me.get("profilePic");
-                if (me.get("profilePic")){
+                if (pic === undefined){
+                    $("#profile-pic").attr("src", "img/logo_nearby.png");
+                }else if (me.get("profilePic")){
                     $("#profile-pic").attr("src", pic.url());
                 }
             }
@@ -51,8 +45,6 @@ var profile = {
     setupHandlers: function() {
         $("#edit-bio").click(function() {
             profile.drawForm();
-            // document.getElementById("set-bio-info").style.display = "inline";
-            // document.getElementById("get-bio-info").style.display = "none";
             $("#set-bio-info").css("display", "inline");
             $("#get-bio-info").css("display", "none");
         });
