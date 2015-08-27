@@ -38,8 +38,8 @@ var app = {
     initParse: function() {
       Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
-      var pushNotification = window.plugins.pushNotification;
-      pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
+      // var pushNotification = window.plugins.pushNotification;
+      // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
 
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({

@@ -371,74 +371,76 @@
                 <div class="collapsible-body">
                     <p id="event-preferences">
                         <form action="#" id="event-preferences-form">
-                            <p>
+                        <div class="row">
+                            <p class="col s6">
                                 <input type="checkbox" id="tech" class="filled-in tag-selector" />
                                 <label for="tech">tech</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="education" class="filled-in tag-selector" />
                                 <label for="education">education</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="music" class="filled-in tag-selector" />
                                 <label for="music">music</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="activism" class="filled-in tag-selector" />
                                 <label for="activism">activism</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="culture" class="filled-in tag-selector" />
                                 <label for="culture">culture</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="games" class="filled-in tag-selector" />
                                 <label for="games">games</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="competition" class="filled-in tag-selector" />
                                 <label for="competition">competition</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="health" class="filled-in tag-selector" />
                                 <label for="health">health</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="sports" class="filled-in tag-selector" />
                                 <label for="sports">sports</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="talks" class="filled-in tag-selector" />
                                 <label for="talks">talks</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="media" class="filled-in tag-selector" />
                                 <label for="media">media</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="fashion" class="filled-in tag-selector" />
                                 <label for="fashion">fashion</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="food" class="filled-in tag-selector" />
                                 <label for="food">food</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="lifestyle" class="filled-in tag-selector" />
                                 <label for="lifestyle">lifestyle</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="community" class="filled-in tag-selector" />
                                 <label for="community">community</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="animals" class="filled-in tag-selector" />
                                 <label for="animals">animals</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="miscellaneous" class="filled-in tag-selector" />
                                 <label for="miscellaneous">miscellaneous</label>
                             </p>
+                        </div>
                         </form>
                         <a class="waves-effect waves-light btn" id="update-event-preferences"><i class="material-icons left"></i>Update Preferences</a>
                     </p>
@@ -569,8 +571,7 @@
 </script>
 <script id="event-view-tpl" type="text/x-handlebars-template">
     <div class="event-view-display">
-        <div id="event-image
-" class="grey-out">
+        <div id="event-image" class="grey-out">
             <img src={{img_url}}>
             <div id="countdown">
                 {{countdown}}

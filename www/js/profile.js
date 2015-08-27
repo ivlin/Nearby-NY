@@ -29,13 +29,23 @@ var profile = {
     },
 
     setupProfilePicture: function() {
-        // See if we have an image saved
-        picture = localStorage.getItem("testProfilPic");
-        if (picture) {
-            $("#profile-pic").attr("src", localStorage.getItem("testProfilPic"));
-        } else {
-            $("#profile-pic").attr("src", "img/logo.png");
-        }
+        // // See if we have an image saved
+        // picture = localStorage.getItem("testProfilPic");
+        // if (picture) {
+        //      $("#profile-pic").attr("src", localStorage.getItem("testProfilPic"));
+        //     });
+        // } else {
+        //     $("#profile-pic").attr("src", "img/logo.png");
+        // }
+        var findMe = new Parse.Query(Parse.User);
+        findMe.get(Parse.User.current().id, {
+            success:function(me){
+                var pic = me.get("profilePic");
+                if (me.get("profilePic")){
+                    $("#profile-pic").attr("src", pic.url());
+                }
+            }
+        });
     },
 
     setupHandlers: function() {
@@ -77,7 +87,10 @@ var profile = {
             };
 
             if (imageFile) {
-                reader.readAsDataURL(imageFile); //reads the data as a URL
+                reader.readAsDataURL(imageFile);
+            var profilePic = new Parse.File("profilepic",imageFile);
+            Parse.User.current().set("profilePic", profilePic);
+            Parse.User.current().save(); //reads the data as a URL
             } else {
                 preview.attr("src", "");
             }
@@ -110,9 +123,6 @@ var profile = {
 
     updatePreferenceForm: function() {
         var userTags = profile.curUser.tags;
-        if (!userTags)
-            console.log("No tags.");
-        return;
 
         for (var i = 0; i < userTags.length; i++) {
             document.getElementById(userTags[i]).checked = true;
