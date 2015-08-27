@@ -253,3 +253,15 @@ button {
     margin-right: 20px;
     margin-top: 10%;
 }
+
+#see-more {
+    color: red;
+    font-weight: 500;
+    display: none;
+}
+
+#see-less {
+    color: red;
+    font-weight: 500;
+    display: none;
+}

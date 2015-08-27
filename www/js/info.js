@@ -1,6 +1,12 @@
 info = {
     lastPage: null,
 
+    description: {
+        isShortened: false,
+        full: '',
+        shortened: ''
+    },
+
     drawEventPage: function(objectId, lastView) {
         info.lastPage = lastView;
         var eventObject, eventPageDisplay;
@@ -38,7 +44,21 @@ info = {
                     $("#event-downvote").attr("class", "large material-icons right red-text");
                 }
 
-                parallax = $('.parallax').parallax();
+                if (info.description.isShortened) {
+                    $('#see-more').show();
+
+                    $('#see-more').click(function(e) {
+                        $('#event-desc').html(info.description.full);
+                        $(this).hide();
+                        $('#see-less').show();
+                    });
+
+                    $('#see-less').click(function(e) {
+                        $('#event-desc').html(info.description.shortened);
+                        $(this).hide();
+                        $('#see-more').show();
+                    });
+                }
 
             },
             error: function(error) {
@@ -104,6 +124,7 @@ info = {
             render: function(data) {
                 var jsondata = data.toJSON();
 
+                jsondata.short_desc = info.shortenDescription(jsondata);
                 jsondata.time = new Date(jsondata.time.iso);
                 jsondata.upvotes = jsondata.upvotes.length;
                 jsondata.downvotes = jsondata.downvotes.length;
@@ -112,10 +133,35 @@ info = {
                 jsondata.attended = jsondata.attended.length;
 
                 this.jsonVersion = jsondata;
+                info.description.full = jsondata.description;
                 this.htmlData = this.template(jsondata);
             }
         });
     }, //end of draw
+
+    shortenDescription: function(jsondata) {
+        // Truncate the description if necessary
+        var shortDesc = '';
+        var previewLength = 200;
+        if (jsondata.description.length > previewLength) {
+            shortDesc = jsondata.description.substring(0, previewLength);
+            lastChar = shortDesc.slice(-1);
+            while (lastChar != ' ' && lastChar != '\n' && lastChar != '.') {
+                previewLength++;
+                if (previewLength >= jsondata.description.length)
+                    break;
+                shortDesc = jsondata.description.substring(0, previewLength);
+                lastChar = shortDesc.slice(-1);
+            }
+            shortDesc = shortDesc + " ...";
+            this.description.isShortened = true;
+        } else {
+            shortDesc = jsondata.description;
+        }
+
+        this.description.shortened = shortDesc;
+        return shortDesc;
+    },
 
     setupHandlers: function(objectId, result) {
         var upData = result.toJSON();

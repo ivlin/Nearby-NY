@@ -577,7 +577,9 @@
         </div>
         <div id="event-content" class="display-container">
             <div class="row event-info-row bottom-padded">
-                <p class="flow-text">{{{description}}}</p>
+                <p id="event-desc" class="flow-text">{{short_desc}}</p>
+                <p class="flow-text"><a id="see-more" href="#!">Read more</a>
+                    <a id="see-less" href="#!">Read less</a></p>
                 <p>Tags:</p>
                 <div class="row">
                     {{#each tags}}
