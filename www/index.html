@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <div style="background-color: black;height: 20px;width: 100%;position:fixed;top:0px;z-index:10000">></div>
     <div class="app" id="app">
         <!-- Slide out Nav Bar -->
         <ul class="side-nav" id="mobile-demo">
@@ -286,12 +287,14 @@
     <!-- Profile Page -->
     <div id="view-profile" class="viewframe">
         <div class="head">
-            <nav>
-                <div class="nav-wrapper nav-wrapper grey darken-4">
-                    <a href="#!" class="brand-logo">NearbyNY</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                </div>
-            </nav>
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper nav-wrapper grey darken-4">
+                        <a href="#!" class="brand-logo">NearbyNY</a>
+                        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    </div>
+                </nav>
+            </div>
         </div>
         <div class="card">
             <center><img id="profile-pic" class="circle profile-pic" height="200px"></center>
