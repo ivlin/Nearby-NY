@@ -13,6 +13,13 @@ module.exports = [
         ]
     },
     {
+        "file": "plugins/com.phonegap.plugins.PushPlugin/www/PushNotification.js",
+        "id": "com.phonegap.plugins.PushPlugin.PushNotification",
+        "clobbers": [
+            "PushNotification"
+        ]
+    },
+    {
         "file": "plugins/plugin.http.request/www/http-request.js",
         "id": "plugin.http.request.phonegap-http-requst",
         "clobbers": [
@@ -25,6 +32,7 @@ module.exports.metadata =
 {
     "cordova-plugin-whitelist": "1.0.0",
     "com.phonegap.plugins.facebookconnect": "0.11.0",
+    "com.phonegap.plugins.PushPlugin": "2.5.0",
     "plugin.http.request": "1.0.4",
     "com.google.playservices": "23.0.0"
 }

@@ -33,8 +33,17 @@
         },
         "is_top_level": true,
         "variables": {
-            "APP_ID": "1674447189454316",
-            "APP_NAME": "Nearby NY"
+            "APP_ID": "431786020341798",
+            "APP_NAME": "NearbyNY-test"
         }
+    },
+    "com.phonegap.plugins.PushPlugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phonegap-build/PushPlugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

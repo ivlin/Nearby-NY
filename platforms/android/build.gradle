@@ -249,6 +249,7 @@ dependencies {
     releaseCompile project(path: "com.google.playservices:google-play-services_lib", configuration: "release")
     debugCompile project(path: "com.phonegap.plugins.facebookconnect:FacebookLib", configuration: "debug")
     releaseCompile project(path: "com.phonegap.plugins.facebookconnect:FacebookLib", configuration: "release")
+    compile "com.android.support:support-v4:+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
@@ -310,4 +311,8 @@ for (def func : cdvPluginPostBuildExtras) {
 //     ext.postBuildExtras = { ... code here ... }
 if (hasProperty('postBuildExtras')) {
     postBuildExtras()
+}
+
+configurations {
+all*.exclude group: 'com.android.support', module: 'support-v4'
 }
