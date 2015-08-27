@@ -497,7 +497,7 @@
                     <div class="card-content white-text">
                         <p class="event-description">{{address}}
                             <br>{{time}}
-                            <br>{{cost}}</p>
+                            <br>${{cost}}</p>
                     </div>
                     <div class="card-action red darken-3 white-text z-depth-3">
                         <a class="white-text">
@@ -572,8 +572,12 @@
         <div id="event-image
 " class="grey-out">
             <img src={{img_url}}>
+            <div id="countdown">
+                {{countdown}}
+            </div>
             <div id="event-title">
-                <h5 style="color:white;">{{title}}</h5></div>
+                <h5 style="color:white;">{{title}}</h5>
+            </div>
         </div>
         <div id="event-content" class="display-container">
             <div class="row event-info-row bottom-padded">

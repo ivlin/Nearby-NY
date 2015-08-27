@@ -15,7 +15,7 @@ var trending = {
                     event: this.collection
                 };
                 for (var i = 0; i < this.data.event.length; i++) {
-                    this.data.event[i].time = new Date(this.collection[i].time.iso);
+                    this.data.event[i].time = trending.buildDateString(this.collection[i].time.iso);
                     this.data.event[i].upvotes = this.data.event[i].upvotes.length;
                     this.data.event[i].downvotes = this.data.event[i].downvotes.length;
                 }
@@ -91,6 +91,27 @@ var trending = {
     buildList: function() {
         this.eventList = new EventList(),
             trending.drawList();
+    },
+
+    buildDateString: function(epoch) {
+        var days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        date = new Date(epoch);
+        date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+        minutes = date.getMinutes();
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        am_pm = date.getHours() >= 12 ? "AM" : "PM";
+
+        dateStr = '';
+        dateStr += days[date.getDay()] + ", ";
+        dateStr += months[date.getMonth()] + " ";
+        dateStr += date.getDate() + ", ";
+        dateStr += date.getFullYear() + " \n";
+        dateStr += (date.getHours() % 12) + ":";
+        dateStr += minutes + am_pm + " (EST)";
+
+        return dateStr;
     },
 
     drawList: function() {
