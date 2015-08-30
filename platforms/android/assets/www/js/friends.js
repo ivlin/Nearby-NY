@@ -1,5 +1,7 @@
 var friends = {
 
+    editMode:false,
+    selected:[],
     friendList: null,
     friendListView: null,
 
@@ -10,6 +12,10 @@ var friends = {
     },
 
     setupHandlers:function(){
+        $("#add-friends-button").off("click");
+        $("#remove-friends-button").off("click");
+        $("#check-friend-id").off("click");
+
         $("#add-friends-button").click(function(){
             $("#add-friends-prompt").css("display",function(){
                 if ($(this).css("display") === "none"){
@@ -18,6 +24,30 @@ var friends = {
                     return "none"
                 }
             });
+        });
+
+        $("#remove-friends-button").click(function(){
+            // e.stopPropagation();
+            // console.log(!friends.editMode);
+            if (friends.selected.length > 0){
+                var self = new Parse.Query(Parse.User);
+                self.get(Parse.User.current().id).then(function(me){
+                    var newFriends = me.get("friends");
+                    var newPending = me.get("pending_friends");
+                    for (var i = 0; i < friends.selected.length; i++){
+                        newPending.splice(newPending.indexOf(friends.selected[i]), 1);
+                        newFriends.splice(newFriends.indexOf(friends.selected[i]), 1);
+                    }
+                    console.log(newFriends);
+                    me.set("friends",newFriends);
+                    me.save().then(function(){
+                        friends.buildFriendList();
+                        friends.buildPendingList();
+                    });                        
+                    friends.selected=[];
+                });
+            }
+            friends.editMode = !friends.editMode;
         });
 
         $("#check-friend-id").click(function(){
@@ -52,58 +82,82 @@ var friends = {
                 }
             });
         });
+    },
 
+    buildPendingList:function() {
+        var query = new Parse.Query(Parse.User);
+        query.get(Parse.User.current().id).then(function(me){
+            var pendingList = me.get("pending_friends");
+            var pendingQuery = new Parse.Query(Parse.User);
+            pendingQuery.containedIn("objectId",pendingList);
+            pendingQuery.find({
+                success: function(result) {
+                    for (var i = 0; i < result.length; i++) {
+                        result[i] = result[i].toJSON();
+                    }
+                    var pendingListView = new PendingFriendListView({
+                        collection: result
+                    });
+                    pendingListView.render();
+                    $("#pending-list-display").empty().append(pendingListView.el);
 
-},
+                    $(".avatar").off("click");
+                    $(".avatar").click(function (evt){
+                        if (friends.editMode){
+                            if ($(this).hasClass("grey lighten-2")){
+                                $(this).removeClass("grey lighten-2");
+                                friends.selected.splice(friends.selected.indexOf($(this).attr("id")),1);
+                            }else{
+                                $(this).addClass("grey lighten-2");
+                                friends.selected.push($(this).attr("id"));
+                            }
+                        }
+                    });
 
-buildPendingList:function() {
-    var query = new Parse.Query(Parse.User);
-    query.get(Parse.User.current().id).then(function(me){
-        var pendingList = me.get("pending_friends");
-        var pendingQuery = new Parse.Query(Parse.User);
-        pendingQuery.containedIn("objectId",pendingList);
-        pendingQuery.find({
-            success: function(result) {
-                for (var i = 0; i < result.length; i++) {
-                    result[i] = result[i].toJSON();
+                },
+                error: function(e) {
+                    console.dir(e);
                 }
-                var pendingListView = new PendingFriendListView({
-                    collection: result
-                });
-                pendingListView.render();
-                $("#pending-list-display").empty().append(pendingListView.el);
-            },
-            error: function(e) {
-                console.dir(e);
-            }
+            });
         });
-    });
-},
+    },
 
-buildFriendList: function() {
-    var query = new Parse.Query(Parse.User);
-    query.get(Parse.User.current().id).then(function(me){
-        var friendList = me.get("friends");
-        var friendQuery = new Parse.Query(Parse.User);
-        friendQuery.containedIn("objectId",friendList);
-        friendQuery.find({
-            success: function(result) {
-                for (var i = 0; i < result.length; i++) {
-                    result[i] = result[i].toJSON();
+    buildFriendList: function() {
+        var query = new Parse.Query(Parse.User);
+        query.get(Parse.User.current().id).then(function(me){
+            var friendList = me.get("friends");
+            console.log(friendList);
+            var friendQuery = new Parse.Query(Parse.User);
+            friendQuery.containedIn("objectId",friendList);
+            friendQuery.find({
+                success: function(result) {
+                    for (var i = 0; i < result.length; i++) {
+                        result[i] = result[i].toJSON();
+                    }
+                    friends.friendListView = new FriendListView({
+                        collection: result
+                    });
+                    friends.friendListView.render();
+                    $("#friend-list-display").empty().append(friends.friendListView.el);
+                    $(".avatar").off("click");
+                    $(".avatar").click(function (evt){
+                        if (!friends.editMode){
+                            $(this).next(".expanded-avatar").slideToggle();
+                        }else{
+                            if ($(this).hasClass("grey lighten-2")){
+                                $(this).removeClass("grey lighten-2");
+                                friends.selected.splice(friends.selected.indexOf($(this).attr("id")),1);
+                            }else{
+                                $(this).addClass("grey lighten-2");
+                                friends.selected.push($(this).attr("id"));
+                            }
+                        }
+                    });
+                },
+                error: function(e) {
+                    console.dir(e);
                 }
-                friends.friendListView = new FriendListView({
-                    collection: result
-                });
-                friends.friendListView.render();
-                $("#friend-list-display").emptry().append(friends.friendListView.el);
-                $(".avatar").click(function (evt){
-                    $(this).next(".expanded-avatar").slideToggle(); 
-                });
-            },
-            error: function(e) {
-                console.dir(e);
-            }
-        });
+            });
     });
 },
 

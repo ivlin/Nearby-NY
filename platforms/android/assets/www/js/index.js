@@ -38,6 +38,9 @@ var app = {
     initParse: function() {
       Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
+      // var pushNotification = window.plugins.pushNotification;
+      // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
+
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({
         model: Event
@@ -68,8 +71,17 @@ var app = {
             friend: this.collection
           };
           this.el.innerHTML = this.template(this.data);
+
         }
       });
+    },
+
+    successHandler: function(result) {
+      Materialize.toast('Callback Success! Result = '+ result,500);
+    },
+
+    errorHandler:function(error) {
+      Materialize.toast(error, 500);
     },
 
     setupLinks: function() {
@@ -132,5 +144,31 @@ var app = {
           break;
         }
       }
+    },
+
+    onNotificationGCM: function(e) {
+        switch( e.event )
+        {
+            case 'registered':
+                if ( e.regid.length > 0 )
+                {
+                    console.log("Regid " + e.regid);
+                    alert('registration id = '+e.regid);
+                }
+            break;
+ 
+            case 'message':
+              // this is the actual push notification. its format depends on the data model from the push server
+              alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+            break;
+ 
+            case 'error':
+              alert('GCM error = '+e.msg);
+            break;
+ 
+            default:
+              alert('An unknown GCM event has occurred');
+              break;
+        }
     },
   };

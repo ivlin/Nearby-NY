@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <div style="background-color: black;height: 20px;width: 100%;position:fixed;top:0px;z-index:10000">></div>
     <div class="app" id="app">
         <!-- Slide out Nav Bar -->
         <ul class="side-nav" id="mobile-demo">
@@ -87,6 +88,7 @@
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right">
                                 <li id="add-friends-button"><a><i class="material-icons left" >person_pin</i>Add Friend</a></li>
+                                <li id="remove-friends-button"><a><i class="material-icons left" >person_pin</i>Remove Friend</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -95,33 +97,15 @@
             <div class="display">
                 <!-- Add a friend prompt -->
                 <div class="row" id="add-friends-prompt">
-                    <div class="card-panel col s12 grey lighten-4" style="padding:4px">
+                	<div class="card-panel col s12 grey lighten-4" style="padding:4px">
+                		<div class="input-field col s12">
+                			<input id="friend-id" type="text" class="validate">
+                			<label for="friend-id">Nearby NY Registered Username or Password</label>
+                			<a class="waves-effect waves-light btn" id="check-friend-id">Find</a>
+                		</div>
                     </div>
                 </div>
-                <div class="input-field col s10">
-                    <input id="friend-user-notification" type="password" class="validate">
-                    <label for="password">Friend Username</label>
-                </div>
-                <div class="input-field col s10">
-                    <input id="friend-email-notification" type="password" class="validate">
-                    <label for="friend-email-notification">Friend Emails</label>
-                </div>
-                <div class="input-field col s10">
-                    <input id="friend-notification" type="text" class="validate">
-                    <label class="active" for="friend-notification">Notification Message</label>
-                </div>
-                <!--  -->
-                <!-- Notification -->
-                <div class="row">
-                    <form class="col s12">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <textarea id="textarea1" class="materialize-textarea"></textarea>
-                                <label for="textarea1">Textarea</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <!-- -->
                 <!-- -->
                 <div id="pending-list-display"></div>
                 <div id="friend-list-display"></div>
@@ -162,36 +146,6 @@
                 <div id="event-list-display">
                 </div>
             </div>
-            <!-- <div class="foot">
-    <footer class="page-footer grey darken-4">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Thanks for visiting</h5>
-                    <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li class="goto-profile"><a class="grey-text text-lighten-3" href="#!">Profile</a></li>
-                        <li class="goto-map"><a class="grey-text text-lighten-3" href="#!">Map</a></li>
-                        <li class="goto-friends"><a class="grey-text text-lighten-3" href="#!">Friends</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2015 NearbyNY
-            </div>
-        </div>
-    </footer>
-</div>
--->
         </div>
     </div>
     <!-- Maps -->
@@ -286,12 +240,14 @@
     <!-- Profile Page -->
     <div id="view-profile" class="viewframe">
         <div class="head">
-            <nav>
-                <div class="nav-wrapper nav-wrapper grey darken-4">
-                    <a href="#!" class="brand-logo">NearbyNY</a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                </div>
-            </nav>
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper nav-wrapper grey darken-4">
+                        <a href="#!" class="brand-logo">NearbyNY</a>
+                        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    </div>
+                </nav>
+            </div>
         </div>
         <div class="card">
             <center><img id="profile-pic" class="circle profile-pic" height="200px"></center>
@@ -371,74 +327,76 @@
                 <div class="collapsible-body">
                     <p id="event-preferences">
                         <form action="#" id="event-preferences-form">
-                            <p>
+                        <div class="row">
+                            <p class="col s6">
                                 <input type="checkbox" id="tech" class="filled-in tag-selector" />
                                 <label for="tech">tech</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="education" class="filled-in tag-selector" />
                                 <label for="education">education</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="music" class="filled-in tag-selector" />
                                 <label for="music">music</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="activism" class="filled-in tag-selector" />
                                 <label for="activism">activism</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="culture" class="filled-in tag-selector" />
                                 <label for="culture">culture</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="games" class="filled-in tag-selector" />
                                 <label for="games">games</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="competition" class="filled-in tag-selector" />
                                 <label for="competition">competition</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="health" class="filled-in tag-selector" />
                                 <label for="health">health</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="sports" class="filled-in tag-selector" />
                                 <label for="sports">sports</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="talks" class="filled-in tag-selector" />
                                 <label for="talks">talks</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="media" class="filled-in tag-selector" />
                                 <label for="media">media</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="fashion" class="filled-in tag-selector" />
                                 <label for="fashion">fashion</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="food" class="filled-in tag-selector" />
                                 <label for="food">food</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="lifestyle" class="filled-in tag-selector" />
                                 <label for="lifestyle">lifestyle</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="community" class="filled-in tag-selector" />
                                 <label for="community">community</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="animals" class="filled-in tag-selector" />
                                 <label for="animals">animals</label>
                             </p>
-                            <p>
+                            <p class="col s6">
                                 <input type="checkbox" id="miscellaneous" class="filled-in tag-selector" />
                                 <label for="miscellaneous">miscellaneous</label>
                             </p>
+                        </div>
                         </form>
                         <a class="waves-effect waves-light btn" id="update-event-preferences"><i class="material-icons left"></i>Update Preferences</a>
                     </p>
@@ -451,33 +409,6 @@
                 </div>
             </li>
         </ul>
-        <!-- <div class="foot">
-    <footer class="page-footer grey darken-4">
-        <div class="container">
-            <div class="row">
-                <div class="col l6 s12">
-                    <h5 class="white-text">Thanks for visiting</h5>
-                    <p class="grey-text text-lighten-4">Nearby could be coming to your city soon!</p>
-                </div>
-                <div class="col l4 offset-l2 s12">
-                    <h5 class="white-text">Links</h5>
-                    <ul>
-                        <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">Facebook</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">GenTech</a></li>
-                        <li><a class="grey-text text-lighten-3" href="#!">About</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="footer-copyright">
-            <div class="container">
-                © 2015 NearbyNY
-            </div>
-        </div>
-    </footer>
-</div>
--->
     </div>
     </div>
 </body>
@@ -520,7 +451,7 @@
     <ul class="collection with-header">
         <li class="collection-header">Pending Friends</li>
         {{#each friend}}
-        <li class="collection-item avatar">
+        <li class="collection-item avatar" id="{{objectId}}">
             <img src="img/logo_nearby.png" alt="" class="circle">
             <span class="title">{{username}}</span>
             <p>user not yet registered as friend</p>
@@ -532,23 +463,21 @@
     <ul class="collection with-header">
         <li class="collection-header">Friends</li>
         {{#each friend}}
-        <li class="collection-item avatar">
-            <p>
-                <input type="checkbox" id="test5" />
-                <label for="test5">Red</label>
-            </p>
-            <div class="avatar">
-                <img src="{{profile_img}}" alt="" class="circle">
+        <li class="collection-item avatar" id="{{objectId}}">
+                <img src="{{profilePic.url}}" alt="" class="circle">
                 <span class="title">{{username}}</span>
                 <p>name: {{name}}
                     <br> email: {{email}}
-                    <br>
+                    <br></p>
                     <li class="collection-item expanded-avatar" style="display:none">
                         <p>bio: {{biography}}
-                            <br> tagged: {{tags}}
-                            <br>
+                        	<br> tagged:
+                        <div class="row">
+                        {{#each tags}}
+                        <div class="tagbox col s3 white">{{this}}</div>
+                        {{/each}}</div></p>
+                       <div class="card-action right" style="font-size:16px"><a href="#" class="notify-friend-button">Notify</a> <a href="#" class="delete-friend-button">Delete</a></div>
                     </li>
-            </div>
         </li>
         {{/each}}
     </ul>
@@ -561,7 +490,7 @@
                 <p class="col s12">{{title}}</p>
                 <p class="col s12">{{address}}</p>
                 <p class="col s12">{{time}}</p>
-                <p class="col s12">{{cost}}</p>
+                <p class="col s12">${{cost}}</p>
             </li>
         </div>
         {{/each}}
@@ -569,8 +498,7 @@
 </script>
 <script id="event-view-tpl" type="text/x-handlebars-template">
     <div class="event-view-display">
-        <div id="event-image
-" class="grey-out">
+        <div id="event-image" class="grey-out">
             <img src={{img_url}}>
             <div id="countdown">
                 {{countdown}}
@@ -649,6 +577,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 <script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
 <script type="text/javascript" src="lib/parse-1.5.0.js"></script>
+<script type="text/javascript" src="lib/push.js"></script>
 <script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
 <script type="text/javascript" src="lib/materialize.min.js"></script>
 <!-- Custom JS -->
@@ -666,11 +595,4 @@
 app.initialize();
 </script>
 </body>
-<!--<form>
-                    <div class="input-field">
-                      <input id="search" type="search" required>
-                      <label for="search"><i class="material-icons" id="search-trending">search</i></label>
-                      <i class="material-icons" id="search-close">close</i>
-                    </div>             SEARCH BAR
-                  </form>-->
-                  </html>
+</html>

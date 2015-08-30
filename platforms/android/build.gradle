@@ -311,3 +311,7 @@ for (def func : cdvPluginPostBuildExtras) {
 if (hasProperty('postBuildExtras')) {
     postBuildExtras()
 }
+
+configurations {
+all*.exclude group: 'com.android.support', module: 'support-v4'
+}
