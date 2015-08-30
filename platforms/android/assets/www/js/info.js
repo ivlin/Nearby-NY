@@ -123,9 +123,10 @@ info = {
             template: Handlebars.compile(document.getElementById("event-view-tpl").innerHTML),
             render: function(data) {
                 var jsondata = data.toJSON();
-
+                var eventDate = jsondata.time.iso;
                 jsondata.short_desc = info.shortenDescription(jsondata);
-                jsondata.time = new Date(jsondata.time.iso);
+                jsondata.time = info.buildDateString(eventDate);
+                jsondata.countdown = info.timeUntilEvent(eventDate);
                 jsondata.upvotes = jsondata.upvotes.length;
                 jsondata.downvotes = jsondata.downvotes.length;
 
@@ -161,6 +162,56 @@ info = {
 
         this.description.shortened = shortDesc;
         return shortDesc;
+    },
+
+    buildDateString: function(epoch) {
+        var days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
+        var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        date = new Date(epoch);
+        date.setTime(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+        minutes = date.getMinutes();
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        am_pm = date.getHours() >= 12 ? "AM" : "PM";
+
+        dateStr = '';
+        dateStr += days[date.getDay()] + ", ";
+        dateStr += months[date.getMonth()] + " ";
+        dateStr += date.getDate() + ", ";
+        dateStr += date.getFullYear() + " \n";
+        dateStr += (date.getHours() % 12) + ":";
+        dateStr += minutes + am_pm + " (EST)";
+
+        return dateStr;
+    },
+
+    timeUntilEvent: function(eventDate) {
+        var date = new Date();
+        var timeNow = date.getTime();
+        eventDate = new Date(eventDate);
+        var eventTime = eventDate.getTime();
+        var timeRemaining = eventTime - timeNow;
+        // is this event in the past?
+        if (timeRemaining <= 0) {
+            return "This event is over";
+        }
+
+        // convert to seconds
+        timeRemaining = Math.floor(timeRemaining / 1000);
+        days = Math.floor(timeRemaining / (60 * 60 * 24));
+        timeRemaining -= days * 60 * 60 * 24;
+        hours = Math.floor(timeRemaining / (60 * 60));
+        timeRemaining -= hours * 60 * 60;
+        minutes = Math.floor(timeRemaining / (60));
+        timeRemaining -= minutes * 60;
+
+        if (days > 3) {
+            return days + " days until event";
+        } else if (days <= 3 && days > 1) {
+            return days + " days, " + hours + " hours until event";
+        } else {
+            return hours + " hours, " + minutes + " minutes until event";
+        }
     },
 
     setupHandlers: function(objectId, result) {

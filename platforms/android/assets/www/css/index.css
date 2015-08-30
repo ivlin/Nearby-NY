@@ -43,7 +43,10 @@ body {
     width: 100%;
     height: 100%;
     margin: 0px;
-    padding: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 20px;
 }
 
 
@@ -52,6 +55,7 @@ body {
 .app {
     width: 100%;
     height: 100%;
+    margin-top: 20px !important;
 }
 
 #signin-form,
@@ -214,6 +218,7 @@ button {
 
 .card-title {
     background-color: rgba(0, 0, 0, 0.5);
+    width: 100%;
 }
 
 .display-container {
@@ -264,4 +269,13 @@ button {
     color: red;
     font-weight: 500;
     display: none;
+}
+
+#countdown {
+    color: red;
+    position: absolute;
+    margin-top: -80px;
+    right: 10px;
+    font-size: 16px;
+    font-weight: bold;
 }
