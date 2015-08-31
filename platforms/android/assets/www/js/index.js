@@ -13,7 +13,7 @@ var app = {
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
-        //document.addEventListener('deviceready', this.onDeviceReady, false);
+        // document.addEventListener('deviceready', this.onDeviceReady, false);
         this.onDeviceReady();
 
         $(".button-collapse").sideNav();
@@ -40,6 +40,30 @@ var app = {
 
       // var pushNotification = window.plugins.pushNotification;
       // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
+
+      var push = new PushNotification({ 
+        "android": {"senderID": "824841663931"},
+       "ios": {}, 
+       "windows": {} 
+     });
+
+      push.on('registration', function(data) {
+        Materialize.toast(data.registrationId,5000);
+      });
+
+      push.on('notification', function(data) {
+        Materialize.toast(data.message,500);
+        // data.title,
+        // data.count,
+        // data.sound,
+        // data.image, 
+        // data.additionalData
+      });
+
+      push.on('error', function(e) {
+        // e.message
+        Materialize.toast(e.message,500);
+      });
 
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({

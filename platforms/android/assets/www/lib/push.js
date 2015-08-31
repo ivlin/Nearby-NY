@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var exec = cordova.require('cordova/exec');
+// var exec = cordova.require('cordova/exec');
 
 /**
  * PushNotification constructor.
@@ -151,28 +151,30 @@ PushNotification.prototype.emit = function() {
  * Push Notification Plugin.
  */
 
-module.exports = {
-    /**
-     * Register for Push Notifications.
-     *
-     * This method will instantiate a new copy of the PushNotification object
-     * and start the registration process.
-     *
-     * @param {Object} options
-     * @return {PushNotification} instance
-     */
+// module.exports = {
+// //     /**
+// //      * Register for Push Notifications.
+// //      *
+// //      * This method will instantiate a new copy of the PushNotification object
+// //      * and start the registration process.
+// //      *
+// //      * @param {Object} options
+// //      * @return {PushNotification} instance
+// //      */
 
-    init: function(options) {
-        return new PushNotification(options);
-    },
+//     init: function(options) {
+//         return new PushNotification(options);
+//     },
 
-    /**
-     * PushNotification Object.
-     *
-     * Expose the PushNotification object for direct use
-     * and testing. Typically, you should use the
-     * .init helper method.
-     */
+// //     /**
+// //      * PushNotification Object.
+// //      *
+// //      * Expose the PushNotification object for direct use
+// //      * and testing. Typically, you should use the
+// //      * .init helper method.
+// //      */
 
-    PushNotification: PushNotification
-};
+//     PushNotification: PushNotification
+// };
+
+var exec = cordova.require('cordova/exec');

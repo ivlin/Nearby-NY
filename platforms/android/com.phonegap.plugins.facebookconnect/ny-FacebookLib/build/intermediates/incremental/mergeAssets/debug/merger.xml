@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/home/ivan/Desktop/m/threeofiveclub/platforms/android/com.phonegap.plugins.facebookconnect/ny-FacebookLib/assets"/></dataSet><dataSet config="debug"><source path="/home/ivan/Desktop/m/threeofiveclub/platforms/android/com.phonegap.plugins.facebookconnect/ny-FacebookLib/src/debug/assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/ivan/Desktop/nearbyny/platforms/android/com.phonegap.plugins.facebookconnect/ny-FacebookLib/assets"/></dataSet><dataSet config="debug"><source path="/home/ivan/Desktop/nearbyny/platforms/android/com.phonegap.plugins.facebookconnect/ny-FacebookLib/src/debug/assets"/></dataSet></merger>

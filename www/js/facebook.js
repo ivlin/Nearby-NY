@@ -72,6 +72,7 @@ facebookConnectPlugin.login(["email"], function(response) {
                             }
                         }*/
 						$("#signup-status").html("Registration failed<br>Try again");
+						$("#signup-status").html("Registration failed<br>Try again");
 						}
 						});
 						
