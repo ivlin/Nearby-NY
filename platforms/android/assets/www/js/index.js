@@ -37,22 +37,24 @@ var app = {
 
     initParse: function() {
       Parse.initialize(this.PARSE_APP, this.PARSE_JS);
+      // Parse.initialize(this, "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "IpGeRpLHGk4nKWq7stcRCncwWjevg6AmlrEsPIHv");
+      // ParseInstallation.getCurrentInstallation().saveInBackground();
 
       // var pushNotification = window.plugins.pushNotification;
       // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
 
       var push = new PushNotification({ 
-        "android": {"senderID": "824841663931"},
-       "ios": {}, 
-       "windows": {} 
-     });
+        "android": {"senderID": "922329717256"},
+        "ios": {}, 
+        "windows": {} 
+      });
 
       push.on('registration', function(data) {
-        Materialize.toast(data.registrationId,5000);
+       alert(data.registrationId);
       });
 
       push.on('notification', function(data) {
-        Materialize.toast(data.message,500);
+        alert(data.message);
         // data.title,
         // data.count,
         // data.sound,
@@ -62,7 +64,7 @@ var app = {
 
       push.on('error', function(e) {
         // e.message
-        Materialize.toast(e.message,500);
+        alert(e.message);
       });
 
       Event = Parse.Object.extend("Event");
