@@ -54,6 +54,7 @@ function validateSignUp() {
             attended: [],
             pending_friends: [],
             profile_img: "",
+            mailbox: new Mailbox({requests:[]}),
         }, {
             success: function(user) {
                 console.log("success");

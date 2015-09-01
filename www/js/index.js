@@ -41,35 +41,12 @@ var app = {
       // Parse.initialize(this, "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "IpGeRpLHGk4nKWq7stcRCncwWjevg6AmlrEsPIHv");
       // ParseInstallation.getCurrentInstallation().saveInBackground();
 
-      parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-        alert("SUCCEEDED");
-      }, function(e) {
-        alert('error');
-      });
-
-      // var push = new PushNotification({ 
-      //   "android": {"senderID": "922329717256"},
-      //   "ios": {}, 
-      //   "windows": {} 
-      // });
-
-      // push.on('registration', function(data) {
-      //  alert(data.registrationId);
-      // });
-
-      // push.on('notification', function(data) {
-      //   alert(data.message);
-      //   // data.title,
-      //   // data.count,
-      //   // data.sound,
-      //   // data.image, 
-      //   // data.additionalData
-      // });
-
-      // push.on('error', function(e) {
-      //   // e.message
-      //   alert(e.message);
-      // });
+        // parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+        //   alert("SUCCEEDED");
+        // }, function(e) {
+        //   alert('error');
+        // });
+      
 
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({
@@ -104,6 +81,9 @@ var app = {
 
         }
       });
+
+      Mailbox = Parse.Object.extend("Mailbox");
+
     },
 
     successHandler: function(result) {

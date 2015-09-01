@@ -34,6 +34,19 @@ var friends = {
                 self.get(Parse.User.current().id).then(function(me){
                     var newFriends = me.get("friends");
                     var newPending = me.get("pending_friends");
+
+                    var query = new Parse.Query(Mailbox);
+                    query.containedIn("ownerId",friends.selected);
+                    query.find().then(function (result){
+                        console.log(result);
+                        for (var i = 0; i < result.length; i++){
+                            var r = result[i].get("requests");
+                            r.splice(r.indexOf(Parse.User.current().id), 1);
+                            result[i].set("requests", r);
+                            result[i].save();
+                        }
+                    });
+                    
                     for (var i = 0; i < friends.selected.length; i++){
                         newPending.splice(newPending.indexOf(friends.selected[i]), 1);
                         newFriends.splice(newFriends.indexOf(friends.selected[i]), 1);
@@ -69,13 +82,23 @@ var friends = {
                                 var newPending = me.get("pending_friends");
                                 newPending.push(result.id);
                                 me.set("pending_friends",newPending);
-                                me.save();
-                                friends.buildPendingList();
+                                me.save().then(function(){
+                                    friends.buildPendingList();
+                                });
+
+                                result.get("mailbox").fetch().then(function(mailbox){
+                                    var mail = mailbox.get("requests");
+                                    mail.push(me.id);
+                                    mailbox.set("requests",mail);
+                                    mailbox.save();
+                                })
+                                
                             }else{
                                 $("#add-friend-prompt-status").html("User is already a registered or pending friend");
                             }
                         }
                     });
+
                 },error:function(result,error){
                     console.log(error);
                     $("add-friend-prompt-status").html("Failed to retrieve user with that id");
