@@ -58,6 +58,8 @@ function validateSignUp() {
         }, {
             success: function(user) {
                 console.log("success");
+                user.get("mailbox").set("ownerId",user.id);
+                user.get("mailbox").save();
                 controller.changeViewTo("view-trending");
             },
             error: function(user, error) {
