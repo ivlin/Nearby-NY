@@ -25,6 +25,13 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.http-request"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.core.parseplugin/www/cdv-plugin-parse.js",
+        "id": "org.apache.cordova.core.parseplugin.ParsePlugin",
+        "clobbers": [
+            "window.parsePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -34,7 +41,8 @@ module.exports.metadata =
     "com.phonegap.plugins.facebookconnect": "0.11.0",
     "cordova-plugin-whitelist": "1.0.0",
     "phonegap-plugin-push": "1.2.0",
-    "plugin.http.request": "1.0.4"
+    "plugin.http.request": "1.0.4",
+    "org.apache.cordova.core.parseplugin": "0.1.0"
 }
 // BOTTOM OF METADATA
 });

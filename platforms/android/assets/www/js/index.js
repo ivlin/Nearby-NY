@@ -1,6 +1,7 @@
 var app = {
   PARSE_APP: "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84",
   PARSE_JS: "T5dQgHMRBck7xs3Dws2tmhJylLabXaOzebAfVTsg",
+  PARSE_CLIENT_KEY: "IpGeRpLHGk4nKWq7stcRCncwWjevg6AmlrEsPIHv",
   Event: null,
   EventList: null,
 
@@ -40,32 +41,35 @@ var app = {
       // Parse.initialize(this, "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "IpGeRpLHGk4nKWq7stcRCncwWjevg6AmlrEsPIHv");
       // ParseInstallation.getCurrentInstallation().saveInBackground();
 
-      // var pushNotification = window.plugins.pushNotification;
-      // pushNotification.register(app.successHandler, app.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
-
-      var push = new PushNotification({ 
-        "android": {"senderID": "922329717256"},
-        "ios": {}, 
-        "windows": {} 
+      parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+        alert("SUCCEEDED");
+      }, function(e) {
+        alert('error');
       });
 
-      push.on('registration', function(data) {
-       alert(data.registrationId);
-      });
+      // var push = new PushNotification({ 
+      //   "android": {"senderID": "922329717256"},
+      //   "ios": {}, 
+      //   "windows": {} 
+      // });
 
-      push.on('notification', function(data) {
-        alert(data.message);
-        // data.title,
-        // data.count,
-        // data.sound,
-        // data.image, 
-        // data.additionalData
-      });
+      // push.on('registration', function(data) {
+      //  alert(data.registrationId);
+      // });
 
-      push.on('error', function(e) {
-        // e.message
-        alert(e.message);
-      });
+      // push.on('notification', function(data) {
+      //   alert(data.message);
+      //   // data.title,
+      //   // data.count,
+      //   // data.sound,
+      //   // data.image, 
+      //   // data.additionalData
+      // });
+
+      // push.on('error', function(e) {
+      //   // e.message
+      //   alert(e.message);
+      // });
 
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({

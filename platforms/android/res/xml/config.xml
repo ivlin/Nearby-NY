@@ -19,6 +19,9 @@
     <feature name="HttpRequest">
         <param name="android-package" value="plugin.http.request.HttpRequest" />
     </feature>
+    <feature name="ParsePlugin">
+        <param name="android-package" value="org.apache.cordova.core.ParsePlugin" />
+    </feature>
     <allow-intent href="market:*" />
     <icon density="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon density="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
