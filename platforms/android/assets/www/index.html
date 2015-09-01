@@ -107,6 +107,7 @@
                 </div>
                 <!-- -->
                 <!-- -->
+                <div id="friend-requests-display"></div>
                 <div id="pending-list-display"></div>
                 <div id="friend-list-display"></div>
             </div>
@@ -455,6 +456,20 @@
             <img src="img/logo_nearby.png" alt="" class="circle">
             <span class="title">{{username}}</span>
             <p>user not yet registered as friend</p>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script id="friend-request-tpl" type="text/x-handlebars-template">
+    <ul class="collection with-header">
+        <li class="collection-header">Friend Requests</li>
+        {{#each request}}
+        <li class="collection-item avatar" id="{{objectId}}">
+            <img src="img/logo_nearby.png" alt="" class="circle">
+            <span class="title">{{username}}</span>
+            <p>{{name}}<br>{{email}}</p>
+            <button class="accept-request">Accept</button>
+            <button class="delete-request">Reject</button>
         </li>
         {{/each}}
     </ul>

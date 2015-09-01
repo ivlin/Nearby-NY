@@ -38,15 +38,12 @@ var app = {
 
     initParse: function() {
       Parse.initialize(this.PARSE_APP, this.PARSE_JS);
-      // Parse.initialize(this, "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "IpGeRpLHGk4nKWq7stcRCncwWjevg6AmlrEsPIHv");
-      // ParseInstallation.getCurrentInstallation().saveInBackground();
 
-        // parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-        //   alert("SUCCEEDED");
-        // }, function(e) {
-        //   alert('error');
-        // });
-      
+        parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+          // alert('success');
+        }, function(e) {
+          alert('error');
+        });
 
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({
@@ -148,6 +145,18 @@ var app = {
           $(buttons[i]).click(function() {
             if (Parse.User.current()){
               Parse.User.logOut();
+
+              parsePlugin.getInstallationId(function (id){
+                var query = new Parse.Query(Parse.Installation);
+                query.equalTo("installationId",id);
+                query.first().then(function (i){
+                  i.set("userId",null);
+                  i.save();
+                });
+              },function(e){
+                console.log(e);
+              });
+
             }
             controller.changeViewTo("view-signin");  
             fblogout();                

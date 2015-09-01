@@ -36,6 +36,8 @@ info = {
                     // $("#sidebar-friends").addClass("grey lighten-4");
                     // controller.changeViewTo("view-friends");
                     // friends.initialize();
+                    var query = new Parse.Query(Parse.Installation);
+                    query.equalTo("")
                     Materialize.toast("Successfully sent notices.", 500);
                     $("#friend-notification, #friend-email-notification, #friend-user-notification").val("");
                     $("#invite-friends-prompt").slideToggle();

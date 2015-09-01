@@ -38,38 +38,12 @@ var app = {
 
     initParse: function() {
       Parse.initialize(this.PARSE_APP, this.PARSE_JS);
-      // Parse.initialize(this, "bFpMdQLKzOXnYH7r9wdRRME4JmsZ4oxSae2YrH84", "IpGeRpLHGk4nKWq7stcRCncwWjevg6AmlrEsPIHv");
-      // ParseInstallation.getCurrentInstallation().saveInBackground();
 
-      parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-        alert("SUCCEEDED");
-      }, function(e) {
-        alert('error');
-      });
-
-      // var push = new PushNotification({ 
-      //   "android": {"senderID": "922329717256"},
-      //   "ios": {}, 
-      //   "windows": {} 
-      // });
-
-      // push.on('registration', function(data) {
-      //  alert(data.registrationId);
-      // });
-
-      // push.on('notification', function(data) {
-      //   alert(data.message);
-      //   // data.title,
-      //   // data.count,
-      //   // data.sound,
-      //   // data.image, 
-      //   // data.additionalData
-      // });
-
-      // push.on('error', function(e) {
-      //   // e.message
-      //   alert(e.message);
-      // });
+        parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+          alert('success');
+        }, function(e) {
+          alert('error');
+        });
 
       Event = Parse.Object.extend("Event");
       EventList = Parse.Collection.extend({
@@ -101,17 +75,23 @@ var app = {
             friend: this.collection
           };
           this.el.innerHTML = this.template(this.data);
-
         }
       });
-    },
 
-    successHandler: function(result) {
-      Materialize.toast('Callback Success! Result = '+ result,500);
-    },
-
-    errorHandler:function(error) {
-      Materialize.toast(error, 500);
+      Mailbox = Parse.Object.extend("Mailbox");
+      FriendRequestList = Parse.Collection.extend({
+        model: Parse.User
+      });
+      FriendRequestView = Parse.View.extend({
+        data:null,
+        template: Handlebars.compile(document.getElementById("friend-request-tpl").innerHTML),
+        render: function() {
+         this.data = {
+          request: this.collection
+         }; 
+         this.el.innerHTML = this.template(this.data);
+       }
+     });
     },
 
     setupLinks: function() {
@@ -165,6 +145,18 @@ var app = {
           $(buttons[i]).click(function() {
             if (Parse.User.current()){
               Parse.User.logOut();
+
+              parsePlugin.getInstallationId(function (id){
+                var query = new Parse.Query(Parse.Installation);
+                query.equalTo("installationId",id);
+                query.first().then(function (i){
+                  i.set("userId",null);
+                  i.save();
+                });
+              },function(e){
+                console.log(e);
+              });
+
             }
             controller.changeViewTo("view-signin");  
             fblogout();                
@@ -174,31 +166,5 @@ var app = {
           break;
         }
       }
-    },
-
-    onNotificationGCM: function(e) {
-        switch( e.event )
-        {
-            case 'registered':
-                if ( e.regid.length > 0 )
-                {
-                    console.log("Regid " + e.regid);
-                    alert('registration id = '+e.regid);
-                }
-            break;
- 
-            case 'message':
-              // this is the actual push notification. its format depends on the data model from the push server
-              alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-            break;
- 
-            case 'error':
-              alert('GCM error = '+e.msg);
-            break;
- 
-            default:
-              alert('An unknown GCM event has occurred');
-              break;
-        }
     },
   };
