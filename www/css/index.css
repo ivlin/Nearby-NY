@@ -287,3 +287,8 @@ button {
 #search-trending {
     margin-top: 15px;
 }
+
+.dropdown-button {
+    width: 120px;
+    font-size: 22px;
+}
