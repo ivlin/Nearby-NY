@@ -47,10 +47,17 @@ facebookConnectPlugin.login(["email"], function(response) {
 							Parse.User.signUp(formName, formPass, {
                                 
 								email:formEmail,name:"", biography:"", friends:[], tags:[], to_attend:[], attended:[], pending_friends:[], profile_img:"",
+								mailbox: new Mailbox({
+									requests:[],
+								}),
                                 
 							},{
 								success:function(result){
 								console.log("success");
+								
+								result.get("mailbox").set("ownerId", result.id);
+								result.get("mailbox").save();
+
 								$("#signup-status").html("Registration successful");
                                 alert('Thanks for signing up, ' + response.name);
                                 Parse.User.logIn(formName, formPass, {

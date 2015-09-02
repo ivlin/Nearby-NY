@@ -62,4 +62,4 @@
 
     var exec = require("cordova/exec");
 
-    module.exports = parsePlugin;
+    // module.exports = parsePlugin;

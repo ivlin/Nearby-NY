@@ -52,7 +52,7 @@ var friends = {
                         newPending.splice(newPending.indexOf(friends.selected[i]), 1);
                         newFriends.splice(newFriends.indexOf(friends.selected[i]), 1);
                     }
-                    console.log(newFriends);
+
                     me.set("friends", newFriends);
                     me.save().then(function() {
                         friends.buildFriendList();
@@ -107,6 +107,30 @@ var friends = {
                 }
             });
         });
+
+    $(".notify-this.friend").click(function(){
+        friends.selected.push($(this).parent().attr("id"));
+    });
+
+    $("#notify-selected-friends").click(function(){
+        if (){
+
+        }else if (){
+            
+        } 
+        var query = new Parse.Query(Parse.Installation);
+        query.containedIn("userId",friends.selected);
+        Parse.Push.send({
+            where: query,
+            data: {
+                alert: "Test"
+            }
+        },{
+            success:function(){},
+            error:function(e){console.log(e)}
+        })
+    });
+    
     },
 
     buildPendingList: function() {
@@ -151,7 +175,6 @@ var friends = {
         var query = new Parse.Query(Parse.User);
         query.get(Parse.User.current().id).then(function(me) {
             var friendList = me.get("friends");
-            console.log(friendList);
             var friendQuery = new Parse.Query(Parse.User);
             friendQuery.containedIn("objectId", friendList);
             friendQuery.find({
@@ -195,9 +218,9 @@ var friends = {
                 for (var i = 0; i < requests.length; i++) {
                     if (pending.indexOf(requests[i]) >= 0) {
                         //add as friend
-                        var friends = me.get("friends");
-                        friends.push(requests[i]);
-                        me.set("friends", friends);
+                        var myFriends = me.get("friends");
+                        myFriends.push(requests[i]);
+                        me.set("friends", myFriends);
                         me.save();
                         //take off pending
                         pending.splice(pending.indexOf(requests[i]));
@@ -223,6 +246,7 @@ var friends = {
                     friendRequestView.render();
                     $("#friend-requests-display").empty().append(friendRequestView.el);
                     $(".accept-request").click(function() {
+                        console.log(friends);
                         //send request to friend
                         var mailQuery = new Parse.Query(Mailbox);
                         mailQuery.equalTo("ownerId", $(this).parent().attr("id"));
@@ -239,7 +263,6 @@ var friends = {
                         mail.splice(mail.indexOf($(this).parent().attr("id")), 1);
                         mailbox.set("requests", mail);
                         mailbox.save();
-                        friends.buildRequestList();
                         //add to friends list
                         var tempFriends = me.get("friends");
                         tempFriends.push($(this).parent().attr("id"));

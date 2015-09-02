@@ -100,9 +100,22 @@
                     <div class="card-panel col s12 grey lighten-4" style="padding:4px">
                         <div class="input-field col s12">
                             <input id="friend-id" type="text" class="validate">
-                            <label for="friend-id">Nearby NY Registered Username or Password</label>
-                            <a class="waves-effect waves-light btn" id="check-friend-id">Find</a>
+                            <label for="friend-id">Nearby NY Registered Username or Email</label>
+                            <a class="waves-effect waves-light btn" id="check-friend-id">Send a Friend Request</a>
                         </div>
+                    </div>
+                </div>
+                <div class="row" id="invite-friends-prompt">
+                    <div class="card-panel col s12 grey lighten-4" style="padding:4px">
+                        <h4>Event: <span id="push-prompt-event"></span></h4>
+                        <p>What kind of message do you want to send?</p>
+                          <input class="with-gap" name="group1" type="radio" id="invite-radio"/>
+                          <label for="invite-radio">Invite</label>
+                          <input class="with-gap" name="group1" type="radio" id="notify-radio"/>
+                          <label for="notify-radio">Notify</label>
+                          <br>
+                          <a class="waves-effect waves-light btn" id="notify-selected-friends">Send Message</a>
+                          <a class="waves-effect waves-light btn" class="return-to-event">Return to Event Page</a>
                     </div>
                 </div>
                 <!-- -->
@@ -482,6 +495,7 @@
         <li class="collection-header">Friends</li>
         {{#each friend}}
         <li class="collection-item avatar" id="{{objectId}}">
+            <i class="material-icons right notify-this-friend">send</i>
             <img src="{{profilePic.url}}" alt="" class="circle">
             <span class="title">{{username}}</span>
             <p>name: {{name}}
@@ -496,7 +510,6 @@
                         <div class="tagbox col s3 white">{{this}}</div>
                         {{/each}}</div>
                 </p>
-                <div class="card-action right" style="font-size:16px"><a href="#" class="notify-friend-button">Notify</a> <a href="#" class="delete-friend-button">Delete</a></div>
             </li>
         </li>
         {{/each}}
@@ -571,7 +584,7 @@
                     <p class="light center">Attending:<span id="event-to-attend-num">{{to_attend}}</span></p>
                 </div>
                 <div class="col s4 center">
-                    <span class="goto-friends"><i class="medium material-icons" id="event-invite-friends">recent_actors</i></span>
+                    <i class="medium material-icons" id="event-invite-friends">recent_actors</i>
                     <p class="section-caption ">Invite</p>
                 </div>
                 <div class="col s4 center">
@@ -598,8 +611,9 @@
 <script type="text/javascript" src="lib/facebookConnectPlugin.js"></script>
 <script type="text/javascript" src="lib/parse-1.5.0.js"></script>
 <script type="text/javascript" src="lib/push.js"></script>
-<!-- <script type="text/javascript" src="lib/cdv-plugin-parse.js"></script>
- -->
+
+<!--<script type="text/javascript" src="lib/cdv-plugin-parse.js"></script>-->
+
 <script type="text/javascript" src="lib/handlebars-v3.0.3.js"></script>
 <script type="text/javascript" src="lib/materialize.min.js"></script>
 <!-- Custom JS -->

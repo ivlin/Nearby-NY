@@ -279,3 +279,16 @@ button {
     font-size: 16px;
     font-weight: bold;
 }
+
+.side-nav {
+    margin-top: 20px;
+}
+
+#search-trending {
+    margin-top: 15px;
+}
+
+.dropdown-button {
+    width: 120px;
+    font-size: 22px;
+}

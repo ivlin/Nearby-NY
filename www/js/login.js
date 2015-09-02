@@ -10,47 +10,11 @@ function setupLoginHandlers() {
     // $(".signout").click(signOut);
 }
 
-function signOut() {
-    // alert('in');
-    // try {
-    //     logout();
-    // } catch (e) {
-    //     alert(e);
-    // }
-    Parse.User.logOut();
-
-    // parsePlugin.getInstallationId(function (id){
-    //     alert(id);
-    //     var query = new Parse.Query(Parse.Installation);
-    //     query.equalTo("installationId",id);
-    //     query.first().then(function (i){
-    //       alert(i);
-    //       i.set("userId",undefined);
-    //       i.save();
-    //   });
-    // },function(e){
-    //     console.log(e);
-    // });
-
-    controller.changeViewTo("view-signin");
-}
-
 function validateSignIn() {
     var formName = $("#signin-username").val();
     var formPass = $("#signin-password").val();
     if (formName !== "" && formPass !== "") {
-        Parse.User.logIn(formName, formPass //, {
-            //     success: function(result) {
-            //         $('#signin-username').val('');
-            //         $('#signin-password').val('');
-            //         controller.changeViewTo("view-trending");
-            //     },
-            //     error: function(error) {
-            //         $("#signin-status").html("Failed to sign in");
-            //     }
-            //     //});
-            // }
-        ).then(function() {
+        Parse.User.logIn(formName, formPass).then(function() {
             $('#signin-username').val('');
             $('#signin-password').val('');
             controller.changeViewTo("view-trending");
@@ -64,7 +28,6 @@ function validateSignIn() {
             }, function(e) {
                 alert(e);
             });
-
         });
     }
 }

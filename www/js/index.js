@@ -38,12 +38,12 @@ var app = {
 
     initParse: function() {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
+
         // parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-        //     alert('success');
+        //   Materialize.toast("Registered with PARSE",500);
         // }, function(e) {
         //     alert('error');
         // });
-
 
         Event = Parse.Object.extend("Event");
         EventList = Parse.Collection.extend({
