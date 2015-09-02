@@ -290,13 +290,44 @@ info = {
         $("#event-invite-friends").click(function() {
             $(".sidebar-button").removeClass("grey lighten-4");
             $("#sidebar-friends").addClass("grey lighten-4");
+            $("#invite-friends-prompt").css("display","block");
             controller.changeViewTo("view-friends");
             friends.initialize();
             friends.editMode = true;
+
+            //handlers for friends page stuff
+            $("#notify-selected-friends, .return-to-event").off("click");
+
             $(".return-to-event").click(function(){
+                $("#invite-friends-prompt").css("display","none");
                 changeViewTo("view-event");
+            });
+
+            $("#notify-selected-friends").click(function(){
+                Parse.User.current().fetch().then(function (me){
+                    var message;
+                    if ($("input:radio[name='message-type']:checked").val() == 'invite-radio'){
+                        message = me.get("username") + " is inviting you to check out " + upData.title + ", an event taking place at " 
+                        + upData.address + " on " + upData.time
+                    }else if ($("input:radio[name='message-type']:checked").val() == 'notify-radio'){
+                        message = me.get("username") + " is currently at " + upData.title + ", an event taking place at " 
+                        + upData.address
+                    } 
+                    var query = new Parse.Query(Parse.Installation);
+                    query.containedIn("userId",friends.selected);
+                    Parse.Push.send({
+                        where: query,
+                        data: {
+                            alert: message
+                        }
+                    },{
+                        success:function(){},
+                        error:function(e){console.log(e)}
+                    });
+                });
             });
         });
 
     },
+
 }

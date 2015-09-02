@@ -156,7 +156,7 @@ button {
     display: none;
 }
 
-#add-friends-prompt {
+#add-friends-prompt, #invite-friends-prompt {
     display: none;
 }
 

@@ -13,9 +13,9 @@ var friends = {
     },
 
     setupHandlers: function() {
-        $("#add-friends-button").off("click");
-        $("#remove-friends-button").off("click");
-        $("#check-friend-id").off("click");
+        $("#add-friends-button, #remove-friends-button, #check-friend-id").off("click");
+        // $("#remove-friends-button").off("click");
+        // $("#check-friend-id").off("click");
 
         $("#add-friends-button").click(function() {
             $("#add-friends-prompt").css("display", function() {
@@ -108,28 +108,11 @@ var friends = {
             });
         });
 
-    $(".notify-this.friend").click(function(){
-        friends.selected.push($(this).parent().attr("id"));
-    });
+    // $(".notify-this.friend").click(function(){
+    //     friends.selected.push($(this).parent().attr("id"));
+    // });
 
-    $("#notify-selected-friends").click(function(){
-        if (){
 
-        }else if (){
-            
-        } 
-        var query = new Parse.Query(Parse.Installation);
-        query.containedIn("userId",friends.selected);
-        Parse.Push.send({
-            where: query,
-            data: {
-                alert: "Test"
-            }
-        },{
-            success:function(){},
-            error:function(e){console.log(e)}
-        })
-    });
     
     },
 
