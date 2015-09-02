@@ -3,7 +3,6 @@ var profile = {
     curUser: null,
 
     initialize: function() {
-
         CalendarView = Parse.View.extend({
             data: null,
             template: Handlebars.compile(document.getElementById("calendar-list-tpl").innerHTML),
@@ -31,11 +30,11 @@ var profile = {
     setupProfilePicture: function() {
         var findMe = new Parse.Query(Parse.User);
         findMe.get(Parse.User.current().id, {
-            success:function(me){
+            success: function(me) {
                 var pic = me.get("profilePic");
-                if (pic === undefined){
+                if (pic === undefined) {
                     $("#profile-pic").attr("src", "img/logo_nearby.png");
-                }else if (me.get("profilePic")){
+                } else if (me.get("profilePic")) {
                     $("#profile-pic").attr("src", pic.url());
                 }
             }
@@ -80,9 +79,9 @@ var profile = {
 
             if (imageFile) {
                 reader.readAsDataURL(imageFile);
-            var profilePic = new Parse.File("profilepic",imageFile);
-            Parse.User.current().set("profilePic", profilePic);
-            Parse.User.current().save(); //reads the data as a URL
+                var profilePic = new Parse.File("profilepic", imageFile);
+                Parse.User.current().set("profilePic", profilePic);
+                Parse.User.current().save(); //reads the data as a URL
             } else {
                 preview.attr("src", "");
             }
@@ -176,7 +175,12 @@ var profile = {
                     collection: result
                 });
                 calendarList.render();
-                $("#" + sectionId).append(calendarList.el);
+                if (result.length == 0) {
+                    $("#" + sectionId).html('No events to show.');
+                } else {
+                    $("#" + sectionId).append(calendarList.el);
+                }
+
                 return calendarList.el;
             },
             error: function(error) {

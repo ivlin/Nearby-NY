@@ -279,3 +279,11 @@ button {
     font-size: 16px;
     font-weight: bold;
 }
+
+.side-nav {
+    margin-top: 20px;
+}
+
+#search-trending {
+    margin-top: 15px;
+}

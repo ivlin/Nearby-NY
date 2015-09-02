@@ -4,7 +4,6 @@ var trending = {
     eventListView: null,
 
     initialize: function() {
-
         trending.setupHandlers();
         EventListView = Parse.View.extend({
             data: null,
@@ -63,6 +62,7 @@ var trending = {
                 var cards = this.el.getElementsByClassName("event-card");
 
                 function renderEventPage(id) {
+                    $('.button-collapse').sideNav('hide');
                     info.drawEventPage(id, "view-trending");
                 }
 
