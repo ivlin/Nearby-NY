@@ -14,6 +14,8 @@ var trending = {
                     event: this.collection
                 };
                 for (var i = 0; i < this.data.event.length; i++) {
+                  // console.log(this.data.event[i]);
+                    this.data.event[i] = this.data.event[i].toJSON();
                     this.data.event[i].time = trending.buildDateString(this.collection[i].time.iso);
                     this.data.event[i].upvotes = this.data.event[i].upvotes.length;
                     this.data.event[i].downvotes = this.data.event[i].downvotes.length;
@@ -42,7 +44,7 @@ var trending = {
                         this.data.event = this.sortByKey(this.data.event, "cost", true);
                         break;
                     case "date":
-                        this.data.event = this.sortByKey(this.data.event, "time", true);
+                        this.data.event = this.sortByKey(this.data.event, "time", false);
                         break;
                     case "title":
                         this.data.event = this.sortByKey(this.data.event, "title", true);
@@ -89,8 +91,8 @@ var trending = {
     }, //end init
 
     buildList: function() {
-        this.eventList = new EventList(),
-            trending.drawList();
+        this.eventList = new EventList();
+        trending.drawList();
     },
 
     buildDateString: function(epoch) {
@@ -120,9 +122,9 @@ var trending = {
         query.greaterThanOrEqualTo("time", today);
         query.find({
             success: function(eventList) {
-                for (var i = 0; i < eventList.length; i++) {
-                    eventList[i] = eventList[i].toJSON();
-                }
+                // for (var i = 0; i < eventList.length; i++) {
+                //     eventList[i] = eventList[i].toJSON();
+                // }
                 trending.eventListView = new EventListView({
                     collection: eventList
                 });
@@ -149,19 +151,18 @@ var trending = {
     },
 
     setupHandlers: function() {
-
         $("#reorder-mode-preference").click(function() {
             //var tags = Parse.User.current().toJSON().tags;
             var a = Parse.User.current().get("tags");
-            console.log(a);
+            // console.log(a);
             //console.log(tags);
             var query = new Parse.Query(Event);
             query.containedIn("tags", a);
             query.find({
                 success: function(r) {
-                    for (var i = 0; i < r.length; i++) {
-                        r[i] = r[i].toJSON();
-                    }
+                    // for (var i = 0; i < r.length; i++) {
+                    //     r[i] = r[i].toJSON();
+                    // }
                     var tempEventListView = new EventListView({
                         collection: r
                     });
@@ -196,9 +197,9 @@ var trending = {
             var query = Parse.Query.or(tagQuery, titleQuery, descQuery, addQuery);
             query.find({
                 success: function(r) {
-                    for (var i = 0; i < r.length; i++) {
-                        r[i] = r[i].toJSON();
-                    }
+                    // for (var i = 0; i < r.length; i++) {
+                    //     r[i] = r[i].toJSON();
+                    // }
                     var tempEventListView = new EventListView({
                         collection: r
                     });

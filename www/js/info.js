@@ -183,8 +183,9 @@ info = {
         $("#event-reserve").click(function() {
             if (findMeInArray("to_attend") === -1) {
                 addMeToArray("to_attend");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
+                // var query = new Parse.Query(Parse.User);
+                // query.get(Parse.User.current().id, {
+                Parse.User.current().fetch({
                     success: function(r) {
                         var temp = r.get("to_attend");
                         temp.push(objectId);
@@ -195,8 +196,9 @@ info = {
                 Materialize.toast('<span>You have shown interest in attending.</span>', 5000);
             } else {
                 removeMeFromArray("to_attend");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
+                // var query = new Parse.Query(Parse.User);
+                // query.get(Parse.User.current().id, {
+                Parse.User.current().fetch({
                     success: function(r) {
                         var temp = r.get("to_attend");
                         temp.splice(temp.indexOf(objectId), 1);
@@ -213,8 +215,9 @@ info = {
         $("#event-checkin").click(function() {
             if (findMeInArray("attended") === -1) {
                 addMeToArray("attended");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
+                // var query = new Parse.Query(Parse.User);
+                // query.get(Parse.User.current().id, {
+                Parse.User.current().fetch({
                     success: function(r) {
                         var temp = r.get("attended");
                         temp.push(objectId);

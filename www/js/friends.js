@@ -38,7 +38,6 @@ var friends = {
                     var query = new Parse.Query(Mailbox);
                     query.containedIn("ownerId", friends.selected);
                     query.find().then(function(result) {
-                        console.log(result);
                         for (var i = 0; i < result.length; i++) {
                             var r = result[i].get("requests");
                             r.splice(r.indexOf(Parse.User.current().id), 1);
