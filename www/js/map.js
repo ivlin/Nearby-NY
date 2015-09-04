@@ -16,6 +16,7 @@ var map = {
     },
 
     setupHandlers: function() {
+        $("#display-map-options, #update-map-events").off('click');
 
         $("#display-map-options").click(function() {
             $("#map-options").slideToggle();
@@ -34,7 +35,7 @@ var map = {
         });
     },
 
-    addMarker: function(lat, lon, id, isVisited, isPreference) {
+    addMarker: function(lat, lon, id, isVisited, isPreference) {        
         var temp = this.eventMarkers[this.eventMarkers.length] = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lon),
             map: this.map,
@@ -42,9 +43,11 @@ var map = {
         });
 
         if (isVisited) {
-            temp.setIcon("img/greenball.png");
+            temp.setIcon("img/orange-balloon.png");
         } else if (isPreference) {
-            temp.setIcon("img/blueball.png");
+            temp.setIcon("img/blue-balloon.png");
+        }else{
+            temp.setIcon("img/red-balloon.png")
         }
 
 
@@ -137,10 +140,12 @@ var map = {
                         map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
                         console.log("bounding map");
                         map.boundMap();
+                        console.log(map.eventMarkers);
                     }
                 } else {
-                    var userPref = new Parse.Query(Parse.User);
-                    userPref.get(Parse.User.current().id, {
+                    // var userPref = new Parse.Query(Parse.User);
+                    // userPref.get(Parse.User.current().id, {
+                    Parse.User.current().fetch({
                         success: function(r) {
                             for (var i = 0; i < result.length; i++) {
                                 temp = result[i].get("location").toJSON();
@@ -154,6 +159,7 @@ var map = {
                                     map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
                                 }
                             }
+                            console.log(map.eventMarkers);
                             console.log("bounding map");
                             map.boundMap();
                         },

@@ -51,11 +51,19 @@ var profile = {
 
         $("#save-bio").click(function(e) {
             e.preventDefault();
-            Parse.User.current().set("name", $("#set-name").val());
-            Parse.User.current().set("biography", $("#set-bio").val());
-            Parse.User.current().save();
+            Parse.User.current().fetch().then(function (me){
+                me.set("name", $("#set-name").val());
+                me.set("biography", $("#set-bio").val());
+                me.save();
+            }).then(function (){
+                profile.setupProfilePage();
+            });
+            // Parse.User.current().save({
+            //     "name":$("#set-name").val(),
+            //     "biography":$("#set-bio").val()
+            // });
 
-            profile.setupProfilePage();
+            // profile.setupProfilePage();
 
             $("#set-bio-info").css("display", "none");
             $("#get-bio-info").css("display", "inline");
@@ -97,7 +105,7 @@ var profile = {
         $("#get-username").html(profile.curUser.username);
         $("#get-name").html(profile.curUser.name);
         $("#get-email").html(profile.curUser.password);
-        $("#get-bio").html(profile.curUser.biography);
+        $("#get-bio").html(profile.curUser.biography.replace("\n","<br>"));
     },
 
     drawForm: function() {
@@ -106,10 +114,12 @@ var profile = {
         $("#set-email").attr("value", profile.curUser.email);
         $("#set-bio").html(profile.curUser.biography);
 
-        var labels = document.getElementsByTagName("label");
-        for (var i = 0; i < labels.length; i++) {
-            labels[i].setAttribute("class", "active");
-        }
+        // var labels = document.getElementsByTagName("label");
+        // for (var i = 0; i < labels.length; i++) {
+        //     labels[i].setAttribute("class", "active");
+        // }
+
+        $("label").attr("class","active");
 
     },
 

@@ -183,8 +183,9 @@ info = {
         $("#event-reserve").click(function() {
             if (findMeInArray("to_attend") === -1) {
                 addMeToArray("to_attend");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
+                // var query = new Parse.Query(Parse.User);
+                // query.get(Parse.User.current().id, {
+                Parse.User.current().fetch({
                     success: function(r) {
                         var temp = r.get("to_attend");
                         temp.push(objectId);
@@ -195,8 +196,9 @@ info = {
                 Materialize.toast('<span>You have shown interest in attending.</span>', 5000);
             } else {
                 removeMeFromArray("to_attend");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
+                // var query = new Parse.Query(Parse.User);
+                // query.get(Parse.User.current().id, {
+                Parse.User.current().fetch({
                     success: function(r) {
                         var temp = r.get("to_attend");
                         temp.splice(temp.indexOf(objectId), 1);
@@ -213,8 +215,9 @@ info = {
         $("#event-checkin").click(function() {
             if (findMeInArray("attended") === -1) {
                 addMeToArray("attended");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
+                // var query = new Parse.Query(Parse.User);
+                // query.get(Parse.User.current().id, {
+                Parse.User.current().fetch({
                     success: function(r) {
                         var temp = r.get("attended");
                         temp.push(objectId);
@@ -290,13 +293,44 @@ info = {
         $("#event-invite-friends").click(function() {
             $(".sidebar-button").removeClass("grey lighten-4");
             $("#sidebar-friends").addClass("grey lighten-4");
+            $("#invite-friends-prompt").css("display","block");
             controller.changeViewTo("view-friends");
             friends.initialize();
             friends.editMode = true;
+
+            //handlers for friends page stuff
+            $("#notify-selected-friends, .return-to-event").off("click");
+
             $(".return-to-event").click(function(){
+                $("#invite-friends-prompt").css("display","none");
                 changeViewTo("view-event");
+            });
+
+            $("#notify-selected-friends").click(function(){
+                Parse.User.current().fetch().then(function (me){
+                    var message;
+                    if ($("input:radio[name='message-type']:checked").val() == 'invite-radio'){
+                        message = me.get("username") + " is inviting you to check out " + upData.title + ", an event taking place at " 
+                        + upData.address + " on " + upData.time
+                    }else if ($("input:radio[name='message-type']:checked").val() == 'notify-radio'){
+                        message = me.get("username") + " is currently at " + upData.title + ", an event taking place at " 
+                        + upData.address
+                    } 
+                    var query = new Parse.Query(Parse.Installation);
+                    query.containedIn("userId",friends.selected);
+                    Parse.Push.send({
+                        where: query,
+                        data: {
+                            alert: message
+                        }
+                    },{
+                        success:function(){},
+                        error:function(e){console.log(e)}
+                    });
+                });
             });
         });
 
     },
+
 }

@@ -6,16 +6,14 @@ var friends = {
     friendListView: null,
 
     initialize: function() {
-        this.buildRequestList(); //always run this before build friend and pending
-        this.buildFriendList();
-        this.buildPendingList();
-        this.setupHandlers();
+                friends.buildRequestList(); //always run this before build friend and pending
+                friends.buildFriendList();
+                friends.buildPendingList();
+                friends.setupHandlers();
     },
 
     setupHandlers: function() {
-        $("#add-friends-button").off("click");
-        $("#remove-friends-button").off("click");
-        $("#check-friend-id").off("click");
+        $("#add-friends-button, #remove-friends-button, #check-friend-id").off("click");
 
         $("#add-friends-button").click(function() {
             $("#add-friends-prompt").css("display", function() {
@@ -31,15 +29,15 @@ var friends = {
             // e.stopPropagation();
             // console.log(!friends.editMode);
             if (friends.selected.length > 0) {
-                var self = new Parse.Query(Parse.User);
-                self.get(Parse.User.current().id).then(function(me) {
+                // var self = new Parse.Query(Parse.User);
+                // self.get(Parse.User.current().id).then(function(me) {
+              Parse.User.current().fetch().then(function (me){
                     var newFriends = me.get("friends");
                     var newPending = me.get("pending_friends");
 
                     var query = new Parse.Query(Mailbox);
                     query.containedIn("ownerId", friends.selected);
                     query.find().then(function(result) {
-                        console.log(result);
                         for (var i = 0; i < result.length; i++) {
                             var r = result[i].get("requests");
                             r.splice(r.indexOf(Parse.User.current().id), 1);
@@ -108,29 +106,18 @@ var friends = {
             });
         });
 
-    $(".notify-this.friend").click(function(){
-        friends.selected.push($(this).parent().attr("id"));
-    });
+    // $(".notify-this.friend").click(function(){
+    //     friends.selected.push($(this).parent().attr("id"));
+    // });
 
-    $("#notify-selected-friends").click(function(){
-        var query = new Parse.Query(Parse.Installation);
-        query.containedIn("userId",friends.selected);
-        Parse.Push({
-            where: query,
-            data: {
-                alert: "Test"
-            }
-        },{
-            success:function(){},
-            error:function(e){console.log(e)}
-        })
-    });
+
     
     },
 
     buildPendingList: function() {
-        var query = new Parse.Query(Parse.User);
-        query.get(Parse.User.current().id).then(function(me) {
+        // var query = new Parse.Query(Parse.User);
+        // query.get(Parse.User.current().id).then(function(me) {
+       Parse.User.current().fetch().then(function (me){
             var pendingList = me.get("pending_friends");
             var pendingQuery = new Parse.Query(Parse.User);
             pendingQuery.containedIn("objectId", pendingList);
@@ -167,8 +154,9 @@ var friends = {
     },
 
     buildFriendList: function() {
-        var query = new Parse.Query(Parse.User);
-        query.get(Parse.User.current().id).then(function(me) {
+        //var query = new Parse.Query(Parse.User);
+        //query.get(Parse.User.current().id).then(function(me) {
+          Parse.User.current().fetch().then(function (me){
             var friendList = me.get("friends");
             var friendQuery = new Parse.Query(Parse.User);
             friendQuery.containedIn("objectId", friendList);
@@ -216,7 +204,7 @@ var friends = {
                         var myFriends = me.get("friends");
                         myFriends.push(requests[i]);
                         me.set("friends", myFriends);
-                        me.save();
+                        //me.save();
                         //take off pending
                         pending.splice(pending.indexOf(requests[i]));
                         me.set("pending_friends", pending);
@@ -228,6 +216,8 @@ var friends = {
                         i--;
                     }
                 }
+                return mailbox;
+            }).then(function (mailbox){
                 //draw the list
                 var query = new Parse.Query(Parse.User);
                 query.containedIn("objectId", mailbox.get("requests"));
@@ -240,33 +230,33 @@ var friends = {
                     });
                     friendRequestView.render();
                     $("#friend-requests-display").empty().append(friendRequestView.el);
+
                     $(".accept-request").click(function() {
-                        console.log(friends);
                         //send request to friend
                         var mailQuery = new Parse.Query(Mailbox);
                         mailQuery.equalTo("ownerId", $(this).parent().attr("id"));
                         mailQuery.first().then(function(box) {
-                            console.log(box);
                             var tempReq = box.get("requests");
                             tempReq.push(Parse.User.current().id);
                             box.set("requests", tempReq);
-                            console.log(tempReq);
                             box.save();
                         });
                         //remove from requests
                         var mail = mailbox.get("requests");
                         mail.splice(mail.indexOf($(this).parent().attr("id")), 1);
                         mailbox.set("requests", mail);
-                        mailbox.save();
+                        mailbox.save().then(function (){
+                            friends.buildRequestList();
+                        });
                         //add to friends list
                         var tempFriends = me.get("friends");
                         tempFriends.push($(this).parent().attr("id"));
                         me.set("friends", tempFriends);
-                        me.save();
-                        //update page
-                        friends.buildRequestList();
-                        friends.buildFriendList();
+                        me.save().then(function (){
+                            friends.buildFriendList();
+                        });
                     });
+
                     $(".delete-request").click(function() {
                         var mail = mailbox.get("requests");
                         mail.splice(mail.indexOf($(this).parent().attr("id")), 1);

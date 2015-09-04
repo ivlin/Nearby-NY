@@ -18,16 +18,16 @@ function validateSignIn() {
             $('#signin-username').val('');
             $('#signin-password').val('');
             controller.changeViewTo("view-trending");
-            parsePlugin.getInstallationId(function(id) {
-                var query = new Parse.Query(Parse.Installation);
-                query.equalTo("installationId", id);
-                query.first().then(function(i) {
-                    i.set("userId", Parse.User.current().id);
-                    i.save();
-                });
-            }, function(e) {
-                alert(e);
-            });
+            // parsePlugin.getInstallationId(function(id) {
+            //     var query = new Parse.Query(Parse.Installation);
+            //     query.equalTo("installationId", id);
+            //     query.first().then(function(i) {
+            //         i.set("userId", Parse.User.current().id);
+            //         i.save();
+            //     });
+            // }, function(e) {
+            //     alert(e);
+            // });
         });
     }
 }

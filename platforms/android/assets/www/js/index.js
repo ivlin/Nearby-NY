@@ -39,11 +39,11 @@ var app = {
     initParse: function() {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
-        parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-          Materialize.toast("Registered with PARSE",500);
-        }, function(e) {
-            alert('error');
-        });
+        // parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+        //   Materialize.toast("Registered with PARSE",500);
+        // }, function(e) {
+        //     alert('error');
+        // });
 
         Event = Parse.Object.extend("Event");
         EventList = Parse.Collection.extend({
@@ -154,7 +154,10 @@ var app = {
                     $(buttons[i]).click(function() {
                         if (Parse.User.current()) {
                             Parse.User.logOut();
-
+                            
+                            alert("regular log out");
+                            fblogout();
+                            alert("fb logged out");
                             parsePlugin.getInstallationId(function(id) {
                                 var query = new Parse.Query(Parse.Installation);
                                 query.equalTo("installationId", id);
@@ -165,10 +168,10 @@ var app = {
                             }, function(e) {
                                 console.log(e);
                             });
+                            alert("parse logged out");
 
                         }
                         controller.changeViewTo("view-signin");
-                        fblogout();
                     });
                     break;
                 default:

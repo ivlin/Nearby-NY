@@ -28,8 +28,9 @@ var profile = {
     },
 
     setupProfilePicture: function() {
-        var findMe = new Parse.Query(Parse.User);
-        findMe.get(Parse.User.current().id, {
+        //var findMe = new Parse.Query(Parse.User);
+        //findMe.get(Parse.User.current().id, {
+          Parse.User.current().fetch({
             success: function(me) {
                 var pic = me.get("profilePic");
                 if (pic === undefined) {
@@ -133,8 +134,9 @@ var profile = {
     },
 
     updateUserHistory: function() {
-        var query = new Parse.Query(Parse.User);
-        query.get(Parse.User.current().id, {
+        // var query = new Parse.Query(Parse.User);
+        // query.get(Parse.User.current().id, {
+        Parse.User.current().fetch({
             success: function(result) {
                 profile.makeEventList(result.get("attended"), "event-history");
             },
@@ -145,8 +147,9 @@ var profile = {
     },
 
     updateUserSchedule: function() {
-        var query = new Parse.Query(Parse.User);
-        query.get(Parse.User.current().id, {
+        // var query = new Parse.Query(Parse.User);
+        // query.get(Parse.User.current().id, {
+      Parse.User.current().fetch({
             success: function(result) {
                 profile.makeEventList(result.get("to_attend"), "event-schedule");
             },

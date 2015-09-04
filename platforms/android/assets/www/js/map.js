@@ -34,7 +34,7 @@ var map = {
         });
     },
 
-    addMarker: function(lat, lon, id, isVisited, isPreference) {
+    addMarker: function(lat, lon, id, isVisited, isPreference) {        
         var temp = this.eventMarkers[this.eventMarkers.length] = new google.maps.Marker({
             position: new google.maps.LatLng(lat, lon),
             map: this.map,
@@ -42,9 +42,11 @@ var map = {
         });
 
         if (isVisited) {
-            temp.setIcon("img/greenball.png");
+            temp.setIcon("img/orange-balloon.png");
         } else if (isPreference) {
-            temp.setIcon("img/blueball.png");
+            temp.setIcon("img/blue-balloon.png");
+        }else{
+            temp.setIcon("img/red-balloon.png")
         }
 
 

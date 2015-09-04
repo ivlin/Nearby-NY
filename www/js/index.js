@@ -154,21 +154,21 @@ var app = {
                     $(buttons[i]).click(function() {
                         if (Parse.User.current()) {
                             Parse.User.logOut();
-
+                            
+                            fblogout();
                             parsePlugin.getInstallationId(function(id) {
-                                var query = new Parse.Query(Parse.Installation);
-                                query.equalTo("installationId", id);
-                                query.first().then(function(i) {
-                                    i.set("userId", null);
-                                    i.save();
-                                });
+                              var query = new Parse.Query(Parse.Installation);
+                              query.equalTo("installationId", id);
+                              query.first().then(function(i) {
+                                i.set("userId", null);
+                                i.save();
+                              });
                             }, function(e) {
-                                console.log(e);
+                              console.log(e);
                             });
 
                         }
                         controller.changeViewTo("view-signin");
-                        fblogout();
                     });
                     break;
                 default:
