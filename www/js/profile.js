@@ -58,12 +58,6 @@ var profile = {
             }).then(function (){
                 profile.setupProfilePage();
             });
-            // Parse.User.current().save({
-            //     "name":$("#set-name").val(),
-            //     "biography":$("#set-bio").val()
-            // });
-
-            // profile.setupProfilePage();
 
             $("#set-bio-info").css("display", "none");
             $("#get-bio-info").css("display", "inline");
@@ -104,7 +98,7 @@ var profile = {
     updateInfo: function() {
         $("#get-username").html(profile.curUser.username);
         $("#get-name").html(profile.curUser.name);
-        $("#get-email").html(profile.curUser.password);
+        $("#get-email").html(profile.curUser.email);
         $("#get-bio").html(profile.curUser.biography.replace("\n","<br>"));
     },
 
@@ -176,7 +170,7 @@ var profile = {
             success: function(result) {
                 for (var i = 0; i < result.length; i++) {
                     result[i] = result[i].toJSON();
-                    result[i].time = (Date)(result[i].time);
+                    result[i].time = trending.buildDateString(result[i].time.iso);
                 }
                 result.sort(function(a, b) {
                     var x = a["time"];

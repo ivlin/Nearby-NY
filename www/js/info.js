@@ -28,10 +28,12 @@ info = {
                 info.setupHandlers(objectId, result);
 
                 //moved inside asyncdata
-                if (result.get("upvotes").indexOf(Parse.User.current().id) >= 0) {
-                    $("#event-upvote").attr("class", "large material-icons left black-text");
-                } else if (result.get("downvotes").indexOf(Parse.User.current().id) >= 0) {
-                    $("#event-downvote").attr("class", "large material-icons right red-text");
+                if (Parse.User.current()){
+                    if (result.get("upvotes").indexOf(Parse.User.current().id) >= 0) {
+                        $("#event-upvote").attr("class", "medium material-icons left black-text");
+                    } else if (result.get("downvotes").indexOf(Parse.User.current().id) >= 0) {
+                        $("#event-downvote").attr("class", "medium material-icons right red-text");
+                    }
                 }
 
                 if (info.description.isShortened) {
@@ -119,7 +121,7 @@ info = {
         dateStr += date.getDate() + ", ";
         dateStr += date.getFullYear() + " \n";
         dateStr += (date.getHours() % 12) + ":";
-        dateStr += minutes + am_pm + " (EST)";
+        dateStr += minutes + am_pm; //+ " (EST)";
 
         return dateStr;
     },
@@ -180,122 +182,109 @@ info = {
             return -1; //guest
         }
 
-        $("#event-reserve").click(function() {
-            if (findMeInArray("to_attend") === -1) {
-                addMeToArray("to_attend");
-                // var query = new Parse.Query(Parse.User);
-                // query.get(Parse.User.current().id, {
-                Parse.User.current().fetch({
-                    success: function(r) {
-                        var temp = r.get("to_attend");
-                        temp.push(objectId);
-                        r.set("to_attend", temp);
-                        r.save();
-                    }
-                });
-                Materialize.toast('<span>You have shown interest in attending.</span>', 5000);
-            } else {
-                removeMeFromArray("to_attend");
-                // var query = new Parse.Query(Parse.User);
-                // query.get(Parse.User.current().id, {
-                Parse.User.current().fetch({
-                    success: function(r) {
-                        var temp = r.get("to_attend");
-                        temp.splice(temp.indexOf(objectId), 1);
-                        r.set("to_attend", temp);
-                        r.save();
-                    }
-                });
-                Materialize.toast('<span>You are no longer interested in attending.</span>', 5000);
-            }
-            $("#event-to-attend-num").html(upData.to_attend.length);
-        });
-
-
-        $("#event-checkin").click(function() {
-            if (findMeInArray("attended") === -1) {
-                addMeToArray("attended");
-                // var query = new Parse.Query(Parse.User);
-                // query.get(Parse.User.current().id, {
-                Parse.User.current().fetch({
-                    success: function(r) {
-                        var temp = r.get("attended");
-                        temp.push(objectId);
-                        r.set("attended", temp);
-                        r.save();
-                    }
-                });
-                Materialize.toast('<span>Checked in! You can now rate this event.</span>', 5000);
-            } else {
-                removeMeFromArray("attended");
-                removeMeFromArray("upvotes");
-                removeMeFromArray("downvotes");
-                var query = new Parse.Query(Parse.User);
-                query.get(Parse.User.current().id, {
-                    success: function(r) {
-                        var temp = r.get("attended");
-                        temp.splice(temp.indexOf(objectId), 1);
-                        r.set("attended", temp);
-                        r.save();
-                    }
-                });
-                Materialize.toast('<span>You are no longer registered as having checked in.</span>', 5000);
-                $("#event-upvote").attr("class", "medium material-icons left grey-text");
-                $("#event-upvote-count").html(result.get("upvotes").length);
-                $("#event-downvote").attr("class", "medium material-icons right grey-text");
-                $("#event-downvote-count").html(result.get("downvotes").length);
-            }
-            $("#event-attended-num").html(upData.attended.length);
-        });
-
-        $("#event-upvote").click(function() {
-            if (findMeInArray("attended") >= 0) {
-                if (findMeInArray("upvotes") === -1) {
-                    addMeToArray("upvotes");
-                    removeMeFromArray("downvotes");
-                    $(this).attr("class", "medium material-icons left black-text");
-                    $("#event-downvote").attr("class", "medium material-icons right grey-text");
-                    $("#event-downvote-count").html(result.get("downvotes").length);
-                } else {
-                    removeMeFromArray("upvotes");
-                    $(this).attr("class", "medium material-icons left grey-text");
-                }
-                $("#event-upvote-count").html(result.get("upvotes").length);
-            } else {
-                Materialize.toast('You must have attended to vote.', 5000);
-            }
-        });
-
-        $("#event-downvote").click(function() {
-            if (findMeInArray("attended") >= 0) {
-                if (findMeInArray("downvotes") === -1) {
-                    addMeToArray("downvotes");
-                    removeMeFromArray("upvotes");
-                    $(this).attr("class", "medium material-icons right red-text");
-                    $("#event-upvote").attr("class", "medium material-icons left grey-text");
-                    $("#event-upvote-count").html(result.get("upvotes").length);
-                } else {
-                    removeMeFromArray("downvotes");
-                    $(this).attr("class", "medium material-icons right grey-text");
-                }
-                $("#event-downvote-count").html(result.get("downvotes").length);
-            } else {
-                Materialize.toast('You must have attended to vote.', 5000);
-            }
-        });
-
         $("#goto-last").click(function() {
             controller.changeViewTo(info.lastPage);
         });
 
+        $("#address-icon").click(function() {
+            controller.changeViewTo("view-map");
+            google.maps.event.trigger(map.map, 'resize');
+            map.map.setCenter({lat: upData.location.latitude, lng: upData.location.longitude});
+            map.map.setZoom(16);
+        });
+
+        if (Parse.User.current()){
+    Parse.User.current().fetch().then(function (me){//start
+    $("#event-reserve").click(function() {
+        if (findMeInArray("to_attend") === -1) {
+            addMeToArray("to_attend");
+            var temp = me.get("to_attend");
+            temp.push(objectId);
+            me.set("to_attend", temp);
+            me.save();
+            Materialize.toast('<span>You have shown interest in attending.</span>', 5000);
+        } else {
+            removeMeFromArray("to_attend");
+            var temp = me.get("to_attend");
+            temp.splice(temp.indexOf(objectId), 1);
+            me.set("to_attend", temp);
+            me.save();
+            Materialize.toast('<span>You are no longer interested in attending.</span>', 5000);
+        }
+        $("#event-to-attend-num").html(upData.to_attend.length);
+
+    });
 
 
-        $("#event-invite-friends").click(function() {
-            $(".sidebar-button").removeClass("grey lighten-4");
-            $("#sidebar-friends").addClass("grey lighten-4");
-            $("#invite-friends-prompt").css("display","block");
-            controller.changeViewTo("view-friends");
-            friends.initialize();
+    $("#event-checkin").click(function() {
+
+        if (findMeInArray("attended") === -1) {
+            addMeToArray("attended");
+            var temp = me.get("attended");
+            temp.push(objectId);
+            me.set("attended", temp);
+            me.save();
+            Materialize.toast('<span>Checked in! You can now rate this event.</span>', 5000);
+        } else {
+            removeMeFromArray("attended");
+            removeMeFromArray("upvotes");
+            removeMeFromArray("downvotes");
+            var temp = me.get("attended");
+            temp.splice(temp.indexOf(objectId), 1);
+            me.set("attended", temp);
+            me.save();
+            Materialize.toast('<span>You are no longer registered as having checked in.</span>', 5000);
+            $("#event-upvote").attr("class", "medium material-icons left grey-text");
+            $("#event-upvote-count").html(result.get("upvotes").length);
+            $("#event-downvote").attr("class", "medium material-icons right grey-text");
+            $("#event-downvote-count").html(result.get("downvotes").length);
+        }
+        $("#event-attended-num").html(upData.attended.length);
+
+    });
+
+$("#event-upvote").click(function() {
+    if (findMeInArray("attended") >= 0) {
+        if (findMeInArray("upvotes") === -1) {
+            addMeToArray("upvotes");
+            removeMeFromArray("downvotes");
+            $(this).attr("class", "medium material-icons left black-text");
+            $("#event-downvote").attr("class", "medium material-icons right grey-text");
+            $("#event-downvote-count").html(result.get("downvotes").length);
+        } else {
+            removeMeFromArray("upvotes");
+            $(this).attr("class", "medium material-icons left grey-text");
+        }
+        $("#event-upvote-count").html(result.get("upvotes").length);
+    } else {
+        Materialize.toast('You must have attended to vote.', 5000);
+    }
+});
+
+$("#event-downvote").click(function() {
+    if (findMeInArray("attended") >= 0) {
+        if (findMeInArray("downvotes") === -1) {
+            addMeToArray("downvotes");
+            removeMeFromArray("upvotes");
+            $(this).attr("class", "medium material-icons right red-text");
+            $("#event-upvote").attr("class", "medium material-icons left grey-text");
+            $("#event-upvote-count").html(result.get("upvotes").length);
+        } else {
+            removeMeFromArray("downvotes");
+            $(this).attr("class", "medium material-icons right grey-text");
+        }
+        $("#event-downvote-count").html(result.get("downvotes").length);
+    } else {
+        Materialize.toast('You must have attended to vote.', 5000);
+    }
+});
+
+$("#event-invite-friends").click(function() {
+    $(".sidebar-button").removeClass("grey lighten-4");
+    $("#sidebar-friends").addClass("grey lighten-4");
+    $("#invite-friends-prompt").css("display","block");
+    controller.changeViewTo("view-friends");
+            // friends.initialize();
             friends.editMode = true;
 
             //handlers for friends page stuff
@@ -307,7 +296,7 @@ info = {
             });
 
             $("#notify-selected-friends").click(function(){
-                Parse.User.current().fetch().then(function (me){
+                // Parse.User.current().fetch().then(function (me){
                     var message;
                     if ($("input:radio[name='message-type']:checked").val() == 'invite-radio'){
                         message = me.get("username") + " is inviting you to check out " + upData.title + ", an event taking place at " 
@@ -327,10 +316,14 @@ info = {
                         success:function(){},
                         error:function(e){console.log(e)}
                     });
-                });
-            });
-        });
+                // });
 
-    },
+
+});
+});
+
+        });//close the fetch current user block
+}
+},
 
 }

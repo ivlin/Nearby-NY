@@ -48,10 +48,10 @@
                 <br> password:
                 <input type="password" name="password" id="signin-password">
                 <br>
-                <div id="signin-button"><a class="red darken-1 login-button waves-effect waves-light red btn-large">Login</a></div>
-                <div><a class="red darken-1 login-button waves-effect waves-light red btn-large" onclick="fblogin()">Facebook Login</a></div>
-                <div class="goto-signup"><a class="red darken-1 login-button waves-effect waves-light red btn-large">Sign Up</a></div>
-                <div class="goto-trending"><a class="red darken-1 login-button waves-effect waves-light red btn-large goto-trending">Continue as Guest</a></div>
+                <div id="signin-button"><a class="red darken-1 login-button waves-effect waves-light btn-large">Login</a></div>
+                <div><a class="red darken-1 login-button waves-effect waves-light btn-large" onclick="fblogin()">Facebook Login</a></div>
+                <div class="goto-signup"><a class="red darken-1 login-button waves-effect waves-light btn-large">Sign Up</a></div>
+                <div class="goto-trending"><a class="red darken-1 login-button waves-effect waves-light btn-large goto-trending">Continue as Guest</a></div>
             </div>
         </div>
         <!-- Signup -->
@@ -96,13 +96,13 @@
             </div>
             <div class="display">
                 <!-- Add a friend prompt -->
-                <div class="row" id="add-friends-prompt">
-                    <div class="card-panel col s12 grey lighten-4" style="padding:4px">
+                <div class="" id="add-friends-prompt">
+                    <div class="row card-panel col s12 grey lighten-4" style="padding:4px">
                         <div class="input-field col s12">
                             <input id="friend-id" type="text" class="validate">
                             <label for="friend-id">Nearby NY Registered Username or Email</label>
-                            <a class="waves-effect waves-light red btn" id="check-friend-id">Send a Friend Request</a>
                         </div>
+                        <a class="waves-effect waves-light red btn center" id="check-friend-id">Send a Friend Request</a>
                     </div>
                 </div>
                 <div class="row" id="invite-friends-prompt">
@@ -144,16 +144,15 @@
                                 <li>
                                     <form>
                                         <div class="input-field">
-                                        <i class="material-icons" id="search-trending">search</i>
                                             <input id="search" type="search" required>
-                                            <label for="search"></label>
+                                            <label for="search"><i class="material-icons" id="search-trending">search</i></label>
                                         </div>
                                     </form>
                                 </li>
                                 <li><i class="material-icons" id="search-close" style="visibility:hidden">close</i></li>
                             </ul>
                             <ul class="right">
-                                <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort By...</a></li>
+                                <li><a class="dropdown-button" href="#!" data-activates="reorder-trending">Sort</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -259,7 +258,7 @@
     </div>
     <!-- Profile Page -->
     <!-- Profile Page -->
-    <div id="view-profile" class="viewframe">
+    <div id="view-profile" class="viewframe" style="background-image:url(img/polka.png)">
         <div class="head">
             <div class="navbar-fixed">
                 <nav>
@@ -285,7 +284,7 @@
                     </div>
                     <div class="card-action" style="font-size:16px">
                     <p>Name: <span id="get-name"></span></p>
-                    <p>Email: <span id="get-email">nearbynyapp@gmail.com</span></p>
+                    <p>Email: <span id="get-email"></span></p>
                     <p>Biography: <br><span id="get-bio"></span></p></div>
                 </div>
                 <div id="set-bio-info">
@@ -332,19 +331,19 @@
         </div>
         <ul class="collapsible" data-collapsible="expandable">
             <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Attended</div>
+                <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended</div>
                 <div class="collapsible-body">
                     <p id="event-history"></p>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Events Planned to Attend</div>
+                <div class="collapsible-header"><i class="material-icons">fast_forward</i>Events Planned to Attend</div>
                 <div class="collapsible-body">
                     <p id="event-schedule"></p>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">filter_drama</i>Event Preferences</div>
+                <div class="collapsible-header"><i class="material-icons">stars</i>Event Preferences</div>
                 <div class="collapsible-body">
                     <p id="event-preferences">
                         <form action="#" id="event-preferences-form">
@@ -451,6 +450,14 @@
                             <br>${{cost}}</p>
                     </div>
                     <div class="card-action red darken-3 white-text z-depth-3">
+                    	<a class="white-text">
+                    		{{#if isUserAttending}}
+                    		<i class="material-icons left card-icon">stars</i>
+                    		{{/if}}
+                    	</a>
+                    	<a class="white-text">
+                            <div class="left">{{attended}}</div><i class="material-icons left card-icon">supervisor_account</i>
+                            </a>
                         <a class="white-text">
                             <div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
                         </a>
@@ -547,15 +554,9 @@
         </div>
         <div id="event-content" class="display-container">
             <div class="row event-info-row bottom-padded">
-                <p id="event-desc" class="flow-text">{{short_desc}}</p>
+                <p id="event-desc" class="flow-text">{{{short_desc}}}</p>
                 <p class="flow-text"><a id="see-more" href="#!">Read more</a>
                     <a id="see-less" href="#!">Read less</a></p>
-                <p>Tags:</p>
-                <div class="row tags">
-                    {{#each tags}}
-                    <div class="col s3 white center-align"><a href="#" class={{this}}>{{this}}</a></div>
-                    {{/each}}
-                </div>
             </div>
             <div class="divider"></div>
             <div class="row event-info-row">
@@ -568,7 +569,7 @@
                 </div>
                 <div class="col s4">
                     <div class="center">
-                        <i class="medium material-icons">room</i>
+                        <i class="medium material-icons" id="address-icon">room</i>
                         <p class="section-caption">Address</p>
                         <p class="light center">{{address}}</p>
                     </div>
@@ -596,6 +597,12 @@
                     <i class="medium material-icons" id="event-checkin">done_all</i>
                     <p class="section-caption">Check In</p>
                     <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div></p>
+                </div>
+                <p>Tags:</p>
+                <div class="row tags">
+                    {{#each tags}}
+                    <div class="col s3 white center-align"><a href="#" class={{this}}>{{this}}</a></div>
+                    {{/each}}
                 </div>
       </div>
     </div>

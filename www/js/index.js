@@ -28,9 +28,12 @@ var app = {
         login.initialize();
         trending.initialize();
         this.setupLinks();
+        map.initialize();     
 
         if (Parse.User.current()) {
-            $("#view-trending").css("display", "block");
+            $("#view-trending").css("display", "block");   
+            profile.initialize();
+            friends.initialize();
         } else {
             $("#view-signin").css("display", "block");
         }
@@ -134,20 +137,24 @@ var app = {
                             $(".sidebar-button").removeClass("grey lighten-4");
                             $("#sidebar-profile").addClass("grey lighten-4");
                             controller.changeViewTo("view-profile");
-                            profile.initialize();
+                            // profile.initialize();
                         } else {
-                            Materialize.toast('<span>Please sign in to view your profile.</span>', 5000);
+                            Materialize.toast('<span>Please sign in to view your profile.</span>', 1000);
                         }
 
                     });
                     break;
                 case "goto-friends":
                     $(buttons[i]).click(function() {
+                      if (Parse.User.current()){
                         $('.button-collapse').sideNav('hide');
                         $(".sidebar-button").removeClass("grey lighten-4");
                         $("#sidebar-friends").addClass("grey lighten-4");
                         controller.changeViewTo("view-friends");
-                        friends.initialize();
+                        // friends.initialize();
+                      } else {
+                        Materialize.toast('<span>Please sign in to view your friends page.</span>', 1000);
+                      }
                     });
                     break;
                 case "signout":

@@ -138,9 +138,7 @@ var map = {
                         isVisited = false;
                         isPreference = false;
                         map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
-                        console.log("bounding map");
                         map.boundMap();
-                        console.log(map.eventMarkers);
                     }
                 } else {
                     // var userPref = new Parse.Query(Parse.User);

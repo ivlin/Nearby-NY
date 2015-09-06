@@ -18,6 +18,11 @@ function validateSignIn() {
             $('#signin-username').val('');
             $('#signin-password').val('');
             controller.changeViewTo("view-trending");
+
+            // map.initialize();
+            profile.initialize();
+            friends.initialize();
+            
             // parsePlugin.getInstallationId(function(id) {
             //     var query = new Parse.Query(Parse.Installation);
             //     query.equalTo("installationId", id);
