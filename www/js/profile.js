@@ -30,7 +30,7 @@ var profile = {
     setupProfilePicture: function() {
         //var findMe = new Parse.Query(Parse.User);
         //findMe.get(Parse.User.current().id, {
-          Parse.User.current().fetch({
+        Parse.User.current().fetch({
             success: function(me) {
                 var pic = me.get("profilePic");
                 if (pic === undefined) {
@@ -51,11 +51,11 @@ var profile = {
 
         $("#save-bio").click(function(e) {
             e.preventDefault();
-            Parse.User.current().fetch().then(function (me){
+            Parse.User.current().fetch().then(function(me) {
                 me.set("name", $("#set-name").val());
                 me.set("biography", $("#set-bio").val());
                 me.save();
-            }).then(function (){
+            }).then(function() {
                 profile.setupProfilePage();
             });
 
@@ -90,16 +90,14 @@ var profile = {
             }
         });
 
-        $("#update-event-preferences").click(function() {
-            profile.updateUserPreferences();
-        });
+        $(".tag-selector").change(this.updateUserPreferences);
     },
 
     updateInfo: function() {
         $("#get-username").html(profile.curUser.username);
         $("#get-name").html(profile.curUser.name);
         $("#get-email").html(profile.curUser.email);
-        $("#get-bio").html(profile.curUser.biography.replace("\n","<br>"));
+        $("#get-bio").html(profile.curUser.biography.replace("\n", "<br>"));
     },
 
     drawForm: function() {
@@ -113,7 +111,7 @@ var profile = {
         //     labels[i].setAttribute("class", "active");
         // }
 
-        $("label").attr("class","active");
+        $("label").attr("class", "active");
 
     },
 
@@ -121,19 +119,24 @@ var profile = {
         var userTags = profile.curUser.tags;
 
         for (var i = 0; i < userTags.length; i++) {
-            document.getElementById(userTags[i]).checked = true;
+            if (userTags[i])
+                document.getElementById(userTags[i]).checked = true;
         }
     },
 
     updateUserPreferences: function() {
-        var tagBoxes = $(".tag-selector");
-        var tagArray = [];
-        for (var i = 0; i < tagBoxes.length; i++) {
-            if (tagBoxes[i].checked) {
-                tagArray[tagArray.length] = tagBoxes[i].id;
-            }
+        var userTags = profile.curUser.tags;
+        var tagName = this.id;
+        if ($(this).is(":checked")) {
+            console.log('adding tag preference ' + tagName);
+            userTags.push(tagName);
+        } else {
+            console.log('removing tag preference ' + tagName);
+            var index = userTags.indexOf(tagName);
+            if (index > -1)
+                userTags.splice(index, 1);
         }
-        Parse.User.current().set("tags", tagArray);
+        Parse.User.current().set("tags", userTags);
         Parse.User.current().save();
     },
 
@@ -153,7 +156,7 @@ var profile = {
     updateUserSchedule: function() {
         // var query = new Parse.Query(Parse.User);
         // query.get(Parse.User.current().id, {
-      Parse.User.current().fetch({
+        Parse.User.current().fetch({
             success: function(result) {
                 profile.makeEventList(result.get("to_attend"), "event-schedule");
             },
