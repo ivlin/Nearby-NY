@@ -20,8 +20,8 @@ function validateSignIn() {
             controller.changeViewTo("view-trending");
 
             // map.initialize();
-            profile.initialize();
-            friends.initialize();
+            // profile.initialize();
+            // friends.initialize();
             
             // parsePlugin.getInstallationId(function(id) {
             //     var query = new Parse.Query(Parse.Installation);

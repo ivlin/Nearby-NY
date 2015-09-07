@@ -5,6 +5,7 @@ var map = {
     bounds: null,
 
     initialize: function() {
+        $("#map-canvas").css("height",parseInt($("#map-canvas").css("height")) - parseInt($("nav").css("height")) - 20);
         var nyCoord = new google.maps.LatLng(40.7127, -74.0059);
         var canvas = document.getElementById("map-canvas");
         this.map = new google.maps.Map(document.getElementById("map-canvas"), {
@@ -141,8 +142,6 @@ var map = {
                         map.boundMap();
                     }
                 } else {
-                    // var userPref = new Parse.Query(Parse.User);
-                    // userPref.get(Parse.User.current().id, {
                     Parse.User.current().fetch({
                         success: function(r) {
                             for (var i = 0; i < result.length; i++) {

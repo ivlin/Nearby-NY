@@ -4,3 +4,124 @@
     top: 20px;
     left: 25%;
 }
+
+.tags a.activism {
+    background:#e53935;
+}
+.tags a.activism:before{
+border-color:transparent #e53935 transparent transparent;
+}
+
+.tags a.animals {
+    background:#d81b60;
+}
+.tags a.animals:before{
+    border-color:transparent #d81b60 transparent transparent;
+}
+
+.tags a.community {
+    background:#8e24aa;
+}
+.tags a.community:before{
+    border-color:transparent #8e24aa transparent transparent;
+}
+
+.tags a.competition {
+    background:#5e35b1;
+}
+.tags a.competition:before{
+    border-color:transparent #5e35b1 transparent transparent;
+}
+
+.tags a.culture {
+    background:#3949ab;
+}
+.tags a.culture:before{
+    border-color:transparent #3949ab transparent transparent;
+}
+
+.tags a.education {
+    background:#1e88e5;
+}
+.tags a.education:before{
+    border-color:transparent #1e88e5 transparent transparent;
+}
+
+.tags a.food {
+    background:#039be5;
+}
+.tags a.food:before{
+    border-color:transparent #039be5 transparent transparent;
+}
+
+
+.tags a.fashion {
+    background:#00acc1;
+}
+.tags a.fashion:before{
+    border-color:transparent #00acc1 transparent transparent;
+}
+
+
+.tags a.games {
+    background:#00897b;
+}
+.tags a.games:before{
+    border-color:transparent #00897b transparent transparent;
+}
+
+.tags a.health {
+    background:#43a047;
+}
+.tags a.health:before{
+    border-color:transparent #43a047 transparent transparent;
+}
+
+.tags a.lifestyle {
+    background:#33691e;
+}
+.tags a.lifestyle:before{
+    border-color:transparent #33691e transparent transparent;
+}
+
+.tags a.media {
+    background:#c0ca33;
+}
+.tags a.media:before{
+    border-color:transparent #c0ca33 transparent transparent;
+}
+
+.tags a.music {
+    background:#fbc02d;
+}
+.tags a.music:before{
+    border-color:transparent #fbc02d transparent transparent;
+}
+
+.tags a.sports {
+    background:#ffa000;
+}
+.tags a.sports:before{
+    border-color:transparent #ffa000 transparent transparent;
+}
+
+.tags a.talks {
+    background:#ef6c00;
+}
+.tags a.talks:before{
+    border-color:transparent #ef6c00 transparent transparent;
+}
+
+.tags a.tech {
+    background:#f4511e;
+}
+.tags a.tech:before{
+    border-color:transparent #f4511e transparent transparent;
+}
+
+.tags a.miscellaneous {
+    background:#6d4c41;
+}
+.tags a.miscellaneous:before{
+    border-color:transparent #6d4c41 transparent transparent;
+}

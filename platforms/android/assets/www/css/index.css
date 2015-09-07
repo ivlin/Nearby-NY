@@ -291,6 +291,11 @@ button {
     margin-bottom: 20px;
 }
 
+#signup-form a {
+   width: 200px;
+   margin-bottom: 20px;   
+}
+
 .card-image > img {
     height: auto;
     width: 100%;
@@ -331,6 +336,10 @@ button {
     width: 100%;
 }
 
+.user-buttons-row div{
+ padding:4px;
+ font-size:18px
+}
 
 /*fixing the icons in the side nav*/
 
@@ -360,6 +369,18 @@ button {
     font-weight: bold;
 }
 
+.section-caption {
+    margin: -5px;
+}
+
+.event-info-row div{
+    margin-top:5px;
+}
+
+.view-event .center{
+    margin-top: 5px;
+}
+
 .side-nav {
     margin-top: 20px;
 }
@@ -373,12 +394,24 @@ button {
     font-size: 22px;
 }
 
+.card .card-image .card-title {
+    padding: 5px;
+}   
+
+#view-trending .card .card-action {
+    border-top: 1px solid rgba(160,160,160,0.2);
+    padding: 10px 15px 15px 15px;
+}
+
+/*[type="checkbox"].filled-in+label:before,*/ [type="checkbox"].filled-in+label:after {
+   /* visibility: hidden;*/
+}
 
 .tags a.activism {
     background:#e53935;
 }
 .tags a.activism:before{
-    border-color:transparent #e53935 transparent transparent;
+border-color:transparent #e53935 transparent transparent;
 }
 
 .tags a.animals {

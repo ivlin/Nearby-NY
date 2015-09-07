@@ -125,7 +125,7 @@ body {
 
 #map-canvas {
     width: 100%;
-    height: 95%;
+    height: 100%;
     position: absolute;
 }
 
@@ -404,7 +404,7 @@ button {
 }
 
 /*[type="checkbox"].filled-in+label:before,*/ [type="checkbox"].filled-in+label:after {
-    visibility: hidden;
+   /* visibility: hidden;*/
 }
 
 .tags a.activism {

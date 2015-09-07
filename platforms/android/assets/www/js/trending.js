@@ -14,8 +14,10 @@ var trending = {
                     event: this.collection
                 };
                 for (var i = 0; i < this.data.event.length; i++) {
-                  // console.log(this.data.event[i]);
                     this.data.event[i] = this.data.event[i].toJSON();
+                    this.data.event[i].isUserAttending = Parse.User.current() && 
+                    this.data.event[i].to_attend.indexOf(Parse.User.current().id) >= 0;
+                    this.data.event[i].attended = this.data.event[i].attended.length;
                     this.data.event[i].time = trending.buildDateString(this.collection[i].time.iso);
                     this.data.event[i].upvotes = this.data.event[i].upvotes.length;
                     this.data.event[i].downvotes = this.data.event[i].downvotes.length;
@@ -111,7 +113,7 @@ var trending = {
         dateStr += date.getDate() + ", ";
         dateStr += date.getFullYear() + " \n";
         dateStr += (date.getHours() % 12) + ":";
-        dateStr += minutes + am_pm + " (EST)";
+        dateStr += minutes + am_pm;// + " (EST)";
 
         return dateStr;
     },
@@ -122,9 +124,6 @@ var trending = {
         query.greaterThanOrEqualTo("time", today);
         query.find({
             success: function(eventList) {
-                // for (var i = 0; i < eventList.length; i++) {
-                //     eventList[i] = eventList[i].toJSON();
-                // }
                 trending.eventListView = new EventListView({
                     collection: eventList
                 });
@@ -135,15 +134,6 @@ var trending = {
                 console.dir(error);
             }
         });
-        /*trending.eventList.fetch({success:function(eventList){
-        trending.eventListView = new EventListView({ collection: eventList.toJSON()});
-        console.log(trending.eventListView.collection);
-        trending.eventListView.render();
-        $("#event-list-display").append(trending.eventListView.el);
-    }, error:function(error){
-      console.dir(error);
-  }
-});*/
     },
 
     reorderList: function(mode) {
@@ -152,17 +142,11 @@ var trending = {
 
     setupHandlers: function() {
         $("#reorder-mode-preference").click(function() {
-            //var tags = Parse.User.current().toJSON().tags;
             var a = Parse.User.current().get("tags");
-            // console.log(a);
-            //console.log(tags);
             var query = new Parse.Query(Event);
             query.containedIn("tags", a);
             query.find({
                 success: function(r) {
-                    // for (var i = 0; i < r.length; i++) {
-                    //     r[i] = r[i].toJSON();
-                    // }
                     var tempEventListView = new EventListView({
                         collection: r
                     });

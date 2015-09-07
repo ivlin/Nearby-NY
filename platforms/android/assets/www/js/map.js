@@ -16,6 +16,7 @@ var map = {
     },
 
     setupHandlers: function() {
+        $("#display-map-options, #update-map-events").off('click');
 
         $("#display-map-options").click(function() {
             $("#map-options").slideToggle();
@@ -137,12 +138,10 @@ var map = {
                         isVisited = false;
                         isPreference = false;
                         map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
-                        console.log("bounding map");
                         map.boundMap();
                     }
                 } else {
-                    var userPref = new Parse.Query(Parse.User);
-                    userPref.get(Parse.User.current().id, {
+                    Parse.User.current().fetch({
                         success: function(r) {
                             for (var i = 0; i < result.length; i++) {
                                 temp = result[i].get("location").toJSON();
@@ -156,6 +155,7 @@ var map = {
                                     map.eventMarkers.push(that.addMarker(temp.latitude, temp.longitude, result[i].id, isVisited, isPreference));
                                 }
                             }
+                            console.log(map.eventMarkers);
                             console.log("bounding map");
                             map.boundMap();
                         },

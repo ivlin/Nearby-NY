@@ -22,6 +22,10 @@ package lfour.nearby.ny;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
+import com.parse.Parse;
+import com.parse.PushService;
+
+
 public class MainActivity extends CordovaActivity
 {
     @Override
@@ -30,5 +34,7 @@ public class MainActivity extends CordovaActivity
         super.onCreate(savedInstanceState);
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
+
+       	PushService.setDefaultPushCallback(this, MainActivity.class);
     }
 }

@@ -212,12 +212,10 @@ info = {
             Materialize.toast('<span>You are no longer interested in attending.</span>', 5000);
         }
         $("#event-to-attend-num").html(upData.to_attend.length);
-
     });
 
 
     $("#event-checkin").click(function() {
-
         if (findMeInArray("attended") === -1) {
             addMeToArray("attended");
             var temp = me.get("attended");
@@ -284,7 +282,7 @@ $("#event-invite-friends").click(function() {
     $("#sidebar-friends").addClass("grey lighten-4");
     $("#invite-friends-prompt").css("display","block");
     controller.changeViewTo("view-friends");
-            // friends.initialize();
+            friends.initialize();
             friends.editMode = true;
 
             //handlers for friends page stuff
@@ -299,18 +297,21 @@ $("#event-invite-friends").click(function() {
                 // Parse.User.current().fetch().then(function (me){
                     var message;
                     if ($("input:radio[name='message-type']:checked").val() == 'invite-radio'){
-                        message = me.get("username") + " is inviting you to check out " + upData.title + ", an event taking place at " 
-                        + upData.address + " on " + upData.time
+                        // message = me.get("username") + " is inviting you to check out " + upData.title + ", an event taking place at " 
+                        // + upData.address + " on " + upData.time
+                        message = "Invite from " + me.get("username");
                     }else if ($("input:radio[name='message-type']:checked").val() == 'notify-radio'){
-                        message = me.get("username") + " is currently at " + upData.title + ", an event taking place at " 
-                        + upData.address
+                        message = me.get("username") + " is currently attending";
+                        // message = me.get("username") + " is currently at " + upData.title + ", an event taking place at " 
+                        // + upData.address
                     } 
                     var query = new Parse.Query(Parse.Installation);
                     query.containedIn("userId",friends.selected);
                     Parse.Push.send({
                         where: query,
                         data: {
-                            alert: message
+                            alert: message,
+                            title: upData.title,
                         }
                     },{
                         success:function(){},

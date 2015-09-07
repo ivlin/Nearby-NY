@@ -13,6 +13,6 @@ var controller = {
         for (var i = 0; i < viewframes.length; i++){
             viewframes[i].hide();
         }
-        document.getElementById(viewId).style.display = "inline";
+        document.getElementById(viewId).style.display = "block";
     }
 };

@@ -39,11 +39,11 @@ var app = {
     initParse: function() {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
-        // parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-        //   Materialize.toast("Registered with PARSE",500);
-        // }, function(e) {
-        //     alert('error');
-        // });
+        parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+          Materialize.toast("Registered with PARSE",500);
+        }, function(e) {
+            alert('error');
+        });
 
         Event = Parse.Object.extend("Event");
         EventList = Parse.Collection.extend({
@@ -136,18 +136,22 @@ var app = {
                             controller.changeViewTo("view-profile");
                             profile.initialize();
                         } else {
-                            Materialize.toast('<span>Please sign in to view your profile.</span>', 5000);
+                            Materialize.toast('<span>Please sign in to view your profile.</span>', 1000);
                         }
 
                     });
                     break;
                 case "goto-friends":
                     $(buttons[i]).click(function() {
+                      if (Parse.User.current()){
                         $('.button-collapse').sideNav('hide');
                         $(".sidebar-button").removeClass("grey lighten-4");
                         $("#sidebar-friends").addClass("grey lighten-4");
                         controller.changeViewTo("view-friends");
                         friends.initialize();
+                      } else {
+                        Materialize.toast('<span>Please sign in to view your friends page.</span>', 1000);
+                      }
                     });
                     break;
                 case "signout":
@@ -155,20 +159,17 @@ var app = {
                         if (Parse.User.current()) {
                             Parse.User.logOut();
                             
-                            alert("regular log out");
                             fblogout();
-                            alert("fb logged out");
                             parsePlugin.getInstallationId(function(id) {
-                                var query = new Parse.Query(Parse.Installation);
-                                query.equalTo("installationId", id);
-                                query.first().then(function(i) {
-                                    i.set("userId", null);
-                                    i.save();
-                                });
+                              var query = new Parse.Query(Parse.Installation);
+                              query.equalTo("installationId", id);
+                              query.first().then(function(i) {
+                                i.set("userId", null);
+                                i.save();
+                              });
                             }, function(e) {
-                                console.log(e);
+                              console.log(e);
                             });
-                            alert("parse logged out");
 
                         }
                         controller.changeViewTo("view-signin");

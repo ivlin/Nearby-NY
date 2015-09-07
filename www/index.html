@@ -179,12 +179,12 @@
                 </nav>
             </div>
         </div>
-        <div id="map-legend" class="row" style="margin:0; font-size:16px">
+ <!--        <div id="map-legend" class="row" style="margin:0; font-size:16px">
             <div class="col s4 center"><img src="img/red-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center"><img src="img/blue-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center"><img src="img/orange-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center">Event</div><div class="col s4 center">Matches Preference</div><div class="col s4 center">Past Event</div>
-        </div>
+        </div> -->
         <div id="map-options" style="display:none">
             <form action="#">
                 <p>
@@ -221,7 +221,10 @@
             </form>
             <a class="waves-effect waves-light red btn" id="update-map-events">Update Map</a>
         </div>
+
         <div id="map-canvas">
+                <div id="map-legend" style="position:absolute; height:20px; width:20px">
+                </div>
         </div>
     </div>
     <!-- Event Page -->
@@ -258,7 +261,7 @@
     </div>
     <!-- Profile Page -->
     <!-- Profile Page -->
-    <div id="view-profile" class="viewframe" style="background-image:url(img/polka.png)">
+    <div id="view-profile" class="viewframe">
         <div class="head">
             <div class="navbar-fixed">
                 <nav>
@@ -456,7 +459,7 @@
                     		{{/if}}
                     	</a>
                     	<a class="white-text">
-                            <div class="left">{{attended}}</div><i class="material-icons left card-icon">supervisor_account</i>
+                            <div class="left">{{to_attend}}</div><i class="material-icons left card-icon">supervisor_account</i>
                             </a>
                         <a class="white-text">
                             <div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
