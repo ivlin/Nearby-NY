@@ -109,13 +109,13 @@
                     <div class="card-panel col s12 grey lighten-4" style="padding:4px">
                         <h4>Event: <span id="push-prompt-event"></span></h4>
                         <p>What kind of message do you want to send?</p>
-                          <input class="with-gap" name="message-type" type="radio" value="invite-radio" id="invite-radio" checked/>
-                          <label for="invite-radio">Invite</label>
-                          <input class="with-gap" name="message-type" type="radio" value="notify-radio" id="notify-radio"/>
-                          <label for="notify-radio">Notify</label>
-                          <br>
-                          <a class="waves-effect waves-light red btn" id="notify-selected-friends">Send Message</a>
-                          <a class="waves-effect waves-light red btn" class="return-to-event">Return to Event Page</a>
+                        <input class="with-gap" name="message-type" type="radio" value="invite-radio" id="invite-radio" checked/>
+                        <label for="invite-radio">Invite</label>
+                        <input class="with-gap" name="message-type" type="radio" value="notify-radio" id="notify-radio" />
+                        <label for="notify-radio">Notify</label>
+                        <br>
+                        <a class="waves-effect waves-light red btn" id="notify-selected-friends">Send Message</a>
+                        <a class="waves-effect waves-light red btn" class="return-to-event">Return to Event Page</a>
                     </div>
                 </div>
                 <!-- -->
@@ -183,7 +183,9 @@
             <div class="col s4 center"><img src="img/red-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center"><img src="img/blue-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center"><img src="img/orange-balloon.png" style="height:40px;width:auto"></div>
-            <div class="col s4 center">Event</div><div class="col s4 center">Matches Preference</div><div class="col s4 center">Past Event</div>
+            <div class="col s4 center">Event</div>
+            <div class="col s4 center">Matches Preference</div>
+            <div class="col s4 center">Past Event</div>
         </div>
         <div id="map-options" style="display:none">
             <form action="#">
@@ -272,20 +274,21 @@
         <div class="card">
             <center><img id="profile-pic" class="profile-pic" height="200px"></center>
             <div class="card-image waves-effect waves-block waves-light">
-<!--                  <img class="activator" src="img/nyc_skyline.gif" style="width:100%;height:auto">
- -->             </div>
+                <!--                  <img class="activator" src="img/nyc_skyline.gif" style="width:100%;height:auto">
+ --></div>
             <div class="card-content grey-text text-darken-4">
-                <center><span id = "get-username" style="font-size:26px"></span></center>
-
+                <center><span id="get-username" style="font-size:26px"></span></center>
                 <!-- Personal Info -->
                 <div id="get-bio-info">
                     <div class="right">
                         <i id="edit-bio" class="material-icons">settings</i>
                     </div>
                     <div class="card-action" style="font-size:16px">
-                    <p>Name: <span id="get-name"></span></p>
-                    <p>Email: <span id="get-email"></span></p>
-                    <p>Biography: <br><span id="get-bio"></span></p></div>
+                        <p>Name: <span id="get-name"></span></p>
+                        <p>Email: <span id="get-email"></span></p>
+                        <p>Biography:
+                            <br><span id="get-bio"></span></p>
+                    </div>
                 </div>
                 <div id="set-bio-info">
                     <div class="row center">
@@ -322,14 +325,14 @@
                                 <label class="active" for="biography">Biography</label>
                             </div>
                             <button class="red btn waves-effect waves-light red" name="action" id="save-bio">Save
-<!--                                 <i class="material-icons">send</i>
- -->                            </button>
+                                <!--                                 <i class="material-icons">send</i>
+ --></button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <ul class="collapsible" data-collapsible="expandable">
+        <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended</div>
                 <div class="collapsible-body">
@@ -349,75 +352,75 @@
                         <form action="#" id="event-preferences-form">
                             <div class="row tags">
                                 <p class="col s6">
-                                    <input type="checkbox" id="activism" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="activism" class="tag-selector" />
                                     <label for="activism"><a href="#" class="activism">activism</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="animals" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="animals" class="tag-selector" />
                                     <label for="animals"><a href="#" class="animals">animals</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="community" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="community" class="tag-selector" />
                                     <label for="community"><a href="#" class="community">community</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="competition" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="competition" class="tag-selector" />
                                     <label for="competition"><a href="#" class="competition">competition</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="culture" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="culture" class="tag-selector" />
                                     <label for="culture"><a href="#" class="culture">culture</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="education" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="education" class="tag-selector" />
                                     <label for="education"><a href="#" class="education">education</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="food" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="food" class="tag-selector" />
                                     <label for="food"><a href="#" class="food">food</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="fashion" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="fashion" class="tag-selector" />
                                     <label for="fashion"><a href="#" class="fashion">fashion</a></label>
-                                </p><p class="col s6">
-                                    <input type="checkbox" id="games" class="filled-in tag-selector" />
+                                </p>
+                                <p class="col s6">
+                                    <input type="checkbox" id="games" class="tag-selector" />
                                     <label for="games"><a href="#" class="games">games</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="health" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="health" class="tag-selector" />
                                     <label for="health"><a href="#" class="health">health</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="lifestyle" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="lifestyle" class="tag-selector" />
                                     <label for="lifestyle"><a href="#" class="lifestyle">lifestyle</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="media" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="media" class="tag-selector" />
                                     <label for="media"><a href="#" class="media">media</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="music" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="music" class="tag-selector" />
                                     <label for="music"><a href="#" class="music">music</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="sports" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="sports" class="tag-selector" />
                                     <label for="sports"><a href="#" class="sports">sports</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="talks" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="talks" class="tag-selector" />
                                     <label for="talks"><a href="#" class="talks">talks</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="tech" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="tech" class="tag-selector" />
                                     <label for="tech"><a href="#" class="tech">tech</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="miscellaneous" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="miscellaneous" class="tag-selector" />
                                     <label for="miscellaneous"><a href="#" class="miscellaneous">miscellaneous</a></label>
                                 </p>
                             </div>
                         </form>
-                        <a class="waves-effect waves-light red btn" id="update-event-preferences">Update Preferences</a>
                     </p>
                 </div>
             </li>
@@ -450,14 +453,14 @@
                             <br>${{cost}}</p>
                     </div>
                     <div class="card-action red darken-3 white-text z-depth-3">
-                    	<a class="white-text">
-                    		{{#if isUserAttending}}
-                    		<i class="material-icons left card-icon">stars</i>
-                    		{{/if}}
-                    	</a>
-                    	<a class="white-text">
+                        <a class="white-text">
+                            {{#if isUserAttending}}
+                            <i class="material-icons left card-icon">stars</i>
+                            {{/if}}
+                        </a>
+                        <a class="white-text">
                             <div class="left">{{attended}}</div><i class="material-icons left card-icon">supervisor_account</i>
-                            </a>
+                        </a>
                         <a class="white-text">
                             <div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
                         </a>
