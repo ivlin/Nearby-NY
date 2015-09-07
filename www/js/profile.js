@@ -191,6 +191,11 @@ var profile = {
                     $("#" + sectionId).append(calendarList.el);
                 }
 
+                var parent = $("#" + sectionId).parent().parent();
+                var div = parent.find("div").eq(0);
+                var numSpan = div.find("span").eq(0);
+                numSpan.html("(" + result.length + ")");
+
                 return calendarList.el;
             },
             error: function(error) {

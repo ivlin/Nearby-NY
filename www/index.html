@@ -337,13 +337,13 @@
         </div>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended</div>
+                <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended <span id="attended-events" style="color:red;"></span></div>
                 <div class="collapsible-body">
                     <p id="event-history"></p>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">fast_forward</i>Events Planned to Attend</div>
+                <div class="collapsible-header"><i class="material-icons">fast_forward</i>Events Planned to Attend <span id="attending-events" style="color:red;"></span></div>
                 <div class="collapsible-body">
                     <p id="event-schedule"></p>
                 </div>
@@ -536,14 +536,14 @@
 <script id="calendar-list-tpl" type="text/x-handlebars-template">
     <ul class="collection">
         {{#each event}}
-        <div class="row">
-            <li class="collection-item">
-                <p class="col s12">{{title}}</p>
-                <p class="col s12">{{address}}</p>
-                <p class="col s12">{{time}}</p>
-                <p class="col s12">${{cost}}</p>
-            </li>
-        </div>
+        <li class="collection-item avatar">
+            <img src={{img_url}} height="30px" alt="" class="circle">
+            <span class="title">{{title}}</span>
+            <p style="padding:0;">{{address}}
+                <br> {{time}}
+            </p>
+            <a href="#!" class="secondary-content">${{cost}}</a>
+        </li>
         {{/each}}
     </ul>
 </script>

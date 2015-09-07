@@ -49,42 +49,58 @@ body {
     padding-bottom: 20px;
 }
 
-.dropdown-content li>a, .dropdown-content li>span {
+.dropdown-content li>a,
+.dropdown-content li>span {
     color: #f44336;
 }
 
- .input-field label {
+.input-field label {
     color: #000;
-  }
+}
 
-     /* label focus color */
-   .input-field input[type=text]:focus + label {
-     color: #000;
-   }
-   /* label underline focus color */
-   .input-field input[type=text]:focus {
-     border-bottom: 1px solid #000;
-     box-shadow: 0 1px 0 0 #000;
-   }
-   /* valid color */
-   .input-field input[type=text].valid {
-     border-bottom: 1px solid #000;
-     box-shadow: 0 1px 0 0 #000;
-   }
-   /* invalid color */
-   .input-field input[type=text].invalid {
-     border-bottom: 1px solid #000;
-     box-shadow: 0 1px 0 0 #000;
-   }
-   /* icon prefix focus color */
-   .input-field .prefix.active {
-     color: #000;
-  }
+
+/* label focus color */
+
+.input-field input[type=text]:focus + label {
+    color: #000;
+}
+
+
+/* label underline focus color */
+
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+
+/* valid color */
+
+.input-field input[type=text].valid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+
+/* invalid color */
+
+.input-field input[type=text].invalid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+
+/* icon prefix focus color */
+
+.input-field .prefix.active {
+    color: #000;
+}
 
 [type="checkbox"].filled-in:checked+label:after {
     border: 2px solid #f44336;
     background-color: #f44336;
 }
+
 
 /* Portrait layout (default) */
 
@@ -136,7 +152,7 @@ body {
 
 #map-legend {
     background-color: rgb(240, 240, 240);
-    padding:4px;
+    padding: 4px;
 }
 
 .viewframe {
@@ -197,53 +213,56 @@ button {
     display: none;
 }
 
-#add-friends-prompt, #invite-friends-prompt {
+#add-friends-prompt,
+#invite-friends-prompt {
     display: none;
 }
 
+
 /* CSS Tag styling from http://cssglobe.com/pure-css3-post-tags*/
-.tags div, .tags a{
-    float:left;
-    height:24px;
-    line-height:24px;
-    position:relative;
-    font-size:11px;
+
+.tags div,
+.tags a {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    font-size: 11px;
 }
 
 .tags a {
-    margin-left:20px;
-    padding:0 10px 0 12px;
-    background:#0089e0;
-    color:#fff;
-    text-decoration:none;
-    border-bottom-right-radius:4px;   
-    border-top-right-radius:4px;    
+    margin-left: 20px;
+    padding: 0 10px 0 12px;
+    background: #0089e0;
+    color: #fff;
+    text-decoration: none;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
-
-.tags a:before{
-    content:"";
-    float:left;
-    position:absolute;
-    top:0;
-    left:-11px;
-    width:0;
-    height:0;
-    border-color:transparent #0089e0 transparent transparent;
-    border-style:solid;
-    border-width:12px 12px 12px 0;      
+.tags a:before {
+    content: "";
+    float: left;
+    position: absolute;
+    top: 0;
+    left: -11px;
+    width: 0;
+    height: 0;
+    border-color: transparent #0089e0 transparent transparent;
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
 }
 
-.tags a:after{
-    content:"";
-    position:absolute;
-    top:10px;
-    left:0;
-    float:left;
-    width:4px;
-    height:4px;
-    border-radius:2px;
-    background:#fff;
+.tags a:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    float: left;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background: #fff;
 }
 
 .friend-item,
@@ -292,8 +311,8 @@ button {
 }
 
 #signup-form a {
-   width: 200px;
-   margin-bottom: 20px;   
+    width: 200px;
+    margin-bottom: 20px;
 }
 
 .card-image > img {
@@ -336,10 +355,11 @@ button {
     width: 100%;
 }
 
-.user-buttons-row div{
- padding:4px;
- font-size:18px
+.user-buttons-row div {
+    padding: 4px;
+    font-size: 18px
 }
+
 
 /*fixing the icons in the side nav*/
 
@@ -373,11 +393,11 @@ button {
     margin: -5px;
 }
 
-.event-info-row div{
-    margin-top:5px;
+.event-info-row div {
+    margin-top: 5px;
 }
 
-.view-event .center{
+.view-event .center {
     margin-top: 5px;
 }
 
@@ -394,136 +414,163 @@ button {
     font-size: 22px;
 }
 
-.card .card-image .card-title {
+<<<<<<< Updated upstream .card .card-image .card-title {
     padding: 5px;
-}   
+}
 
 #view-trending .card .card-action {
-    border-top: 1px solid rgba(160,160,160,0.2);
+    border-top: 1px solid rgba(160, 160, 160, 0.2);
     padding: 10px 15px 15px 15px;
 }
 
-/*[type="checkbox"].filled-in+label:before,*/ [type="checkbox"].filled-in+label:after {
-   /* visibility: hidden;*/
+
+/*[type="checkbox"].filled-in+label:before,*/
+
+[type="checkbox"].filled-in+label:after {
+    /* visibility: hidden;*/
+}
+
+.collapsible-body p {
+    margin: 10px !important;
+    padding: 0 !important;
+}
+
+.num-events {
+    color: red;
 }
 
 .tags a.activism {
-    background:#e53935;
+    background: #e53935;
 }
-.tags a.activism:before{
-border-color:transparent #e53935 transparent transparent;
+
+.tags a.activism:before {
+    border-color: transparent #e53935 transparent transparent;
 }
 
 .tags a.animals {
-    background:#d81b60;
+    background: #d81b60;
 }
-.tags a.animals:before{
-    border-color:transparent #d81b60 transparent transparent;
+
+.tags a.animals:before {
+    border-color: transparent #d81b60 transparent transparent;
 }
 
 .tags a.community {
-    background:#8e24aa;
+    background: #8e24aa;
 }
-.tags a.community:before{
-    border-color:transparent #8e24aa transparent transparent;
+
+.tags a.community:before {
+    border-color: transparent #8e24aa transparent transparent;
 }
 
 .tags a.competition {
-    background:#5e35b1;
+    background: #5e35b1;
 }
-.tags a.competition:before{
-    border-color:transparent #5e35b1 transparent transparent;
+
+.tags a.competition:before {
+    border-color: transparent #5e35b1 transparent transparent;
 }
 
 .tags a.culture {
-    background:#3949ab;
+    background: #3949ab;
 }
-.tags a.culture:before{
-    border-color:transparent #3949ab transparent transparent;
+
+.tags a.culture:before {
+    border-color: transparent #3949ab transparent transparent;
 }
 
 .tags a.education {
-    background:#1e88e5;
+    background: #1e88e5;
 }
-.tags a.education:before{
-    border-color:transparent #1e88e5 transparent transparent;
+
+.tags a.education:before {
+    border-color: transparent #1e88e5 transparent transparent;
 }
 
 .tags a.food {
-    background:#039be5;
-}
-.tags a.food:before{
-    border-color:transparent #039be5 transparent transparent;
+    background: #039be5;
 }
 
+.tags a.food:before {
+    border-color: transparent #039be5 transparent transparent;
+}
 
 .tags a.fashion {
-    background:#00acc1;
-}
-.tags a.fashion:before{
-    border-color:transparent #00acc1 transparent transparent;
+    background: #00acc1;
 }
 
+.tags a.fashion:before {
+    border-color: transparent #00acc1 transparent transparent;
+}
 
 .tags a.games {
-    background:#00897b;
+    background: #00897b;
 }
-.tags a.games:before{
-    border-color:transparent #00897b transparent transparent;
+
+.tags a.games:before {
+    border-color: transparent #00897b transparent transparent;
 }
 
 .tags a.health {
-    background:#43a047;
+    background: #43a047;
 }
-.tags a.health:before{
-    border-color:transparent #43a047 transparent transparent;
+
+.tags a.health:before {
+    border-color: transparent #43a047 transparent transparent;
 }
 
 .tags a.lifestyle {
-    background:#33691e;
+    background: #33691e;
 }
-.tags a.lifestyle:before{
-    border-color:transparent #33691e transparent transparent;
+
+.tags a.lifestyle:before {
+    border-color: transparent #33691e transparent transparent;
 }
 
 .tags a.media {
-    background:#c0ca33;
+    background: #c0ca33;
 }
-.tags a.media:before{
-    border-color:transparent #c0ca33 transparent transparent;
+
+.tags a.media:before {
+    border-color: transparent #c0ca33 transparent transparent;
 }
 
 .tags a.music {
-    background:#fbc02d;
+    background: #fbc02d;
 }
-.tags a.music:before{
-    border-color:transparent #fbc02d transparent transparent;
+
+.tags a.music:before {
+    border-color: transparent #fbc02d transparent transparent;
 }
 
 .tags a.sports {
-    background:#ffa000;
+    background: #ffa000;
 }
-.tags a.sports:before{
-    border-color:transparent #ffa000 transparent transparent;
+
+.tags a.sports:before {
+    border-color: transparent #ffa000 transparent transparent;
 }
 
 .tags a.talks {
-    background:#ef6c00;
+    background: #ef6c00;
 }
-.tags a.talks:before{
-    border-color:transparent #ef6c00 transparent transparent;
+
+.tags a.talks:before {
+    border-color: transparent #ef6c00 transparent transparent;
 }
 
 .tags a.tech {
-    background:#f4511e;
+    background: #f4511e;
 }
-.tags a.tech:before{
-    border-color:transparent #f4511e transparent transparent;
+
+.tags a.tech:before {
+    border-color: transparent #f4511e transparent transparent;
 }
 
 .tags a.miscellaneous {
-    background:#6d4c41;
+    background: #6d4c41;
 }
-.tags a.miscellaneous:before{
-    border-color:transparent #6d4c41 transparent transparent;
+
+.tags a.miscellaneous:before {
+    border-color: transparent #6d4c41 transparent transparent;
 }
