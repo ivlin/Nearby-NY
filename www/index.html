@@ -354,13 +354,13 @@
         </div>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended</div>
+                <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended <span id="attended-events" style="color:red;"></span></div>
                 <div class="collapsible-body">
                     <p id="event-history"></p>
                 </div>
             </li>
             <li>
-                <div class="collapsible-header"><i class="material-icons">fast_forward</i>Events Planned to Attend</div>
+                <div class="collapsible-header"><i class="material-icons">fast_forward</i>Events Planned to Attend <span id="attending-events" style="color:red;"></span></div>
                 <div class="collapsible-body">
                     <p id="event-schedule"></p>
                 </div>
@@ -560,12 +560,14 @@
     <ul class="collection">
         <div class="row" style="font-size:14px">
         {{#each event}}
-            <li class="collection-item col s12 calendar-item" data-eventId="{{objectId}}">
-                <p class="col s12" style="text-decoration:underline;font-size:16px">{{title}}</p>
-                <p class="col s12">{{address}}</p>
-                <p class="col s12">{{time}}</p>
-                <p class="col s12">${{cost}}</p>
-            </li>
+        <li class="collection-item avatar"  data-eventId="{{objectId}}">
+            <img src={{img_url}} height="30px" alt="" class="circle">
+            <span class="title">{{title}}</span>
+            <p style="padding:0;">{{address}}
+                <br> {{time}}
+            </p>
+            <a href="#!" class="secondary-content">${{cost}}</a>
+        </li>
         {{/each}}
         </div>
     </ul>

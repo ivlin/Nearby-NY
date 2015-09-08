@@ -201,6 +201,7 @@ var friends = {
 
                     // $(".avatar").off("click");
                     $(".avatar").click(function(evt) {
+                        console.log(friends.editMode);
                         if (!friends.editMode) {
                             $(this).next(".expanded-avatar").slideToggle();
                         } else {
@@ -209,12 +210,13 @@ var friends = {
                                 $(this).find(".delete-this-friend").css("color","black");
                                 friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
                             } else {
-                                $(this).attr("class", $(this).attr("class") + " grey lighten-2")
+                                // $(this).attr("class", $(this).attr("class") + " grey lighten-2")
                                 $(this).addClass("grey lighten-2");
                                 $(this).find(".delete-this-friend").css("color","red");
                                 friends.selected.push($(this).attr("id"));
                             }
                         }
+                        console.log($(this).attr("class"));
                     });
                 },
                 error: function(e) {
