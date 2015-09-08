@@ -125,7 +125,7 @@ body {
 
 #map-canvas {
     width: 100%;
-    height: 95%;
+    height: 100%;
     position: absolute;
 }
 
@@ -135,8 +135,18 @@ body {
 }
 
 #map-legend {
+    position:absolute;
     background-color: rgb(240, 240, 240);
     padding:4px;
+    bottom: 0px;
+    right: 0px;
+    width:150px;
+    border-radius-top:5px;
+    z-index:99;
+}
+
+#legend-body {
+    display:none;
 }
 
 .viewframe {
@@ -146,6 +156,10 @@ body {
 }
 
 #set-bio-info {
+    display: none;
+}
+
+.notify-this-friend, .delete-this-friend{
     display: none;
 }
 
@@ -197,7 +211,7 @@ button {
     display: none;
 }
 
-#add-friends-prompt, #invite-friends-prompt {
+#add-friends-prompt, #invite-friends-prompt, #delete-friends-prompt {
     display: none;
 }
 
@@ -391,7 +405,7 @@ button {
 
 .dropdown-button {
     width: 120px;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .card .card-image .card-title {
@@ -403,8 +417,12 @@ button {
     padding: 10px 15px 15px 15px;
 }
 
-/*[type="checkbox"].filled-in+label:before,*/ [type="checkbox"].filled-in+label:after {
-   /* visibility: hidden;*/
+.card .card-action a {
+margin-right:0;
+}
+
+.card-action.row{
+    margin-bottom: 0;
 }
 
 .tags a.activism {

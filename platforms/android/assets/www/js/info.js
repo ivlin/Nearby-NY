@@ -71,6 +71,8 @@ info = {
                 jsondata.upvotes = jsondata.upvotes.length;
                 jsondata.downvotes = jsondata.downvotes.length;
 
+                var attendants = jsondata.to_attend;
+
                 jsondata.to_attend = jsondata.to_attend.length;
                 jsondata.attended = jsondata.attended.length;
 
@@ -188,6 +190,7 @@ info = {
 
         $("#address-icon").click(function() {
             controller.changeViewTo("view-map");
+            // map.initialize();
             google.maps.event.trigger(map.map, 'resize');
             map.map.setCenter({lat: upData.location.latitude, lng: upData.location.longitude});
             map.map.setZoom(16);
@@ -202,6 +205,7 @@ info = {
             temp.push(objectId);
             me.set("to_attend", temp);
             me.save();
+            $("#" + objectId).find(".star").html("<i class='material-icons left card-icon'>stars</i>"); 
             Materialize.toast('<span>You have shown interest in attending.</span>', 5000);
         } else {
             removeMeFromArray("to_attend");
@@ -209,10 +213,10 @@ info = {
             temp.splice(temp.indexOf(objectId), 1);
             me.set("to_attend", temp);
             me.save();
+            $("#" + objectId).find(".star").empty(); 
             Materialize.toast('<span>You are no longer interested in attending.</span>', 5000);
         }
         $("#event-to-attend-num").html(upData.to_attend.length);
-
     });
 
 
@@ -278,38 +282,39 @@ $("#event-downvote").click(function() {
     }
 });
 
-$("#event-invite-friends").click(function() {
-    $(".sidebar-button").removeClass("grey lighten-4");
-    $("#sidebar-friends").addClass("grey lighten-4");
-    $("#invite-friends-prompt").css("display","block");
-    controller.changeViewTo("view-friends");
-            friends.initialize();
-            friends.editMode = true;
+    $("#event-invite-friends").click(function() {
+        $(".sidebar-button").removeClass("grey lighten-4");
+        $("#sidebar-friends").addClass("grey lighten-4");
+        $("#invite-friends-prompt").css("display","block");
+        controller.changeViewTo("view-friends");
+        friends.initialize();
+        friends.editMode = true;
+
+        $("#push-prompt-event").html(upData.title);
 
             //handlers for friends page stuff
             $("#notify-selected-friends, .return-to-event").off("click");
 
-            $(".return-to-event").click(function(){
+            $("#return-to-event").click(function(){
                 $("#invite-friends-prompt").css("display","none");
-                changeViewTo("view-event");
+                controller.changeViewTo("view-event");
             });
 
             $("#notify-selected-friends").click(function(){
                 // Parse.User.current().fetch().then(function (me){
                     var message;
                     if ($("input:radio[name='message-type']:checked").val() == 'invite-radio'){
-                        message = me.get("username") + " is inviting you to check out " + upData.title + ", an event taking place at " 
-                        + upData.address + " on " + upData.time
+                        message = "Invite from " + me.get("username");
                     }else if ($("input:radio[name='message-type']:checked").val() == 'notify-radio'){
-                        message = me.get("username") + " is currently at " + upData.title + ", an event taking place at " 
-                        + upData.address
+                        message = me.get("username") + " is currently attending";
                     } 
                     var query = new Parse.Query(Parse.Installation);
                     query.containedIn("userId",friends.selected);
                     Parse.Push.send({
                         where: query,
                         data: {
-                            alert: message
+                            alert: message,
+                            title: upData.title,
                         }
                     },{
                         success:function(){},

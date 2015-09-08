@@ -3,16 +3,6 @@ var profile = {
     curUser: null,
 
     initialize: function() {
-        CalendarView = Parse.View.extend({
-            data: null,
-            template: Handlebars.compile(document.getElementById("calendar-list-tpl").innerHTML),
-            render: function() {
-                this.data = {
-                    event: this.collection
-                };
-                this.el.innerHTML = this.template(this.data);
-            }
-        });
 
         this.setupProfilePage();
         this.setupHandlers();
@@ -28,8 +18,6 @@ var profile = {
     },
 
     setupProfilePicture: function() {
-        //var findMe = new Parse.Query(Parse.User);
-        //findMe.get(Parse.User.current().id, {
         Parse.User.current().fetch({
             success: function(me) {
                 var pic = me.get("profilePic");
@@ -51,12 +39,14 @@ var profile = {
 
         $("#save-bio").click(function(e) {
             e.preventDefault();
-            Parse.User.current().fetch().then(function(me) {
+            Parse.User.current().fetch().then(function (me){
                 me.set("name", $("#set-name").val());
                 me.set("biography", $("#set-bio").val());
-                me.save();
-            }).then(function() {
-                profile.setupProfilePage();
+                me.save().then(function() {
+                    profile.curUser = Parse.User.current().toJSON();
+                    profile.updateInfo();
+                    profile.setupProfilePicture();
+                });
             });
 
             $("#set-bio-info").css("display", "none");
@@ -77,7 +67,6 @@ var profile = {
             reader.onloadend = function() {
                 preview.attr("src", reader.result);
                 $("#profile-preview").show();
-                localStorage.setItem("testProfilPic", reader.result);
             };
 
             if (imageFile) {
@@ -105,11 +94,6 @@ var profile = {
         $("#set-name").attr("value", profile.curUser.name);
         $("#set-email").attr("value", profile.curUser.email);
         $("#set-bio").html(profile.curUser.biography);
-
-        // var labels = document.getElementsByTagName("label");
-        // for (var i = 0; i < labels.length; i++) {
-        //     labels[i].setAttribute("class", "active");
-        // }
 
         $("label").attr("class", "active");
 
@@ -141,8 +125,6 @@ var profile = {
     },
 
     updateUserHistory: function() {
-        // var query = new Parse.Query(Parse.User);
-        // query.get(Parse.User.current().id, {
         Parse.User.current().fetch({
             success: function(result) {
                 profile.makeEventList(result.get("attended"), "event-history");
@@ -154,8 +136,6 @@ var profile = {
     },
 
     updateUserSchedule: function() {
-        // var query = new Parse.Query(Parse.User);
-        // query.get(Parse.User.current().id, {
         Parse.User.current().fetch({
             success: function(result) {
                 profile.makeEventList(result.get("to_attend"), "event-schedule");
@@ -178,7 +158,7 @@ var profile = {
                 result.sort(function(a, b) {
                     var x = a["time"];
                     var y = b["time"];
-                    var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    var diff = ((x < y) ? 1 : ((x > y) ? -1 : 0));
                     return diff;
                 });
                 var calendarList = new CalendarView({
@@ -188,7 +168,13 @@ var profile = {
                 if (result.length == 0) {
                     $("#" + sectionId).html('No events to show.');
                 } else {
-                    $("#" + sectionId).append(calendarList.el);
+                    $("#" + sectionId).empty().append(calendarList.el);
+                    $(".calendar-item").each(function(){
+                        $(this).off("click").click(function(){
+                            controller.changeViewTo("view-event");
+                            info.drawEventPage($(this).attr("data-eventId"),"view-profile");
+                        });
+                    });
                 }
 
                 return calendarList.el;
@@ -197,6 +183,11 @@ var profile = {
                 console.log("failed to get eventlist")
             }
         });
+    },
+
+    gotoEvent: function(objectId) {
+        controller.changeViewTo("view-event");
+        info.drawEventPage(objectId, "view-profile");
     }
 
 };

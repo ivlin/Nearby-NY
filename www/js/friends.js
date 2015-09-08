@@ -13,60 +13,86 @@ var friends = {
     },
 
     setupHandlers: function() {
+
         $("#add-friends-button, #remove-friends-button, #check-friend-id").off("click");
 
-        $("#add-friends-button").click(function() {
-            $("#add-friends-prompt").css("display", function() {
-                if ($(this).css("display") === "none") {
-                    return "block"
-                } else {
-                    return "none"
-                }
-            });
-        });
-
-        $("#remove-friends-button").click(function() {
-            // e.stopPropagation();
-            // console.log(!friends.editMode);
-            if (friends.selected.length > 0) {
-                // var self = new Parse.Query(Parse.User);
-                // self.get(Parse.User.current().id).then(function(me) {
-              Parse.User.current().fetch().then(function (me){
-                    var newFriends = me.get("friends");
-                    var newPending = me.get("pending_friends");
-
-                    var query = new Parse.Query(Mailbox);
-                    query.containedIn("ownerId", friends.selected);
-                    query.find().then(function(result) {
-                        for (var i = 0; i < result.length; i++) {
-                            var r = result[i].get("requests");
-                            r.splice(r.indexOf(Parse.User.current().id), 1);
-                            result[i].set("requests", r);
-                            result[i].save();
-                        }
-                    });
-
-                    for (var i = 0; i < friends.selected.length; i++) {
-                        newPending.splice(newPending.indexOf(friends.selected[i]), 1);
-                        newFriends.splice(newFriends.indexOf(friends.selected[i]), 1);
+        $("#add-friends-button, #close-add-friends").click(function() {
+            if (!friends.editMode){
+                var button = $("#add-friends-button");
+                $("#add-friends-prompt").css("display", function() {
+                    if ($(this).css("display") === "none") {
+                        $(button).html("<a><i class='material-icons left' >person_pin</i>Cancel</a>");
+                        return "block"
+                    } else {
+                        $(button).html("<a><i class='material-icons left' >person_pin</i>Add Friends</a>");
+                        return "none"
                     }
-
-                    me.set("friends", newFriends);
-                    me.save().then(function() {
-                        friends.buildFriendList();
-                        friends.buildPendingList();
-                    });
-                    friends.selected = [];
                 });
             }
-            friends.editMode = !friends.editMode;
+        });
+
+        $("#remove-friends-button, #cancel-delete-friends").click(function() {
+            if ($("#add-friends-prompt").css("display") === "none"){
+                friends.editMode = !friends.editMode;
+                if (friends.editMode === true){
+                    $("#delete-friends-prompt").show();
+                    $(".delete-this-friend").each(function(){
+                        $(this).css("display","inline");
+                    });
+                    $("#remove-friends-button").html("<a><i class='material-icons left'>not_interested</i>Cancel</a>");
+                }else{
+                    $("#delete-friends-prompt").hide();
+                    $(".delete-this-friend").each(function(){
+                        $(this).css("display","none");
+                    });
+                    $("#remove-friends-button").html("<a><i class='material-icons left'>not_interested</i>Remove Friends</a>");
+                }
+                $(".avatar").each(function(){
+                    $(this).removeClass("grey lighten-2");
+                    $(this).find("#delete-this-friend").css("color","black");
+                });
+                friends.selected = [];
+            }
+        });
+
+        $("#delete-selected-friends").click(function() {
+            if (friends.selected.length > 0) {
+              Parse.User.current().fetch().then(function (me){
+                var newFriends = me.get("friends");
+                var newPending = me.get("pending_friends");
+
+                var query = new Parse.Query(Mailbox);
+                query.containedIn("ownerId", friends.selected);
+                query.find().then(function(result) {
+                    for (var i = 0; i < result.length; i++) {
+                        var r = result[i].get("requests");
+                        r.splice(r.indexOf(Parse.User.current().id), 1);
+                        result[i].set("requests", r);
+                        result[i].save();
+                    }
+                });
+
+                for (var i = 0; i < friends.selected.length; i++) {
+                    newPending.splice(newPending.indexOf(friends.selected[i]), 1);
+                    newFriends.splice(newFriends.indexOf(friends.selected[i]), 1);
+                }
+
+                me.set("friends", newFriends);
+                me.save().then(function() {
+                    friends.buildFriendList();
+                    friends.buildPendingList();
+                });
+                friends.selected = [];
+            });
+            }
         });
 
         $("#check-friend-id").click(function() {
+            var friendId = $("#friend-id");
             var usernameQuery = new Parse.Query(Parse.User);
-            usernameQuery.equalTo("username", $("#friend-id").val());
+            usernameQuery.equalTo("username", friendId.val());
             var emailQuery = new Parse.Query(Parse.User);
-            emailQuery.equalTo("email", $("#friend-id").val());
+            emailQuery.equalTo("email", friendId.val());
             var query = Parse.Query.or(usernameQuery, emailQuery);
             query.first({
                 success: function(result) {
@@ -77,7 +103,7 @@ var friends = {
                             if (result === undefined) {
                                 console.log($("add-friend-prompt-status"));
                             } else if (me.get("friends").indexOf(result.id) == -1 && me.get("pending_friends").indexOf(result.id) == -1) {
-                                $("#add-friend-prompt-status").html("Successfully sent friend request");
+                                Materialize.toast("Friend request sent.");
                                 var newPending = me.get("pending_friends");
                                 newPending.push(result.id);
                                 me.set("pending_friends", newPending);
@@ -91,7 +117,7 @@ var friends = {
                                     mailbox.set("requests", mail);
                                     mailbox.save();
                                 })
-
+                                friendId.val("");
                             } else {
                                 $("#add-friend-prompt-status").html("User is already a registered or pending friend");
                             }
@@ -132,13 +158,15 @@ var friends = {
                     pendingListView.render();
                     $("#pending-list-display").empty().append(pendingListView.el);
 
-                    $(".avatar").off("click");
+                    // $(".avatar").off("click");
                     $(".avatar").click(function(evt) {
                         if (friends.editMode) {
                             if ($(this).hasClass("grey lighten-2")) {
                                 $(this).removeClass("grey lighten-2");
+                                $(this).find(".delete-this-friend").css("color","black");
                                 friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
                             } else {
+                                $(this).find(".delete-this-friend").css("color","red");
                                 $(this).addClass("grey lighten-2");
                                 friends.selected.push($(this).attr("id"));
                             }
@@ -170,16 +198,20 @@ var friends = {
                     });
                     friends.friendListView.render();
                     $("#friend-list-display").empty().append(friends.friendListView.el);
-                    $(".avatar").off("click");
+
+                    // $(".avatar").off("click");
                     $(".avatar").click(function(evt) {
                         if (!friends.editMode) {
                             $(this).next(".expanded-avatar").slideToggle();
                         } else {
                             if ($(this).hasClass("grey lighten-2")) {
                                 $(this).removeClass("grey lighten-2");
+                                $(this).find(".delete-this-friend").css("color","black");
                                 friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
                             } else {
+                                $(this).attr("class", $(this).attr("class") + " grey lighten-2")
                                 $(this).addClass("grey lighten-2");
+                                $(this).find(".delete-this-friend").css("color","red");
                                 friends.selected.push($(this).attr("id"));
                             }
                         }
@@ -269,4 +301,7 @@ var friends = {
         });
     },
 
+    gotoEvent: function(objectId) {
+        controller.changeViewTo(objectId,"view-friends");
+    }
 };

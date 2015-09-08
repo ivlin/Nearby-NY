@@ -28,6 +28,9 @@ var app = {
         login.initialize();
         trending.initialize();
         this.setupLinks();
+        $("#view-map").show();
+        map.initialize();
+        $("#view-map").hide();
 
         if (Parse.User.current()) {
             $("#view-trending").css("display", "block");
@@ -92,6 +95,100 @@ var app = {
                 this.el.innerHTML = this.template(this.data);
             }
         });
+
+        CalendarView = Parse.View.extend({
+            data: null,
+            template: Handlebars.compile(document.getElementById("calendar-list-tpl").innerHTML),
+            render: function() {
+                this.data = {
+                    event: this.collection
+                };
+                this.el.innerHTML = this.template(this.data);
+            }
+        });
+
+        EventListView = Parse.View.extend({
+            data: null,
+            el: null,
+            template: Handlebars.compile($("#event-list-tpl").html()),
+            render: function() {
+                this.data = {
+                    event: this.collection
+                };
+                for (var i = 0; i < this.data.event.length; i++) {
+                    this.data.event[i] = this.data.event[i].toJSON();
+                    this.data.event[i].isUserAttending = Parse.User.current() && 
+                    this.data.event[i].to_attend.indexOf(Parse.User.current().id) >= 0;
+                    this.data.event[i].to_attend = this.data.event[i].to_attend.length;
+                    this.data.event[i].time = trending.buildDateString(this.collection[i].time.iso);
+                    this.data.event[i].upvotes = this.data.event[i].upvotes.length;
+                    this.data.event[i].downvotes = this.data.event[i].downvotes.length;
+                }
+
+                this.organizeList("");
+                this.setupScrollEffects();
+            },
+
+            setupScrollEffects: function() {
+                var titleOffsetTop = -200;
+                $(window).scroll(function() {
+                    var scroll = $(window).scrollTop();
+                    if (scroll <= 200) {
+                        var offset = '-' + (scroll + 20) + 'px';
+                        $('#event-info-body').animate({
+                            'margin-top': offset
+                        }, 1);
+                    }
+                });
+            },
+
+            organizeList: function(mode) {
+                switch (mode.toLowerCase()) {
+                    case "cost":
+                        this.data.event = this.sortByKey(this.data.event, "cost", true);
+                        break;
+                    case "date":
+                        this.data.event = this.sortByKey(this.data.event, "time", false);
+                        break;
+                    case "title":
+                        this.data.event = this.sortByKey(this.data.event, "title", true);
+                        break;
+                    case "popular":
+                    default:
+                        this.data.event = this.data.event.sort(function(a, b) {
+                            var x = a["to_attend"].length;
+                            var y = b["to_attend"].length;
+                            var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                            return -1 * diff;
+                        });
+                        break;
+                }
+
+                this.el.innerHTML = this.template(this.data);
+                var cards = this.el.getElementsByClassName("event-card");
+
+                function renderEventPage(id) {
+                    $('.button-collapse').sideNav('hide');
+                    info.drawEventPage(id, "view-trending");
+                }
+
+                for (var i = 0; i < cards.length; i++) {
+                    renderFunc = renderEventPage.bind(this, cards[i].id);
+                    cardImg = $(cards[i]).find("img");
+                    cardImg.first().click(renderFunc);
+                }
+            },
+
+            sortByKey: function(array, key, ascending) {
+                return array.sort(function(a, b) {
+                    var x = a[key];
+                    var y = b[key];
+                    var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+                    return ascending ? diff : -1 * diff;
+                });
+            },
+
+        });//end of eventlistview
     },
 
     setupLinks: function() {
@@ -125,6 +222,7 @@ var app = {
                         $("#sidebar-map").addClass("grey lighten-4");
                         controller.changeViewTo("view-map");
                         map.initialize();
+                        google.maps.event.trigger(map.map, 'resize');
                     });
                     break;
                 case "goto-profile":

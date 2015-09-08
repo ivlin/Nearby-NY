@@ -87,8 +87,8 @@
                         <div class="nav-wrapper grey darken-4">
                             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                             <ul id="nav-mobile" class="right">
-                                <li id="add-friends-button"><a><i class="material-icons left" >person_pin</i>Add Friend</a></li>
-                                <li id="remove-friends-button"><a><i class="material-icons left" >person_pin</i>Remove Friend</a></li>
+                                <li id="add-friends-button"><a><i class="material-icons left" >person_pin</i>Add Friends</a></li>
+                                <li id="remove-friends-button"><a><i class="material-icons left" >not_interested</i>Remove Friends</a></li>
                             </ul>
                         </div>
                     </nav>
@@ -97,26 +97,34 @@
             <div class="display">
                 <!-- Add a friend prompt -->
                 <div class="" id="add-friends-prompt">
-                    <div class="row card-panel col s12 grey lighten-4" style="padding:4px">
+                    <div class="row card-panel col s12 grey lighten-4 center" style="padding:4px;margin:4px">
+                    	<h4>Add a Friend</h4>
                         <div class="input-field col s12">
                             <input id="friend-id" type="text" class="validate">
                             <label for="friend-id">Nearby NY Registered Username or Email</label>
                         </div>
-                        <a class="waves-effect waves-light red btn center" id="check-friend-id">Send a Friend Request</a>
+                        <a class="waves-effect waves-light red btn center" id="check-friend-id" style="width:200px">Send Request</a>
+                        <a class="waves-effect waves-light red btn center" id="close-add-friends" style="width:200px">Cancel</a>
                     </div>
                 </div>
                 <div class="row" id="invite-friends-prompt">
-                    <div class="card-panel col s12 grey lighten-4" style="padding:4px">
-                        <h4>Event: <span id="push-prompt-event"></span></h4>
-                        <p>What kind of message do you want to send?</p>
-                          <input class="with-gap" name="message-type" type="radio" value="invite-radio" id="invite-radio" checked/>
-                          <label for="invite-radio">Invite</label>
-                          <input class="with-gap" name="message-type" type="radio" value="notify-radio" id="notify-radio"/>
-                          <label for="notify-radio">Notify</label>
-                          <br>
-                          <a class="waves-effect waves-light red btn" id="notify-selected-friends">Send Message</a>
-                          <a class="waves-effect waves-light red btn" class="return-to-event">Return to Event Page</a>
+                    <div class="card-panel col s12 grey lighten-4 center" style="padding:4px;margin:4px">
+                        <h4 id="push-prompt-event"></h4>
+                        <input class="with-gap" name="message-type" type="radio" value="invite-radio" id="invite-radio" checked/>
+                        <label for="invite-radio">Invite</label>
+                        <input class="with-gap" name="message-type" type="radio" value="notify-radio" id="notify-radio" />
+                        <label for="notify-radio">Notify</label>
+                        <br>
+                        <a class="waves-effect waves-light red btn" id="notify-selected-friends" style="width:200px">Send Message</a>
+                        <a class="waves-effect waves-light red btn" id="return-to-event" style="width:200px">Return to Event Page</a>
                     </div>
+                </div>
+                <div class="row" id="delete-friends-prompt">
+                	<div class="card-panel col s12 grey lighten-4 center" style="padding:4px;margin:4px">
+                		<h4>Deleting Friends</h4>
+                		<a class="waves-effect waves-light red btn" id="delete-selected-friends" style="width:200px">Delete Selected</a>
+                		<a class="waves-effect waves-light red btn" id="cancel-delete-friends" style="width:200px">Cancel</a>
+                	</div>
                 </div>
                 <!-- -->
                 <!-- -->
@@ -179,12 +187,14 @@
                 </nav>
             </div>
         </div>
-        <div id="map-legend" class="row" style="margin:0; font-size:16px">
+<!--         <div id="map-legend" class="row" style="margin:0; font-size:16px">
             <div class="col s4 center"><img src="img/red-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center"><img src="img/blue-balloon.png" style="height:40px;width:auto"></div>
             <div class="col s4 center"><img src="img/orange-balloon.png" style="height:40px;width:auto"></div>
-            <div class="col s4 center">Event</div><div class="col s4 center">Matches Preference</div><div class="col s4 center">Past Event</div>
-        </div>
+            <div class="col s4 center">Event</div>
+            <div class="col s4 center">Matches Preference</div>
+            <div class="col s4 center">Past Event</div>
+        </div> -->
         <div id="map-options" style="display:none">
             <form action="#">
                 <p>
@@ -221,7 +231,18 @@
             </form>
             <a class="waves-effect waves-light red btn" id="update-map-events">Update Map</a>
         </div>
+        <div id="map-legend">
+        	<span style="font-size:16px"> Map Legend <span id="unicode-arrow"> &#9650 </span></span>
+        	<div id="legend-body">
+        		<hr>
+        		<img src="img/red-balloon.png" style="height:30px;width:auto">Event<br>
+        		<img src="img/blue-balloon.png" style="height:30px;width:auto">Matches Preference<br>
+        		<img src="img/orange-balloon.png" style="height:30px;width:auto">Past Event
+        	</div> 
+        </div>
         <div id="map-canvas">
+                <div id="map-legend" style="position:absolute; height:20px; width:20px">
+                </div>
         </div>
     </div>
     <!-- Event Page -->
@@ -258,7 +279,7 @@
     </div>
     <!-- Profile Page -->
     <!-- Profile Page -->
-    <div id="view-profile" class="viewframe" style="background-image:url(img/polka.png)">
+    <div id="view-profile" class="viewframe">
         <div class="head">
             <div class="navbar-fixed">
                 <nav>
@@ -272,20 +293,22 @@
         <div class="card">
             <center><img id="profile-pic" class="profile-pic" height="200px"></center>
             <div class="card-image waves-effect waves-block waves-light">
-<!--                  <img class="activator" src="img/nyc_skyline.gif" style="width:100%;height:auto">
- -->             </div>
+                <!--                  <img class="activator" src="img/nyc_skyline.gif" style="width:100%;height:auto">
+ --></div>
             <div class="card-content grey-text text-darken-4">
-                <center><span id = "get-username" style="font-size:26px"></span></center>
-
-                <!-- Personal Info -->
-                <div id="get-bio-info">
-                    <div class="right">
+            <div class="right">
                         <i id="edit-bio" class="material-icons">settings</i>
                     </div>
+                <center><span id="get-username" style="font-size:26px"></span></center>
+                    
+                <!-- Personal Info -->
+                <div id="get-bio-info">
                     <div class="card-action" style="font-size:16px">
-                    <p>Name: <span id="get-name"></span></p>
-                    <p>Email: <span id="get-email"></span></p>
-                    <p>Biography: <br><span id="get-bio"></span></p></div>
+                        <p>Name: <span id="get-name"></span></p>
+                        <p>Email: <span id="get-email"></span></p>
+                        <p>Biography:
+                            <br><span id="get-bio"></span></p>
+                    </div>
                 </div>
                 <div id="set-bio-info">
                     <div class="row center">
@@ -322,14 +345,14 @@
                                 <label class="active" for="biography">Biography</label>
                             </div>
                             <button class="red btn waves-effect waves-light red" name="action" id="save-bio">Save
-<!--                                 <i class="material-icons">send</i>
- -->                            </button>
+                                <!--                                 <i class="material-icons">send</i>
+ --></button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <ul class="collapsible" data-collapsible="expandable">
+        <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header"><i class="material-icons">fast_rewind</i>Events Attended</div>
                 <div class="collapsible-body">
@@ -349,75 +372,75 @@
                         <form action="#" id="event-preferences-form">
                             <div class="row tags">
                                 <p class="col s6">
-                                    <input type="checkbox" id="activism" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="activism" class="tag-selector" />
                                     <label for="activism"><a href="#" class="activism">activism</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="animals" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="animals" class="tag-selector" />
                                     <label for="animals"><a href="#" class="animals">animals</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="community" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="community" class="tag-selector" />
                                     <label for="community"><a href="#" class="community">community</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="competition" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="competition" class="tag-selector" />
                                     <label for="competition"><a href="#" class="competition">competition</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="culture" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="culture" class="tag-selector" />
                                     <label for="culture"><a href="#" class="culture">culture</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="education" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="education" class="tag-selector" />
                                     <label for="education"><a href="#" class="education">education</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="food" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="food" class="tag-selector" />
                                     <label for="food"><a href="#" class="food">food</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="fashion" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="fashion" class="tag-selector" />
                                     <label for="fashion"><a href="#" class="fashion">fashion</a></label>
-                                </p><p class="col s6">
-                                    <input type="checkbox" id="games" class="filled-in tag-selector" />
+                                </p>
+                                <p class="col s6">
+                                    <input type="checkbox" id="games" class="tag-selector" />
                                     <label for="games"><a href="#" class="games">games</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="health" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="health" class="tag-selector" />
                                     <label for="health"><a href="#" class="health">health</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="lifestyle" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="lifestyle" class="tag-selector" />
                                     <label for="lifestyle"><a href="#" class="lifestyle">lifestyle</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="media" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="media" class="tag-selector" />
                                     <label for="media"><a href="#" class="media">media</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="music" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="music" class="tag-selector" />
                                     <label for="music"><a href="#" class="music">music</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="sports" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="sports" class="tag-selector" />
                                     <label for="sports"><a href="#" class="sports">sports</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="talks" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="talks" class="tag-selector" />
                                     <label for="talks"><a href="#" class="talks">talks</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="tech" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="tech" class="tag-selector" />
                                     <label for="tech"><a href="#" class="tech">tech</a></label>
                                 </p>
                                 <p class="col s6">
-                                    <input type="checkbox" id="miscellaneous" class="filled-in tag-selector" />
+                                    <input type="checkbox" id="miscellaneous" class="tag-selector" />
                                     <label for="miscellaneous"><a href="#" class="miscellaneous">miscellaneous</a></label>
                                 </p>
                             </div>
                         </form>
-                        <a class="waves-effect waves-light red btn" id="update-event-preferences">Update Preferences</a>
                     </p>
                 </div>
             </li>
@@ -449,20 +472,21 @@
                             <br>{{time}}
                             <br>${{cost}}</p>
                     </div>
-                    <div class="card-action red darken-3 white-text z-depth-3">
-                    	<a class="white-text">
+                    <div class="card-action red darken-3 white-text z-depth-3 row">
+                    	<a class="white-text col s3">
+                            <div class="left">{{to_attend}}</div><i class="material-icons left card-icon">check</i>
+                            </a>
+                        <a class="white-text col s3">
+                            <div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
+                        </a>
+                        <a class="white-text col s3">
+                            <div class="left">{{downvotes}}</div><i class="material-icons left card-icon">thumb_down</i>
+                        </a>
+                    	<a class="white-text star col s3">
                     		{{#if isUserAttending}}
                     		<i class="material-icons left card-icon">stars</i>
                     		{{/if}}
                     	</a>
-                    	<a class="white-text">
-                            <div class="left">{{attended}}</div><i class="material-icons left card-icon">supervisor_account</i>
-                            </a>
-                        <a class="white-text">
-                            <div class="left">{{upvotes}}</div><i class="material-icons left card-icon">thumb_up</i>
-                        </a>
-                        <a class="white-text">
-                            <div class="left">{{downvotes}}</div><i class="material-icons left card-icon">thumb_down</i></a>
                         <!--        <a class="white-text" onclick="Materialize.toast('<span>Event Added!</span><a class=&quot;red btn-flat yellow-text&quot; href=&quot;#!&quot;>Undo<a>', 5000)" href="#"><i class="material-icons left">
             playlist_add
           </i></a>
@@ -475,10 +499,12 @@
     </div>
 </script>
 <script id="pending-friends-tpl" type="text/x-handlebars-template">
-    <ul class="collection with-header">
-        <li class="collection-header">Pending Friends</li>
+    <ul class="collection with-header"><i class="material-icons right" style="margin:6px 6px 0 0">launch</i>
+        <li class="collection-header">Outgoing Requests</li>
         {{#each friend}}
         <li class="collection-item avatar" id="{{objectId}}">
+            <i class="material-icons right notify-this-friend" style="display:none">send</i>
+            <i class="material-icons right delete-this-friend" style="display:none">not_interested</i>
             <img src="img/logo_nearby.png" alt="" class="circle">
             <span class="title">{{username}}</span>
             <p>user not yet registered as friend</p>
@@ -487,38 +513,41 @@
     </ul>
 </script>
 <script id="friend-request-tpl" type="text/x-handlebars-template">
-    <ul class="collection with-header">
-        <li class="collection-header">Friend Requests</li>
+    <ul class="collection with-header"><i class="material-icons right" style="margin:6px 6px 0 0">system_update_alt</i>
+        <li class="collection-header">Incoming Requests</li>
         {{#each request}}
         <li class="collection-item avatar" id="{{objectId}}">
+                <a class="waves-effect waves-light btn delete-request red right" style="margin:5px">Reject</a>
+                <a class="waves-effect waves-light btn accept-request red right" style="margin:5px">Accept</a>
+            <i class="material-icons right notify-this-friend" style="display:none">send</i>
+            <i class="material-icons right delete-this-friend" style="display:none">not_interested</i>
             <img src="img/logo_nearby.png" alt="" class="circle">
             <span class="title">{{username}}</span>
             <p>{{name}}
                 <br>{{email}}</p>
-            <button class="accept-request">Accept</button>
-            <button class="delete-request">Reject</button>
         </li>
         {{/each}}
     </ul>
 </script>
 <script id="friend-list-tpl" type="text/x-handlebars-template">
-    <ul class="collection with-header">
+    <ul class="collection with-header"><i class="material-icons right" style="margin:6px 6px 0 0">supervisor_account</i>
         <li class="collection-header">Friends</li>
         {{#each friend}}
         <li class="collection-item avatar" id="{{objectId}}">
-            <i class="material-icons right notify-this-friend">send</i>
+            <i class="material-icons right notify-this-friend" style="display:none">send</i>
+            <i class="material-icons right delete-this-friend" style="display:none">not_interested</i>
             <img src="{{profilePic.url}}" alt="" class="circle">
             <span class="title">{{username}}</span>
-            <p>name: {{name}}
-                <br> email: {{email}}
+            <p>Name: {{name}}
+                <br> Email: {{email}}
                 <br>
             </p>
             <li class="collection-item expanded-avatar" style="display:none">
-                <p>bio: {{biography}}
-                    <br> tagged:
-                    <div class="row">
+                <p>{{biography}}
+                    <br>Tags:
+                    <div class="row tags">
                         {{#each tags}}
-                        <div class="tagbox col s3 white">{{this}}</div>
+                        <a class="{{this}}">{{this}}</a>
                         {{/each}}
                     </div>
                 </p>
@@ -529,16 +558,16 @@
 </script>
 <script id="calendar-list-tpl" type="text/x-handlebars-template">
     <ul class="collection">
+        <div class="row" style="font-size:14px">
         {{#each event}}
-        <div class="row">
-            <li class="collection-item">
-                <p class="col s12">{{title}}</p>
+            <li class="collection-item col s12 calendar-item" data-eventId="{{objectId}}">
+                <p class="col s12" style="text-decoration:underline;font-size:16px">{{title}}</p>
                 <p class="col s12">{{address}}</p>
                 <p class="col s12">{{time}}</p>
                 <p class="col s12">${{cost}}</p>
             </li>
-        </div>
         {{/each}}
+        </div>
     </ul>
 </script>
 <script id="event-view-tpl" type="text/x-handlebars-template">
@@ -598,10 +627,11 @@
                     <p class="section-caption">Check In</p>
                     <p class="light center">Attended:<span id="event-attended-num">{{attended}}</div></p>
                 </div>
+
                 <p>Tags:</p>
                 <div class="row tags">
                     {{#each tags}}
-                    <div class="col s3 white center-align"><a href="#" class={{this}}>{{this}}</a></div>
+                    <div class="white center-align"><a href="#" class={{this}}>{{this}}</a></div>
                     {{/each}}
                 </div>
       </div>

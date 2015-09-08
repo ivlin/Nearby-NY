@@ -5,13 +5,16 @@ var map = {
     bounds: null,
 
     initialize: function() {
-        var nyCoord = new google.maps.LatLng(40.7127, -74.0059);
-        var canvas = document.getElementById("map-canvas");
-        this.map = new google.maps.Map(document.getElementById("map-canvas"), {
-            zoom: 13,
-            center: nyCoord,
-        });
-        this.setupHandlers();
+        if (!this.map){
+            $("#map-canvas").css("height",parseInt($("#map-canvas").css("height")) - parseInt($("nav").css("height")) - 20);
+            var nyCoord = new google.maps.LatLng(40.7127, -74.0059);
+            var canvas = document.getElementById("map-canvas");
+            this.map = new google.maps.Map(document.getElementById("map-canvas"), {
+                zoom: 13,
+                center: nyCoord,
+            });
+            this.setupHandlers();
+        }
         this.plotEvents(false, false, "show-all");
     },
 
@@ -33,6 +36,15 @@ var map = {
             var timeframe = $("#map-event-timeframe input[type=radio]:checked").attr("id");
             map.plotEvents(visited, preference, timeframe);
         });
+
+        $("#map-legend").click(function(){
+            if ($(this).find("#legend-body").css("display") == "none"){
+                $(this).find("#unicode-arrow").html("&#9660");
+            }else{
+                $(this).find("#unicode-arrow").html("&#9650");
+            }
+            $(this).find("#legend-body").slideToggle();
+        })
     },
 
     addMarker: function(lat, lon, id, isVisited, isPreference) {        
