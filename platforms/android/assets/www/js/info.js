@@ -192,6 +192,13 @@ info = {
             controller.changeViewTo("view-map");
             // map.initialize();
             google.maps.event.trigger(map.map, 'resize');
+            var returnButton = $(".return-to-event");
+            $(returnButton).css('display','block');
+            $(returnButton).off('click').click(function(){
+                controller.changeViewTo("view-event");
+                $(this).css('display','none');
+            });
+
             map.map.setCenter({lat: upData.location.latitude, lng: upData.location.longitude});
             map.map.setZoom(16);
         });
@@ -293,9 +300,9 @@ $("#event-downvote").click(function() {
         $("#push-prompt-event").html(upData.title);
 
             //handlers for friends page stuff
-            $("#notify-selected-friends, .return-to-event").off("click");
+            $("#notify-selected-friends, #return-to-event").off("click");
 
-            $("#return-to-event").click(function(){
+            $("#return-to-event").off('click').click(function(){
                 $("#invite-friends-prompt").css("display","none");
                 controller.changeViewTo("view-event");
             });

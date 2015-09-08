@@ -42,11 +42,11 @@ var app = {
     initParse: function() {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
-        parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-          Materialize.toast("Registered with PARSE",500);
-        }, function(e) {
-            alert('error');
-        });
+        // parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
+        //   Materialize.toast("Registered with PARSE",500);
+        // }, function(e) {
+        //     alert('error');
+        // });
 
         Event = Parse.Object.extend("Event");
         EventList = Parse.Collection.extend({
@@ -156,11 +156,12 @@ var app = {
                     case "popular":
                     default:
                         this.data.event = this.data.event.sort(function(a, b) {
-                            var x = a["to_attend"].length;
-                            var y = b["to_attend"].length;
+                            var x = a['to_attend'];
+                            var y = b['to_attend'];
                             var diff = ((x < y) ? -1 : ((x > y) ? 1 : 0));
                             return -1 * diff;
                         });
+                        console.log(this.data.event);
                         break;
                 }
 

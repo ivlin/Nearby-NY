@@ -135,9 +135,24 @@ var friends = {
     // $(".notify-this.friend").click(function(){
     //     friends.selected.push($(this).parent().attr("id"));
     // });
-
-
-    
+    $("#pending-list-display, #friend-list-display").off();
+    $("#pending-list-display, #friend-list-display").on('click', ".avatar", function(){
+                        console.log(friends.editMode);
+                        if (!friends.editMode) {
+                            $(this).next(".expanded-avatar").slideToggle();
+                        } else {
+                            if ($(this).hasClass("grey lighten-2")) {
+                                $(this).removeClass("grey lighten-2");
+                                $(this).find(".delete-this-friend").css("color","black");
+                                friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
+                            } else {
+                                // $(this).attr("class", $(this).attr("class") + " grey lighten-2")
+                                $(this).addClass("grey lighten-2");
+                                $(this).find(".delete-this-friend").css("color","red");
+                                friends.selected.push($(this).attr("id"));
+                            }
+                        }
+    });
     },
 
     buildPendingList: function() {
@@ -159,19 +174,19 @@ var friends = {
                     $("#pending-list-display").empty().append(pendingListView.el);
 
                     // $(".avatar").off("click");
-                    $(".avatar").click(function(evt) {
-                        if (friends.editMode) {
-                            if ($(this).hasClass("grey lighten-2")) {
-                                $(this).removeClass("grey lighten-2");
-                                $(this).find(".delete-this-friend").css("color","black");
-                                friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
-                            } else {
-                                $(this).find(".delete-this-friend").css("color","red");
-                                $(this).addClass("grey lighten-2");
-                                friends.selected.push($(this).attr("id"));
-                            }
-                        }
-                    });
+                    // $(".avatar").click(function(evt) {
+                    //     if (friends.editMode) {
+                    //         if ($(this).hasClass("grey lighten-2")) {
+                    //             $(this).removeClass("grey lighten-2");
+                    //             $(this).find(".delete-this-friend").css("color","black");
+                    //             friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
+                    //         } else {
+                    //             $(this).find(".delete-this-friend").css("color","red");
+                    //             $(this).addClass("grey lighten-2");
+                    //             friends.selected.push($(this).attr("id"));
+                    //         }
+                    //     }
+                    // });
 
                 },
                 error: function(e) {
@@ -200,24 +215,24 @@ var friends = {
                     $("#friend-list-display").empty().append(friends.friendListView.el);
 
                     // $(".avatar").off("click");
-                    $(".avatar").click(function(evt) {
-                        console.log(friends.editMode);
-                        if (!friends.editMode) {
-                            $(this).next(".expanded-avatar").slideToggle();
-                        } else {
-                            if ($(this).hasClass("grey lighten-2")) {
-                                $(this).removeClass("grey lighten-2");
-                                $(this).find(".delete-this-friend").css("color","black");
-                                friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
-                            } else {
-                                // $(this).attr("class", $(this).attr("class") + " grey lighten-2")
-                                $(this).addClass("grey lighten-2");
-                                $(this).find(".delete-this-friend").css("color","red");
-                                friends.selected.push($(this).attr("id"));
-                            }
-                        }
-                        console.log($(this).attr("class"));
-                    });
+                    // $(".avatar").click(function(evt) {
+                    //     console.log(friends.editMode);
+                    //     if (!friends.editMode) {
+                    //         $(this).next(".expanded-avatar").slideToggle();
+                    //     } else {
+                    //         if ($(this).hasClass("grey lighten-2")) {
+                    //             $(this).removeClass("grey lighten-2");
+                    //             $(this).find(".delete-this-friend").css("color","black");
+                    //             friends.selected.splice(friends.selected.indexOf($(this).attr("id")), 1);
+                    //         } else {
+                    //             // $(this).attr("class", $(this).attr("class") + " grey lighten-2")
+                    //             $(this).addClass("grey lighten-2");
+                    //             $(this).find(".delete-this-friend").css("color","red");
+                    //             friends.selected.push($(this).attr("id"));
+                    //         }
+                    //     }
+                    //     console.log($(this).attr("class"));
+                    // });
                 },
                 error: function(e) {
                     console.dir(e);
