@@ -132,6 +132,7 @@ body {
 #map-options {
     background-color: rgb(240, 240, 240);
     padding: 10px;
+    margin-top:10px;
 }
 
 #map-legend {
@@ -181,7 +182,6 @@ button {
         /* offset horizontal: half of image width and text area width */
     }
 }
-
 
 /*.display {
     padding-left: 240px;
@@ -359,7 +359,7 @@ button {
 
 #mobile-demo .material-icons {
     margin-right: 20px;
-    margin-top: 10%;
+    /*margin-top: 10%;*/
 }
 
 #see-more {
@@ -399,10 +399,6 @@ button {
     margin-top: 20px;
 }
 
-#search-trending {
-    margin-top: 15px;
-}
-
 .dropdown-button {
     width: 120px;
     font-size: 20px;
@@ -423,6 +419,10 @@ margin-right:0;
 
 .card-action.row{
     margin-bottom: 0;
+}
+
+.dropdown-button i{
+    margin-top:10px;
 }
 
 .tags a.activism {

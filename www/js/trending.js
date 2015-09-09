@@ -86,6 +86,23 @@ var trending = {
             });
         }
 
+        $("#open-search").click(function(){
+            if ($(this).html() == "search"){
+                $(this).html("close");
+                var bar = $(this).parents(".nav-wrapper");
+                $(bar).find("#search-trending").css("margin-top","10px");
+                $(bar).find("form").removeClass("hide-on-small-only");
+                $(bar).find(".dropdown-button").hide();
+            }else{
+                $(this).html("search");
+                var bar = $(this).parents(".nav-wrapper");
+                $(bar).find("#search-trending").css("margin-top","0");
+                $(bar).find("form").addClass("hide-on-small-only");
+                $(bar).find(".dropdown-button").show();
+                $("#event-list-display").empty().append(trending.eventListView.el);
+            }
+        });
+
         $("#search-trending").click(function() {
             $("#search-close").css('visibility', 'visible');
             var searchTerm = $("#search").val();
@@ -117,6 +134,9 @@ var trending = {
 
         $("#search-close").click(function() {
             $(this).css('visibility', 'hidden');
+            var bar = $(this).parents(".nav-wrapper");
+            $(bar).find("form").addClass("hide-on-small-only");
+            $(bar).find(".dropdown-button").show();
             $("#event-list-display").empty().append(trending.eventListView.el);
         });
     }

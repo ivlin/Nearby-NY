@@ -43,7 +43,7 @@ var app = {
         Parse.initialize(this.PARSE_APP, this.PARSE_JS);
 
         parsePlugin.initialize(this.PARSE_APP, this.PARSE_CLIENT_KEY, function() {
-          Materialize.toast("Registered with PARSE",500);
+            console.log('success');
         }, function(e) {
             alert('error');
         });
