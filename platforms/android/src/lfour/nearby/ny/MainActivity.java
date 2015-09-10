@@ -22,8 +22,8 @@ package lfour.nearby.ny;
 import android.os.Bundle;
 import org.apache.cordova.*;
 
-import com.parse.Parse;
-import com.parse.PushService;
+// import com.parse.Parse;
+// import com.parse.PushService;
 
 
 public class MainActivity extends CordovaActivity
@@ -35,6 +35,6 @@ public class MainActivity extends CordovaActivity
         // Set by <content src="index.html" /> in config.xml
         loadUrl(launchUrl);
 
-       	PushService.setDefaultPushCallback(this, MainActivity.class);
+       	// PushService.setDefaultPushCallback(this, MainActivity.class);
     }
 }
