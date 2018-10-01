@@ -1,5 +1,4 @@
 # Nearby NY
-## Ivan, Xinyu, Elaine, Daniel
 
 ## Announcements
 Note: The event and user database is stored in Parse which will be retired as of January 28, 2017. There are no plans to update Nearby NY, so the application will not function poperly after that date.
